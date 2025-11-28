@@ -1,4 +1,4 @@
-# Claude Code Tips & Tricks
+# 30 Claude Code Tips: From Basics to Advanced
 
 ## Tip 1: Talk to Claude with your voice
 
