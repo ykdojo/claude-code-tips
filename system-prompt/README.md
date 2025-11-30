@@ -19,10 +19,10 @@ From `/context` command in Claude Code (shows actual runtime token counts):
 | Component | Unpatched | Patched | Savings |
 |-----------|-----------|---------|---------|
 | System prompt | 3.0k | 2.4k | 600 tokens |
-| System tools | 14.6k | 8.4k | 6,200 tokens |
-| **Static total** | **~18k** | **~11k** | **~6,800 tokens (38%)** |
+| System tools | 14.6k | 8.1k | 6,500 tokens |
+| **Static total** | **~18k** | **~10.5k** | **~7,100 tokens (39%)** |
 | Allowed tools list | ~2.5-3.5k | 0 | ~3,000 tokens |
-| **Total (with allowed tools)** | **~21k** | **~11k** | **~9,800 tokens (47%)** |
+| **Total (with allowed tools)** | **~21k** | **~10.5k** | **~10,100 tokens (48%)** |
 
 The allowed tools row is estimated from Claude's self-reported token count when asked to analyze the list. This varies by project - with 70+ approved commands, the list was ~8,000-10,000 characters (~2,500-3,500 tokens).
 
@@ -156,6 +156,21 @@ These change with each minified build. When updating, search the CLI bundle for 
 | Nk | NotebookEdit |
 | uzA, EA6 | 2000 (line limit) |
 | kj9 | 600000 (10 min timeout) |
+
+### Additional Variables Found in Patches
+
+These variables appear in patch files but aren't in the extraction script (they become `[DYNAMIC]` in output). Useful reference when updating for new versions:
+
+| Minified | Likely Meaning | Found In |
+|----------|----------------|----------|
+| J | Security instructions | duplicate-security-warning |
+| eV9 | Security content (duplicate) | duplicate-security-warning |
+| i8.name | Read tool | task-tool |
+| JO.name | Glob tool | task-tool |
+| B | PR template content | pr-creation |
+| Q | Agent types list | task-tool, git-commit, pr-creation |
+
+Note: `Q` (agent types) is handled specially by `extractAgentTypes()` in the extraction script.
 
 ## Remaining Slimming Opportunities
 
