@@ -8,8 +8,14 @@ set -e
 EXPECTED_VERSION="2.0.55"
 EXPECTED_HASH="97641f09bea7d318ce5172d536581bb1da49c99b132d90f71007a3bb0b942f57"
 
-CLI_PATH="$HOME/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js"
-BACKUP_PATH="$HOME/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js.backup"
+# Allow custom path for testing
+if [ -n "$1" ]; then
+    CLI_PATH="$1"
+    BACKUP_PATH="$1.backup"
+else
+    CLI_PATH="$HOME/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js"
+    BACKUP_PATH="$HOME/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js.backup"
+fi
 
 # Check if backup already exists
 if [ -f "$BACKUP_PATH" ]; then
