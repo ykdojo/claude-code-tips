@@ -1,0 +1,1 @@
+.describe('content (lines), files_with_matches (paths), count. Default: files_with_matches')

@@ -85,6 +85,14 @@ assistant: Clients are marked as failed in the \\\`connectToServer\\\` function 
   { name: 'Slim over-engineering bullets (~900 chars → 200)', file: 'over-engineering' },
   { name: 'Slim documentation lookup section (~600 chars → 150)', file: 'documentation-lookup' },
   { name: 'Remove tool usage policy examples (~400 chars)', file: 'tool-usage-examples' },
+  // Round 6 - Grep tool optimization
+  { name: 'Slim Grep tool description (~715 → 350 chars)', file: 'grep-tool' },
+  { name: 'Slim Grep head_limit param (232 → 30 chars)', file: 'grep-params-head_limit' },
+  { name: 'Slim Grep output_mode param (227 → 70 chars)', file: 'grep-params-output_mode' },
+  { name: 'Slim Grep offset param (135 → 35 chars)', file: 'grep-params-offset' },
+  { name: 'Slim Grep multiline param (112 → 40 chars)', file: 'grep-params-multiline' },
+  { name: 'Slim Grep type param (114 → 30 chars)', file: 'grep-params-type' },
+  { name: 'Slim Grep -A/-B/-C params (~300 → 90 chars)', file: 'grep-params-context' },
 ];
 
 // Helper: compute SHA256 hash

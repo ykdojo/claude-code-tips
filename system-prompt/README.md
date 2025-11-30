@@ -9,8 +9,8 @@ Extract and slim Claude Code's system prompt from the CLI bundle.
 From comparing `extract-system-prompt.js` output before and after patching:
 
 - **Original**: 830 lines, 52,590 chars
-- **After 22 patches**: 448 lines, 24,561 chars (static template)
-- **Savings**: ~28KB (~53% reduction in static content)
+- **After 29 patches**: 446 lines, 24,090 chars (static template)
+- **Savings**: ~28KB (~54% reduction in static content)
 
 ### Measured Token Savings
 
@@ -18,11 +18,11 @@ From `/context` command in Claude Code (shows actual runtime token counts):
 
 | Component | Unpatched | Patched | Savings |
 |-----------|-----------|---------|---------|
-| System prompt | 3.0k | 2.4k | 600 tokens |
-| System tools | 14.6k | 8.8k | 5,800 tokens |
-| **Static total** | **~18k** | **~11k** | **~6,400 tokens (36%)** |
+| System prompt | 3.0k | 2.6k | 400 tokens |
+| System tools | 14.6k | 8.5k | 6,100 tokens |
+| **Static total** | **~18k** | **~11k** | **~6,500 tokens (37%)** |
 | Allowed tools list | ~2.5-3.5k | 0 | ~3,000 tokens |
-| **Total (with allowed tools)** | **~21k** | **~11k** | **~9,400 tokens (45%)** |
+| **Total (with allowed tools)** | **~21k** | **~11k** | **~9,500 tokens (46%)** |
 
 The allowed tools row is estimated from Claude's self-reported token count when asked to analyze the list. This varies by project - with 70+ approved commands, the list was ~8,000-10,000 characters (~2,500-3,500 tokens).
 
@@ -34,7 +34,7 @@ system-prompt/
 ├── restore-cli.sh             # Restores from backup
 ├── patch-cli.js               # Applies all patches (idempotent)
 ├── extract-system-prompt.js   # Extracts prompt for verification
-├── patches/                   # 38 patch files (19 find/replace pairs)
+├── patches/                   # 52 patch files (26 find/replace pairs)
 ├── system-prompt.md           # Original extracted prompt (reference)
 └── README.md
 ```
@@ -53,7 +53,7 @@ CLI_PATH=~/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js \
 ./restore-cli.sh
 ```
 
-## Patches Applied (22 total)
+## Patches Applied (29 total)
 
 1. Removed duplicate emoji instruction from Edit tool
 2. Removed duplicate emoji instruction from Write tool
@@ -77,6 +77,13 @@ CLI_PATH=~/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js \
 20. Slimmed over-engineering bullets (~900 to 200 chars)
 21. Slimmed documentation lookup section (~600 to 150 chars)
 22. Removed tool usage policy examples (~400 chars)
+23. Slimmed Grep tool description (~715 to 350 chars)
+24. Slimmed Grep head_limit param (232 to 30 chars)
+25. Slimmed Grep output_mode param (227 to 70 chars)
+26. Slimmed Grep offset param (135 to 35 chars)
+27. Slimmed Grep multiline param (112 to 40 chars)
+28. Slimmed Grep type param (114 to 30 chars)
+29. Slimmed Grep -A/-B/-C params (~300 to 90 chars)
 
 ## Adding New Patches
 
@@ -141,15 +148,12 @@ These change with each minified build:
 | uzA | 2000 (line limit) |
 | kj9 | 600000 (10 min timeout) |
 
-## Remaining Slimming Opportunities (~800 chars)
+## Remaining Slimming Opportunities (~300 chars)
 
 Low-priority sections that could still be trimmed:
 
 ### 1. Hooks paragraph (~300 chars)
 Already concise - minimal gain.
-
-### 2. Grep tool description (~500 chars)
-Functional reference - risky to trim further.
 
 The system prompt is now essentially as slim as practical without risking behavior changes.
 
