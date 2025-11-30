@@ -26,6 +26,12 @@ From `/context` command in Claude Code (shows actual runtime token counts):
 
 The allowed tools row is estimated from Claude's self-reported token count when asked to analyze the list. This varies by project - with 70+ approved commands, the list was ~8,000-10,000 characters (~2,500-3,500 tokens).
 
+### Before/After Screenshots
+
+| Unpatched | Patched |
+|-----------|---------|
+| ![Unpatched context usage](context-unpatched.png) | ![Patched context usage](context-patched.png) |
+
 ## File Structure
 
 ```
