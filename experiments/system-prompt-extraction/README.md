@@ -1,39 +1,92 @@
-# System Prompt Extraction
+# System Prompt Extraction & Slimming
 
-Extracts the system prompt from the Claude Code CLI bundle.
-
-## Files
-
-- `extract-system-prompt.js` - Node.js script to extract the prompt
-- `system-prompt.md` - Extracted system prompt (~52KB, ~830 lines)
+Extract and slim Claude Code's system prompt from the CLI bundle.
 
 ## Results
 
-Extracted content includes:
-- Identity and security guidelines
-- Looking up documentation section
-- Tone and style instructions
-- Professional objectivity guidelines
-- Planning without timelines
-- Task management with examples
-- Asking questions section
-- Hooks configuration
-- Doing tasks guidelines (with over-engineering warnings)
-- Tool usage policy
-- Git commit guidelines
-- Pull request guidelines
-- Other common operations
-- Code references
-- All 18 tool descriptions:
-  - Task (with all 4 agent types: general-purpose, statusline-setup, Explore, claude-code-guide)
-  - Bash, Glob, Grep, Read, Edit, Write
-  - NotebookEdit, WebFetch, WebSearch
-  - TodoWrite, AskUserQuestion
-  - BashOutput, KillShell
-  - Skill, SlashCommand
-  - EnterPlanMode, ExitPlanMode
+- **Original**: 830 lines, 52,590 chars
+- **After 18 patches**: 465 lines, 26,272 chars
+- **Savings**: ~26.3KB (~50% reduction)
 
-## How it works
+## File Structure
+
+```
+experiments/system-prompt-extraction/
+├── backup-cli.sh              # Creates verified backup
+├── restore-cli.sh             # Restores from backup
+├── patch-cli.js               # Applies all patches (idempotent)
+├── extract-system-prompt.js   # Extracts prompt for verification
+├── patches/                   # 36 patch files (find/replace pairs)
+├── system-prompt.md           # Original extracted prompt (reference)
+└── README.md
+```
+
+## Quick Start
+
+```bash
+# Apply all patches (restores from backup first, so idempotent)
+node patch-cli.js
+
+# Verify with extraction
+CLI_PATH=~/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js \
+  node extract-system-prompt.js /tmp/patched.md
+
+# Restore original
+./restore-cli.sh
+```
+
+## Patches Applied (18 total)
+
+1. Removed duplicate emoji instruction from Edit tool
+2. Removed duplicate emoji instruction from Write tool
+3. Slimmed TodoWrite examples (6KB to 0.4KB)
+4. Slimmed TodoWrite states section (1.8KB to 0.4KB)
+5. Slimmed EnterPlanMode examples (670 to 150 chars)
+6. Slimmed Bash tool description (3.7KB to 0.6KB)
+7. Slimmed Task tool description (4.1KB to 0.6KB)
+8. Simplified git commit section (3.8KB to 0.6KB)
+9. Simplified PR creation section (2.2KB to 0.4KB)
+10. Removed Code References section (363 bytes)
+11. Slimmed TodoWrite "When to Use" (1.2KB to 200 chars)
+12. Slimmed Professional objectivity (762 to 120 chars)
+13. Slimmed WebFetch usage notes (808 to 120 chars)
+14. Slimmed WebSearch CRITICAL section (485 to 100 chars)
+15. Slimmed Skill tool instructions (887 to 80 chars)
+16. Slimmed SlashCommand description (695 to 110 chars)
+17. Slimmed EnterPlanMode "When to Use" (1.2KB to 200 chars)
+18. Slimmed Read tool intro (292 to 110 chars)
+
+## Adding New Patches
+
+### Small patches (inline in patch-cli.js):
+```javascript
+{
+  name: 'Description of patch',
+  find: `exact string to find`,
+  replace: `replacement string`
+}
+```
+
+### Large patches (file-based):
+1. Create `patches/patch-name.find.txt` with exact text to find
+2. Create `patches/patch-name.replace.txt` with replacement
+3. Add to patches array: `{ name: 'Description', file: 'patch-name' }`
+
+**Important**: Find text must match EXACTLY, including whitespace and newlines.
+
+### Escaped Backticks
+In the CLI bundle, backticks are escaped as `\``. Use `\`` in patch files for strings like `\`command\``.
+
+### Iterate and Test
+1. Add ONE patch
+2. Run `node patch-cli.js`
+3. Check "Patches applied: X/Y" output
+4. Run extraction to verify
+5. Commit
+
+If patch shows `[SKIP]`, the find string doesn't match. Debug with `JSON.stringify()` to compare byte-by-byte.
+
+## How Extraction Works
 
 Claude Code is installed at `~/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js` as a ~10MB minified JavaScript bundle.
 
@@ -45,35 +98,9 @@ The system prompt is:
 The extraction script:
 1. Finds each major section by its header (e.g., "# Tone and style")
 2. Handles conditional template patterns like `${W.has(X)?`...`:""}`
-3. Extracts content across function boundaries
-4. Replaces minified variable names with readable ones
-5. Resolves known numeric values (timeouts, limits)
+3. Replaces minified variable names with readable ones
 
-## Usage
-
-```bash
-node extract-system-prompt.js [output-file]
-```
-
-## What's NOT captured (~5-10%)
-
-Dynamic content injected at runtime:
-- Environment info (working directory, platform, date)
-- Git status snapshot
-- Model info ("You are powered by...")
-- Allowed tools list (tools that don't need approval)
-- CLAUDE.md file contents (project instructions)
-- MCP server instructions (if connected)
-- Custom output styles
-- Plan agent system prompt (uses same as Explore)
-- Some conditional PDF/notebook reading notes
-
-For complete runtime prompt, either:
-1. Ask Claude to output its own system prompt
-2. Intercept the API call with a proxy (e.g., mitmproxy)
-3. Use Node debugger to inspect at runtime
-
-## Variable mappings (v2.0.55)
+## Variable Mappings (v2.0.55)
 
 These change with each minified build:
 
@@ -89,6 +116,15 @@ These change with each minified build:
 | DD | Glob |
 | uY | Grep |
 | uJ | AskUserQuestion |
-| ZC.agentType | Explore |
 | uzA | 2000 (line limit) |
 | kj9 | 600000 (10 min timeout) |
+
+## What's NOT Captured (~5-10%)
+
+Dynamic content injected at runtime:
+- Environment info (working directory, platform, date)
+- Git status snapshot
+- Model info ("You are powered by...")
+- Allowed tools list
+- CLAUDE.md file contents
+- MCP server instructions
