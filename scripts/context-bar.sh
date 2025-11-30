@@ -91,7 +91,7 @@ if [[ -n "$transcript_path" && -f "$transcript_path" ]]; then
 
     ctx="${bar} ${pct}% of 200k tokens used"
 else
-    ctx="░░░░░░░░░░ ?% of 200k tokens used"
+    ctx="░░░░░░░░░░ 0% of 200k tokens used"
 fi
 
 # Build output: Model | Dir | Branch (uncommitted) | Context
