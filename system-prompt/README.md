@@ -4,11 +4,17 @@ Extract and slim Claude Code's system prompt from the CLI bundle.
 
 ## Results
 
+### Extracted Prompt Size
+
+From comparing `extract-system-prompt.js` output before and after patching:
+
 - **Original**: 830 lines, 52,590 chars
-- **After 19 patches**: 465 lines, 26,272 chars (static template)
-- **Savings**: ~26.3KB (~50% reduction in static content)
+- **After 22 patches**: 448 lines, 24,561 chars (static template)
+- **Savings**: ~28KB (~53% reduction in static content)
 
 ### Measured Token Savings
+
+From `/context` command in Claude Code (shows actual runtime token counts):
 
 | Component | Unpatched | Patched | Savings |
 |-----------|-----------|---------|---------|
@@ -18,7 +24,7 @@ Extract and slim Claude Code's system prompt from the CLI bundle.
 | Allowed tools list | ~2.5-3.5k | 0 | ~3,000 tokens |
 | **Total (with allowed tools)** | **~21k** | **~12k** | **~9,000 tokens (43%)** |
 
-The allowed tools list (patch #19) grows with usage - in a project with 70+ approved commands, this was ~8,000-10,000 characters (~2,500-3,500 tokens).
+The allowed tools row is estimated from Claude's self-reported token count when asked to analyze the list. This varies by project - with 70+ approved commands, the list was ~8,000-10,000 characters (~2,500-3,500 tokens).
 
 ## File Structure
 
@@ -47,7 +53,7 @@ CLI_PATH=~/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js \
 ./restore-cli.sh
 ```
 
-## Patches Applied (19 total)
+## Patches Applied (22 total)
 
 1. Removed duplicate emoji instruction from Edit tool
 2. Removed duplicate emoji instruction from Write tool
@@ -68,6 +74,9 @@ CLI_PATH=~/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js \
 17. Slimmed EnterPlanMode "When to Use" (1.2KB to 200 chars)
 18. Slimmed Read tool intro (292 to 110 chars)
 19. Removed allowed tools list function (runtime-generated content)
+20. Slimmed over-engineering bullets (~900 to 200 chars)
+21. Slimmed documentation lookup section (~600 to 150 chars)
+22. Removed tool usage policy examples (~400 chars)
 
 ## Adding New Patches
 
@@ -132,37 +141,17 @@ These change with each minified build:
 | uzA | 2000 (line limit) |
 | kj9 | 600000 (10 min timeout) |
 
-## Remaining Slimming Opportunities (~2KB)
+## Remaining Slimming Opportunities (~800 chars)
 
-Sections not yet patched that could be trimmed:
+Low-priority sections that could still be trimmed:
 
-### 1. Over-engineering bullets (~700 chars)
-In `# Doing tasks` section. Three verbose sub-bullets:
-```
-- Don't add features, refactor code, or make "improvements" beyond what was asked...
-- Don't add error handling, fallbacks, or validation for scenarios that can't happen...
-- Don't create helpers, utilities, or abstractions for one-time operations...
-```
-Plus separate "backwards-compatibility hacks" bullet. Could condense to one line.
+### 1. Hooks paragraph (~300 chars)
+Already concise - minimal gain.
 
-### 2. Tool usage policy examples (~400 chars)
-Two `<example>` blocks showing when to use Explore agent:
-```xml
-<example>
-user: Where are errors from the client handled?
-assistant: [Uses the Task tool with subagent_type=Explore...]
-</example>
-```
-Redundant since Task tool description already explains this.
+### 2. Grep tool description (~500 chars)
+Functional reference - risky to trim further.
 
-### 3. Looking up documentation (~600 chars)
-Five bullet points explaining when to use claude-code-guide agent. Could be one sentence.
-
-### 4. Hooks paragraph (~300 chars)
-Low priority - already concise.
-
-### 5. Grep tool description (~500 chars)
-Low priority - functional reference.
+The system prompt is now essentially as slim as practical without risking behavior changes.
 
 ## What's NOT Captured
 
