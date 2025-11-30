@@ -119,17 +119,37 @@ These change with each minified build:
 | uzA | 2000 (line limit) |
 | kj9 | 600000 (10 min timeout) |
 
-## Remaining Slimming Opportunities (~1.5KB)
+## Remaining Slimming Opportunities (~2KB)
 
 Sections not yet patched that could be trimmed:
 
-| Section | Approx Size | Notes |
-|---------|-------------|-------|
-| Doing tasks / Over-engineering | ~700 chars | 3 verbose sub-bullets |
-| Tool usage policy examples | ~400 chars | 2 examples |
-| Looking up documentation | ~600 chars | Bullet list |
-| Hooks paragraph | ~300 chars | |
-| Grep tool description | ~500 chars | |
+### 1. Over-engineering bullets (~700 chars)
+In `# Doing tasks` section. Three verbose sub-bullets:
+```
+- Don't add features, refactor code, or make "improvements" beyond what was asked...
+- Don't add error handling, fallbacks, or validation for scenarios that can't happen...
+- Don't create helpers, utilities, or abstractions for one-time operations...
+```
+Plus separate "backwards-compatibility hacks" bullet. Could condense to one line.
+
+### 2. Tool usage policy examples (~400 chars)
+Two `<example>` blocks showing when to use Explore agent:
+```xml
+<example>
+user: Where are errors from the client handled?
+assistant: [Uses the Task tool with subagent_type=Explore...]
+</example>
+```
+Redundant since Task tool description already explains this.
+
+### 3. Looking up documentation (~600 chars)
+Five bullet points explaining when to use claude-code-guide agent. Could be one sentence.
+
+### 4. Hooks paragraph (~300 chars)
+Low priority - already concise.
+
+### 5. Grep tool description (~500 chars)
+Low priority - functional reference.
 
 ## What's NOT Captured (~5-10%)
 
@@ -137,6 +157,5 @@ Dynamic content injected at runtime:
 - Environment info (working directory, platform, date)
 - Git status snapshot
 - Model info ("You are powered by...")
-- Allowed tools list
 - CLAUDE.md file contents
 - MCP server instructions
