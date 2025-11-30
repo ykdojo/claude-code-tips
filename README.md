@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 6 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 7 tips so far)
 
 ## Tip 0: Customize your status line
 
@@ -89,3 +89,32 @@ Then start a fresh conversation. For the fresh agent, you can just give the path
 ```
 
 In subsequent conversations, you can ask the agent to update the document for the next agent.
+
+## Tip 6: Complete the write-test cycle for autonomous tasks
+
+If you want Claude Code to run something autonomously, like `git bisect`, you need to give it a way to verify results. The key is completing the write-test cycle: write code, run it, check the output, and repeat.
+
+For example, let's say you're working on Claude Code itself and you notice `/compact` stopped working and started throwing a 400 error. A classic tool to find the exact commit that caused this is `git bisect`. The nice thing is you can let Claude Code run bisect on itself, but it needs a way to test each commit.
+
+For tasks that involve interactive terminals like Claude Code, you can use tmux. The pattern is:
+
+1. Start a tmux session
+2. Send commands to it
+3. Capture the output
+4. Verify it's what you expect
+
+Here's a simple example of testing if `/context` works:
+
+```bash
+tmux kill-session -t test-session 2>/dev/null
+tmux new-session -d -s test-session
+tmux send-keys -t test-session 'claude' Enter
+sleep 2
+tmux send-keys -t test-session '/context' Enter
+sleep 1
+tmux capture-pane -t test-session -p
+```
+
+Once you have a test like this, Claude Code can run `git bisect` and automatically test each commit until it finds the one that broke things.
+
+This is also an example of why your software engineering skills still matter. If you're a software engineer, you probably know about tools like `git bisect`. That knowledge is still really valuable when working with AI - you just apply it in new ways.
