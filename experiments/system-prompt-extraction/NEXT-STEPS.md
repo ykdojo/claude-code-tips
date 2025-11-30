@@ -30,8 +30,10 @@ Reduce Claude Code's system prompt by ~45%. Currently at ~23% reduction (12KB sa
 
 All major simplifications have been done. To get closer to 45%, consider:
 
-### 1. Tool descriptions (~15-20%)
+### 1. Tool descriptions (~15-20%) - NEXT PRIORITY
 The tool descriptions (Bash, Glob, Grep, Read, Edit, Write, etc.) are verbose. Each could be condensed.
+
+**Start here in the next session.** Extract tool descriptions from backup, create slimmed versions, test carefully since these directly affect how Claude uses tools.
 
 ### 2. AskUserQuestion tool (~2%)
 Has detailed usage notes that could be simplified.
