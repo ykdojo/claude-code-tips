@@ -4,7 +4,7 @@
 
 A complete status line script for Claude Code that shows model, directory, git branch, uncommitted file count, sync status with origin, and context usage.
 
-**Example output:** `Opus 4.5 | 📁myproject | 🔀main (2 files uncommitted, synced) | ████▄░░░░░ 45% of 200k tokens used`
+**Example output:** `Opus 4.5 | 📁myproject | 🔀main (2 files uncommitted, synced) | ████▄░░░░░ 45% of 155k (/context)`
 
 ### Installation
 
@@ -40,4 +40,4 @@ Claude Code passes session metadata to status line commands via stdin as JSON, i
 - `cwd` - Current working directory
 - `transcript_path` - Path to the session transcript JSONL file
 
-The script parses the transcript to calculate context usage from the most recent API response's token counts (input + cache tokens).
+The script parses the transcript to calculate context usage from the most recent API response's token counts (input + cache tokens), subtracting the ~18k baseline for system prompt/tools and showing percentage of the 155k usable space (200k minus 45k autocompact buffer). Use `/context` for precise token breakdown.

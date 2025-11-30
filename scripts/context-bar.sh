@@ -1,7 +1,13 @@
 #!/bin/bash
 
 # Claude Code status line script
-# Shows: Opus 4.5 | 📁 Daft | 🔀 main (2 files uncommitted) | ████▄░░░░░ 45% of 200k tokens used
+# Shows: Opus 4.5 | 📁 Daft | 🔀 main (2 files uncommitted) | ████▄░░░░░ 45% of 155k (/context)
+#
+# Context calculation:
+# - 200k total context window
+# - 45k reserved for autocompact buffer (disable via /config if needed)
+# - 18k baseline for system prompt, tools, and memory
+# - 155k effectively available, 137k free at conversation start
 
 input=$(cat)
 
@@ -65,11 +71,18 @@ if [[ -n "$transcript_path" && -f "$transcript_path" ]]; then
         else 0 end
     ' < "$transcript_path")
 
-    max_context=200000
+    # 155k available (200k minus 45k autocompact buffer)
+    max_context=155000
+    # 18k baseline for system prompt, tools, memory
+    baseline=18000
     bar_width=10
 
-    if [[ "$context_length" -gt 0 ]]; then
-        pct=$((context_length * 100 / max_context))
+    # Subtract baseline to get conversation-only tokens
+    conversation_tokens=$((context_length - baseline))
+    [[ $conversation_tokens -lt 0 ]] && conversation_tokens=0
+
+    if [[ "$conversation_tokens" -gt 0 ]]; then
+        pct=$((conversation_tokens * 100 / max_context))
     else
         pct=0
     fi
@@ -89,9 +102,9 @@ if [[ -n "$transcript_path" && -f "$transcript_path" ]]; then
         fi
     done
 
-    ctx="${bar} ${pct}% of 200k tokens used"
+    ctx="${bar} ${pct}% of 155k (/context)"
 else
-    ctx="░░░░░░░░░░ 0% of 200k tokens used"
+    ctx="░░░░░░░░░░ 0% of 155k (/context)"
 fi
 
 # Build output: Model | Dir | Branch (uncommitted) | Context
