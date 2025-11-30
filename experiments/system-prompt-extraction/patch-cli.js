@@ -16,8 +16,23 @@ const EXPECTED_HASH = '97641f09bea7d318ce5172d536581bb1da49c99b132d90f71007a3bb0
 const basePath = process.argv[2] ||
   path.join(process.env.HOME, '.claude/local/node_modules/@anthropic-ai/claude-code/cli.js');
 const backupPath = basePath + '.backup';
+const patchDir = __dirname;
+
+// Helper to load patch strings from files (avoids template literal issues)
+function loadPatch(name) {
+  const findPath = path.join(patchDir, 'patches', `${name}.find.txt`);
+  const replacePath = path.join(patchDir, 'patches', `${name}.replace.txt`);
+  if (fs.existsSync(findPath) && fs.existsSync(replacePath)) {
+    return {
+      find: fs.readFileSync(findPath, 'utf8'),
+      replace: fs.readFileSync(replacePath, 'utf8')
+    };
+  }
+  return null;
+}
 
 // Patches to apply (find → replace)
+// Inline patches for small changes, file-based for large ones
 const patches = [
   {
     name: 'Remove duplicate emoji instruction in Edit tool',
@@ -31,7 +46,8 @@ const patches = [
 - Only use emojis if the user explicitly requests it. Avoid writing emojis to files unless asked.`,
     replace: `- NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.`
   },
-  // Add more patches here as we identify them
+  // File-based patches (loaded at runtime)
+  { name: 'Slim TodoWrite examples (6KB → 0.4KB)', file: 'todowrite-examples' },
 ];
 
 // Helper: compute SHA256 hash
@@ -71,12 +87,28 @@ function main() {
   let appliedCount = 0;
 
   for (const patch of patches) {
-    if (content.includes(patch.find)) {
-      content = content.replace(patch.find, patch.replace);
+    let find, replace;
+
+    // Load from file if specified, otherwise use inline
+    if (patch.file) {
+      const loaded = loadPatch(patch.file);
+      if (!loaded) {
+        console.log(`[SKIP] ${patch.name} (patch files not found)`);
+        continue;
+      }
+      find = loaded.find;
+      replace = loaded.replace;
+    } else {
+      find = patch.find;
+      replace = patch.replace;
+    }
+
+    if (content.includes(find)) {
+      content = content.replace(find, replace);
       console.log(`[OK] ${patch.name}`);
       appliedCount++;
     } else {
-      console.log(`[SKIP] ${patch.name} (not found)`);
+      console.log(`[SKIP] ${patch.name} (not found in bundle)`);
     }
   }
 

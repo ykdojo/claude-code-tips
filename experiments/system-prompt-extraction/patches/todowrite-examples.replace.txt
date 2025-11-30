@@ -1,0 +1,15 @@
+## Examples of When to Use the Todo List
+
+<example>
+User: Add dark mode toggle, then run tests and build
+Assistant: I'll create a todo list to track this multi-step task.
+*Creates todos: 1) Add toggle component, 2) Add state management, 3) Update styles, 4) Run tests and build*
+</example>
+
+## Examples of When NOT to Use the Todo List
+
+<example>
+User: How do I print 'Hello World' in Python?
+Assistant: print("Hello World")
+</example>
+
