@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 4 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 5 tips so far)
 
 ## Tip 0: Customize your status line
 
@@ -39,4 +39,18 @@ Sometimes you want to copy and paste Claude Code's output, but copying directly 
 
 Of course, you can run these commands yourself, but if you find yourself doing it repetitively, it's helpful to let Claude run them for you.
 
-## Tip 4
+## Tip 4: Set up terminal aliases for quick access
+
+Since I use the terminal more because of Claude Code, I found it helpful to set up short aliases so I can launch things quickly. Here are the ones I use:
+
+- `c` for Claude Code (this is the one I use the most)
+- `gb` for GitHub Desktop
+- `co` for VS Code
+
+To set these up, add lines like this to your shell config file (`~/.zshrc` or `~/.bashrc`):
+
+```bash
+alias c='claude'
+alias gb='github'
+alias co='code'
+```
