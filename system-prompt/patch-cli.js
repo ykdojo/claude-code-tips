@@ -12,8 +12,46 @@ const path = require('path');
 const EXPECTED_VERSION = '2.0.55';
 const EXPECTED_HASH = '97641f09bea7d318ce5172d536581bb1da49c99b132d90f71007a3bb0b942f57';
 
-// Allow custom path for testing
-const basePath = process.argv[2] ||
+// Find claude CLI by checking shell rc files for alias, then following the launcher
+function findClaudeCli() {
+  const home = process.env.HOME;
+  const rcFiles = ['.zshrc', '.bashrc', '.bash_profile'];
+
+  // Check shell rc files for alias definition
+  for (const rc of rcFiles) {
+    const rcPath = path.join(home, rc);
+    if (fs.existsSync(rcPath)) {
+      const content = fs.readFileSync(rcPath, 'utf8');
+      const match = content.match(/alias\s+claude=['"]([^'"]+)['"]/);
+      if (match) {
+        let launcher = match[1].replace(/^~/, home);
+        if (fs.existsSync(launcher)) {
+          // Read launcher and extract exec path
+          const launcherContent = fs.readFileSync(launcher, 'utf8');
+          const execMatch = launcherContent.match(/exec\s+"([^"]+)"/);
+          if (execMatch) {
+            return fs.realpathSync(execMatch[1]);
+          }
+        }
+      }
+    }
+  }
+
+  // Fallback to default location
+  const defaultLauncher = path.join(home, '.claude/local/claude');
+  if (fs.existsSync(defaultLauncher)) {
+    const content = fs.readFileSync(defaultLauncher, 'utf8');
+    const execMatch = content.match(/exec\s+"([^"]+)"/);
+    if (execMatch) {
+      return fs.realpathSync(execMatch[1]);
+    }
+  }
+
+  return null;
+}
+
+// Allow custom path for testing, otherwise find it dynamically
+const basePath = process.argv[2] || findClaudeCli() ||
   path.join(process.env.HOME, '.claude/local/node_modules/@anthropic-ai/claude-code/cli.js');
 const backupPath = basePath + '.backup';
 const patchDir = __dirname;

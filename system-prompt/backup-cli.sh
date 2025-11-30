@@ -8,14 +8,48 @@ set -e
 EXPECTED_VERSION="2.0.55"
 EXPECTED_HASH="97641f09bea7d318ce5172d536581bb1da49c99b132d90f71007a3bb0b942f57"
 
-# Allow custom path for testing
+# Find claude CLI by checking shell rc files for alias, then following the launcher
+get_claude_cli() {
+    local claude_launcher=""
+
+    # Check shell rc files for alias definition
+    for rc in ~/.zshrc ~/.bashrc ~/.bash_profile; do
+        if [ -f "$rc" ]; then
+            local alias_line=$(grep "alias claude=" "$rc" 2>/dev/null | head -1)
+            if [ -n "$alias_line" ]; then
+                claude_launcher=$(echo "$alias_line" | sed "s/.*claude=['\"]\\([^'\"]*\\).*/\\1/")
+                claude_launcher="${claude_launcher/#\~/$HOME}"
+                [ -f "$claude_launcher" ] && break
+                claude_launcher=""
+            fi
+        fi
+    done
+
+    # Fallback to default location
+    if [ -z "$claude_launcher" ]; then
+        claude_launcher="$HOME/.claude/local/claude"
+    fi
+
+    if [ ! -f "$claude_launcher" ]; then
+        return 1
+    fi
+
+    # Extract the bin path from launcher and resolve to cli.js
+    local bin_path=$(grep 'exec' "$claude_launcher" | head -1 | sed 's/.*exec "\([^"]*\)".*/\1/')
+    [ -n "$bin_path" ] && realpath "$bin_path"
+}
+
+# Allow custom path for testing, otherwise find it dynamically
 if [ -n "$1" ]; then
     CLI_PATH="$1"
-    BACKUP_PATH="$1.backup"
 else
-    CLI_PATH="$HOME/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js"
-    BACKUP_PATH="$HOME/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js.backup"
+    CLI_PATH=$(get_claude_cli)
+    if [ -z "$CLI_PATH" ]; then
+        echo "Error: Could not find claude CLI. Is claude installed?"
+        exit 1
+    fi
 fi
+BACKUP_PATH="$CLI_PATH.backup"
 
 # Check if backup already exists
 if [ -f "$BACKUP_PATH" ]; then
