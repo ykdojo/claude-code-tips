@@ -9,9 +9,7 @@ gh pr create --title "the pr title" --body "$(cat <<'EOF'
 <1-3 bullet points>
 
 ## Test plan
-[Bulleted markdown checklist of TODOs for testing the pull request...]${B?`
-
-${B}`:""}
+[Bulleted markdown checklist of TODOs for testing the pull request...]
 EOF
 )"
 </example>

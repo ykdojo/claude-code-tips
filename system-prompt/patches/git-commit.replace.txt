@@ -5,16 +5,13 @@ Only commit when requested. Git Safety: NEVER update git config, force push, ski
 Steps:
 1. Run git status, git diff, git log in parallel
 2. Draft concise commit message (focus on "why"). Don't commit secrets (.env, credentials.json)
-3. Stage files, commit${Q?` with message ending in:
-   ${Q}`:""}, then verify with git status
+3. Stage files, commit, then verify with git status
 4. If pre-commit hook modifies files, amend only if you authored and haven't pushed
 
 Use HEREDOC for commit messages:
 <example>
 git commit -m "$(cat <<'EOF'
-   Commit message here.${Q?`
-
-   ${Q}`:""}
+   Commit message here.
    EOF
    )"
 </example>
