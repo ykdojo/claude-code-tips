@@ -5,8 +5,9 @@ Extract and slim Claude Code's system prompt from the CLI bundle.
 ## Results
 
 - **Original**: 830 lines, 52,590 chars
-- **After 18 patches**: 465 lines, 26,272 chars
-- **Savings**: ~26.3KB (~50% reduction)
+- **After 19 patches**: 465 lines, 26,272 chars (static template)
+- **Savings**: ~26.3KB (~50% reduction in static content)
+- **Additional**: Patch #19 removes runtime-generated "allowed tools" list
 
 ## File Structure
 
@@ -16,7 +17,7 @@ system-prompt/
 ├── restore-cli.sh             # Restores from backup
 ├── patch-cli.js               # Applies all patches (idempotent)
 ├── extract-system-prompt.js   # Extracts prompt for verification
-├── patches/                   # 32 patch files (16 find/replace pairs)
+├── patches/                   # 34 patch files (17 find/replace pairs)
 ├── system-prompt.md           # Original extracted prompt (reference)
 └── README.md
 ```
@@ -35,7 +36,7 @@ CLI_PATH=~/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js \
 ./restore-cli.sh
 ```
 
-## Patches Applied (18 total)
+## Patches Applied (19 total)
 
 1. Removed duplicate emoji instruction from Edit tool
 2. Removed duplicate emoji instruction from Write tool
@@ -55,6 +56,7 @@ CLI_PATH=~/.claude/local/node_modules/@anthropic-ai/claude-code/cli.js \
 16. Slimmed SlashCommand description (695 to 110 chars)
 17. Slimmed EnterPlanMode "When to Use" (1.2KB to 200 chars)
 18. Slimmed Read tool intro (292 to 110 chars)
+19. Removed allowed tools list function (runtime-generated content)
 
 ## Adding New Patches
 
