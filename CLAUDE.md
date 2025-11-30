@@ -10,27 +10,18 @@
 - Use first person ("I found that...") to maintain authenticity
 - Never use em dashes
 
-## Debugging: /context 400 Error
+## Testing with tmux
 
-Running `/context` as the first command in a fresh Claude Code session causes a 400 error:
-
-```
-Error: 400
-{"type":"error","error":{"type":"invalid_request_error","message":"messages: text content blocks must contain non-whitespace text"}}
-```
-
-### Reproduction via tmux
+Use tmux to control another Claude Code instance for testing:
 
 ```bash
-tmux kill-session -t repro-400 2>/dev/null
-tmux new-session -d -s repro-400
-tmux send-keys -t repro-400 'claude' Enter
+tmux kill-session -t test-session 2>/dev/null
+tmux new-session -d -s test-session
+tmux send-keys -t test-session 'claude' Enter
 sleep 2
-tmux send-keys -t repro-400 '/context' Enter
+tmux send-keys -t test-session '/context' Enter
 sleep 0.5
-tmux send-keys -t repro-400 Enter
+tmux send-keys -t test-session Enter
 sleep 1
-tmux capture-pane -t repro-400 -p
+tmux capture-pane -t test-session -p
 ```
-
-This lets Claude control another Claude Code instance for testing.
