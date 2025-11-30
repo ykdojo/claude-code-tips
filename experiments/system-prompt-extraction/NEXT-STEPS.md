@@ -1,14 +1,14 @@
 # System Prompt Slimming - Handoff Document
 
 ## Goal
-Reduce Claude Code's system prompt by ~45%. **Currently at ~45% reduction (23.8KB saved).**
+Reduce Claude Code's system prompt by ~50%. **Currently at ~50% reduction (26.3KB saved).**
 
 ## Current Progress
 
 ### What's Been Done
 - **Backup/restore system**: `backup-cli.sh` and `restore-cli.sh` with SHA256 verification
 - **Patch system**: `patch-cli.js` that restores from backup then applies patches (idempotent)
-- **16 patches applied**, saving ~45% (~23.8KB):
+- **18 patches applied**, saving ~50% (~26.3KB):
   1. Removed duplicate emoji instruction from Edit tool
   2. Removed duplicate emoji instruction from Write tool
   3. Slimmed TodoWrite examples from 8 verbose to 2 concise
@@ -25,6 +25,8 @@ Reduce Claude Code's system prompt by ~45%. **Currently at ~45% reduction (23.8K
   14. Slimmed WebSearch CRITICAL section (485 to 100 chars)
   15. Slimmed Skill tool instructions (887 to 80 chars)
   16. Slimmed SlashCommand description (695 to 110 chars)
+  17. Slimmed EnterPlanMode "When to Use" section (1.2KB to 200 chars)
+  18. Slimmed Read tool intro (292 to 110 chars)
 
 ### What Worked
 - **File-based patches**: Large find/replace strings stored in `patches/*.find.txt` and `patches/*.replace.txt`
@@ -40,13 +42,12 @@ In the CLI bundle, backticks are escaped as `\``. When creating patch files, use
 
 ## Remaining Tasks (Optional further optimization)
 
-All major targets achieved. Potential future optimizations:
+All major targets achieved (50% reduction). Diminishing returns from here.
 
-### 1. EnterPlanMode "When to Use" sections (~1.5KB)
-The detailed when/when-not examples could be condensed further.
-
-### 2. Read tool description (~400 chars)
-Has some redundancy that could be trimmed.
+Potential micro-optimizations (not recommended):
+- Further trim individual tool descriptions
+- Remove more examples from various sections
+- These would save <1KB each with higher risk of behavior changes
 
 ## How to Add a New Patch
 
@@ -121,6 +122,6 @@ experiments/system-prompt-extraction/
 
 ## Key Numbers
 - Original prompt: 830 lines, 52,590 chars
-- Current (after 16 patches): ~500 lines, ~28,800 chars
-- Savings: ~23.8KB (~45% of system prompt)
-- Target achieved!
+- Current (after 18 patches): 465 lines, 26,272 chars
+- Savings: ~26.3KB (~50% of system prompt)
+- Target exceeded!

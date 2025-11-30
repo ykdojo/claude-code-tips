@@ -1,0 +1,24 @@
+## When to Use This Tool
+
+Use EnterPlanMode when ANY of these conditions apply:
+
+1. **Multiple Valid Approaches**: The task can be solved in several different ways, each with trade-offs
+   - Example: "Add caching to the API" - could use Redis, in-memory, file-based, etc.
+   - Example: "Improve performance" - many optimization strategies possible
+
+2. **Significant Architectural Decisions**: The task requires choosing between architectural patterns
+   - Example: "Add real-time updates" - WebSockets vs SSE vs polling
+   - Example: "Implement state management" - Redux vs Context vs custom solution
+
+3. **Large-Scale Changes**: The task touches many files or systems
+   - Example: "Refactor the authentication system"
+   - Example: "Migrate from REST to GraphQL"
+
+4. **Unclear Requirements**: You need to explore before understanding the full scope
+   - Example: "Make the app faster" - need to profile and identify bottlenecks
+   - Example: "Fix the bug in checkout" - need to investigate root cause
+
+5. **User Input Needed**: You'll need to ask clarifying questions before starting
+   - If you would use ${uJ} to clarify the approach, consider EnterPlanMode instead
+   - Plan mode lets you explore first, then present options with context
+
