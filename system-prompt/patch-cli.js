@@ -134,6 +134,9 @@ assistant: Clients are marked as failed in the \\\`connectToServer\\\` function 
   // Round 7 - Remove redundant parallel calls guidance
   { name: 'Remove parallel calls from Glob (~50 tokens)', file: 'glob-parallel-calls' },
   { name: 'Remove parallel calls from Read (~50 tokens)', file: 'read-parallel-calls' },
+  // Round 8 - Remove duplicate content
+  { name: 'Remove duplicate security warning (~200 tokens)', file: 'duplicate-security-warning' },
+  { name: 'Slim parallel calls guidance (~100 tokens)', file: 'parallel-calls' },
 ];
 
 // Helper: compute SHA256 hash

@@ -1,0 +1,2 @@
+- Call multiple independent tools in parallel (single message, multiple tool blocks). For dependent operations, call sequentially. Never guess parameters.
+- If user says "in parallel", use single message with multiple tool calls.

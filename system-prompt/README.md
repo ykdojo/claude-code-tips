@@ -9,8 +9,8 @@ Extract and slim Claude Code's system prompt from the CLI bundle.
 From comparing `extract-system-prompt.js` output before and after patching:
 
 - **Original**: 830 lines, 52,590 chars
-- **After 31 patches**: 444 lines, 23,800 chars (static template)
-- **Savings**: ~29KB (~55% reduction in static content)
+- **After 33 patches**: ~23,200 chars (static template)
+- **Savings**: ~29KB (~56% reduction in static content)
 
 ### Measured Token Savings
 
@@ -34,7 +34,7 @@ system-prompt/
 ├── restore-cli.sh             # Restores from backup
 ├── patch-cli.js               # Applies all patches (idempotent)
 ├── extract-system-prompt.js   # Extracts prompt for verification
-├── patches/                   # 56 patch files (28 find/replace pairs)
+├── patches/                   # Patch files (find/replace pairs)
 ├── system-prompt.md           # Original extracted prompt (reference)
 └── README.md
 ```
@@ -53,7 +53,7 @@ node extract-system-prompt.js /tmp/patched.md
 ./restore-cli.sh
 ```
 
-## Patches Applied (31 total)
+## Patches Applied (33 total)
 
 1. Removed duplicate emoji instruction from Edit tool
 2. Removed duplicate emoji instruction from Write tool
@@ -86,6 +86,8 @@ node extract-system-prompt.js /tmp/patched.md
 29. Slimmed Grep -A/-B/-C params (~300 to 90 chars)
 30. Removed redundant parallel calls from Glob (~50 tokens)
 31. Removed redundant parallel calls from Read (~50 tokens)
+32. Removed duplicate security warning (~200 tokens)
+33. Slimmed parallel calls guidance (~100 tokens)
 
 ## Adding New Patches
 
