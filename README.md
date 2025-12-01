@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 9 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 10 tips so far)
 
 ## Tip 0: Customize your status line
 
@@ -142,3 +142,27 @@ Sometimes you want to give Claude Code a URL, but it can't access it directly. M
 This works great for terminal output too. When I have output from Claude Code itself or any other CLI application, I can use the same trick: select all, copy, and paste it back to CC. Pretty helpful.
 
 This applies to any AI, not just Claude Code.
+
+## Tip 9 (Experimental): Use Gemini CLI as a fallback for blocked sites
+
+Claude Code's WebFetch tool can't access certain sites, like Reddit. But you can work around this by adding a CLAUDE.md instruction that tells Claude to use Gemini CLI as a fallback. Gemini has web access and can fetch content from sites that Claude can't reach directly.
+
+Here's what I put in my `~/.claude/CLAUDE.md`:
+
+````markdown
+When WebFetch fails to access Reddit, use Gemini CLI:
+
+Loading a specific Reddit page (verbatim content):
+```bash
+gemini -m gemini-2.5-flash-lite -o text --yolo "Fetch the EXACT content verbatim from: <URL>"
+```
+
+Researching a topic on Reddit (search, aggregate, reason):
+```bash
+gemini -m gemini-2.5-flash -o text --yolo "Search Reddit for <topic>. List the top relevant posts with: title, URL, and main points from each. Keep posts separate, don't summarize across them."
+```
+````
+
+This is experimental because I haven't tested it extensively yet, but it's been working well so far. The idea is that Claude Code will automatically fall back to Gemini when it encounters a blocked site.
+
+You'll need to have Gemini CLI installed for this to work. Check out [Google's Gemini CLI repo](https://github.com/google-gemini/gemini-cli) for installation instructions.
