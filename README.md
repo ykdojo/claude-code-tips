@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 11 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 12 tips so far)
 
 ## Tip 0: Customize your status line
 
@@ -223,3 +223,28 @@ Personally, I've created my own voice transcription app from scratch with Swift.
 But you don't have to go overboard like that. Just taking care of your own CLAUDE.md, making sure it's as concise as possible while being able to help you achieve your goals - stuff like that is helpful. And of course, learning these tips, learning these tools, and some of the most important features.
 
 All of these are investments in the tools you use to build whatever you want to build. I think it's important to spend at least a little bit of time on that.
+
+## Tip 11: Search through your conversation history
+
+You can ask Claude Code about your past conversations, and it'll help you find and search through them. All your conversation history is stored locally in `~/.claude/`. Project-specific conversations are in `~/.claude/projects/`, with folder names based on the project path (slashes become dashes).
+
+For example, conversations for a project at `/Users/yk/Desktop/projects/claude-code-tips` would be stored in:
+
+```
+~/.claude/projects/-Users-yk-Desktop-projects-claude-code-tips/
+```
+
+Each conversation is a `.jsonl` file. You can search through them with basic bash commands:
+
+```bash
+# Find all conversations mentioning "Reddit"
+grep -l -i "reddit" ~/.claude/projects/-Users-yk-Desktop-projects-*/*.jsonl
+
+# Find today's conversations about a topic
+find ~/.claude/projects/-Users-yk-Desktop-projects-*/*.jsonl -mtime 0 -exec grep -l -i "keyword" {} \;
+
+# Extract just the user messages from a conversation (requires jq)
+cat ~/.claude/projects/.../conversation-id.jsonl | jq -r 'select(.type=="user") | .message.content'
+```
+
+Or just ask Claude Code directly: "What did we talk about regarding X today?" and it'll search through the history for you.
