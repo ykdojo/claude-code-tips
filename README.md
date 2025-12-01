@@ -150,14 +150,14 @@ Claude Code's WebFetch tool can't access certain sites, like Reddit. But you can
 Here's what I put in my `~/.claude/CLAUDE.md`:
 
 ````markdown
-When WebFetch fails to access Reddit, use Gemini CLI:
+When WebFetch fails to access Reddit, use Gemini CLI (run in foreground):
 
-Loading a specific Reddit page (verbatim content):
+Loading a specific Reddit page (verbatim content) - 60s timeout:
 ```bash
 gemini -m gemini-2.5-flash-lite -o text --yolo "Fetch the EXACT content verbatim from: <URL>"
 ```
 
-Researching a topic on Reddit (search, aggregate, reason):
+Researching a topic on Reddit (search, aggregate, reason) - 90s timeout:
 ```bash
 gemini -m gemini-2.5-flash -o text --yolo "Search Reddit for <topic>. List the top relevant posts with: title, URL, and main points from each. Keep posts separate, don't summarize across them."
 ```
