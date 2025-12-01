@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 13 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 14 tips so far)
 
 Tips for getting the most out of Claude Code - includes a custom status line script, system prompt patching, and using Gemini CLI as Claude Code's minion.
 
@@ -187,6 +187,23 @@ cat ~/.claude/projects/.../conversation-id.jsonl | jq -r 'select(.type=="user") 
 ```
 
 Or just ask Claude Code directly: "What did we talk about regarding X today?" and it'll search through the history for you.
+
+## Tip 12: Multitasking with terminal tabs
+
+When running multiple Claude Code instances, staying organized is more important than any specific technical setup like Git worktrees. I recommend focusing on at most three or four tasks at a time.
+
+My personal method is what I would call a "cascade" - whenever I start a new task, I just open a new tab on the right. Then I sweep left to right, left to right, going from oldest tasks to newest. The general direction stays consistent, except when I need to check on certain tasks, get notifications, etc.
+
+Here's what my setup typically looks like:
+
+![Terminal tabs showing multitasking workflow](multitasking-terminal-tabs.png)
+
+In this example:
+1. **Leftmost tab** - A persistent tab running my voice transcription system (always stays here)
+2. **Second tab** - Setting up a Docker container
+3. **Third tab** - Checking disk usage on my local machine
+4. **Fourth tab** - Working on an engineering project
+5. **Fifth tab (current)** - Writing this very tip
 
 ## Tip 13: Slim down the system prompt (experimental)
 
