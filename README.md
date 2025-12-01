@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 12 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 13 tips so far)
 
 ## Tip 0: Customize your status line
 
@@ -22,10 +22,6 @@ On my Mac, I've tried a few different options:
 - [Super Voice Assistant](https://github.com/ykdojo/super-voice-assistant)
 
 You can get more accuracy by using a hosted service, but I found that a local model is strong enough for this purpose. Even when there are mistakes or typos in the transcription, Claude is smart enough to understand what you're trying to say. Sometimes you need to say certain things extra clearly, but overall local models work well enough.
-
----
-
-# Mastering Terminal Commands with Claude Code
 
 ## Tip 2: Using Git and GitHub CLI like a pro
 
@@ -248,3 +244,29 @@ cat ~/.claude/projects/.../conversation-id.jsonl | jq -r 'select(.type=="user") 
 ```
 
 Or just ask Claude Code directly: "What did we talk about regarding X today?" and it'll search through the history for you.
+
+## Tip 13: Slim down the system prompt (experimental)
+
+Claude Code's system prompt and tool definitions take up about 18k tokens (~9% of your 200k context) before you even start working. I created a patch system that reduces this to about 10.5k tokens - saving around 7,500 tokens (over 40% of the static overhead).
+
+| Component | Before | After | Savings |
+|-----------|--------|-------|---------|
+| System prompt | 3.0k | 2.2k | 800 tokens |
+| System tools | 14.6k | 8.3k | 6,300 tokens |
+| **Static total** | **~18k** | **~10.5k** | **~7,100 tokens (39%)** |
+| Allowed tools list | ~2.5-3.5k | 0 | ~3,000 tokens |
+| **Total** | **~21k** | **~10.5k** | **~10,000 tokens (48%)** |
+
+The allowed tools list is dynamic context - it grows as you approve more bash commands. With 70+ approved commands, mine was eating up 2,500-3,500 tokens. The patch removes this list entirely.
+
+Here's what `/context` looks like before and after patching:
+
+| Unpatched (18k, 9%) | Patched (11k, 5%) |
+|---------------------|-------------------|
+| ![Unpatched context](system-prompt/2.0.55/context-unpatched.png) | ![Patched context](system-prompt/2.0.55/context-patched.png) |
+
+The patches work by trimming verbose examples and redundant text from the minified CLI bundle while keeping all the essential instructions. For example, the TodoWrite examples go from 6KB to 0.4KB, and the Bash tool description drops from 3.7KB to 0.6KB.
+
+This is still experimental - I'm testing it across different types of tasks to make sure nothing important is lost. But so far it's been working well, and the output quality seems to have improved somewhat (probably because there's less noise in the context).
+
+Check out the [system-prompt folder](system-prompt/2.0.55/) for the patch scripts and full details on what gets trimmed.
