@@ -251,15 +251,16 @@ Or just ask Claude Code directly: "What did we talk about regarding X today?" an
 
 ## Tip 13: Slim down the system prompt (experimental)
 
-Claude Code's system prompt and tool definitions take up about 18k tokens (~9% of your 200k context) before you even start working. I created a patch system that reduces this to about 10.5k tokens - saving around 7,500 tokens (over 40% of the static overhead).
+Claude Code's system prompt and tool definitions take up about 18k tokens (~9% of your 200k context) before you even start working. I created a patch system that reduces this to about 11k tokens - saving around 7,000 tokens (39% of the static overhead).
 
 | Component | Before | After | Savings |
 |-----------|--------|-------|---------|
 | System prompt | 3.0k | 2.2k | 800 tokens |
 | System tools | 14.6k | 8.3k | 6,300 tokens |
-| **Static total** | **~18k** | **~10.5k** | **~7,100 tokens (39%)** |
+| Other | ~0.4k | ~0.4k | 0 |
+| **Static total** | **~18k** | **~11k** | **~7,100 tokens (39%)** |
 | Allowed tools list | ~2.5-3.5k | 0 | ~3,000 tokens |
-| **Total** | **~21k** | **~10.5k** | **~10,000 tokens (48%)** |
+| **Total** | **~21k** | **~11k** | **~10,000 tokens (48%)** |
 
 The allowed tools list is dynamic context - it grows as you approve more bash commands. With 70+ approved commands, mine was eating up 2,500-3,500 tokens. The patch removes this list entirely.
 
