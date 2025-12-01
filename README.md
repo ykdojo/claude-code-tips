@@ -1,5 +1,7 @@
 # 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 13 tips so far)
 
+Tips for getting the most out of Claude Code - includes a custom status line script, system prompt patching, and using Gemini CLI as Claude Code's minion.
+
 ## Tip 0: Customize your status line
 
 You can customize the status line at the bottom of Claude Code to show useful info. I set mine up to show the model, current directory, git branch (if any), uncommitted file count, sync status with origin, and a visual progress bar for token usage:
