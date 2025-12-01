@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 15 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 16 tips so far)
 
 Tips for getting the most out of Claude Code - includes a custom status line script, system prompt patching, and using Gemini CLI as Claude Code's minion.
 
@@ -240,3 +240,31 @@ If you're working on multiple files or multiple branches and you don't want them
 The basic idea is that you can work on a different branch in a different directory. It's essentially a branch + a directory.
 
 You can add this layer of Git worktrees on top of the cascade method I discussed in the multitasking tip.
+
+## Tip 15: Manual exponential backoff for long-running jobs
+
+When waiting on long-running jobs like GitHub CI, you can ask Claude Code to do manual exponential backoff. Exponential backoff is a common technique in software engineering, but you can apply it here too. Ask Claude Code to check the status with increasing sleep intervals - sleep 30, sleep 60, sleep 120. It's not programmatically doing it in the traditional sense - the AI is doing it manually - but it works pretty well.
+
+This way the agent can continuously check the status and let you know once it's done.
+
+For example, if you have a PR and you're waiting on the test suite:
+
+> Let's keep waiting on this. Do manual exponential backoff until the job passes.
+
+Claude Code will then run something like:
+
+```bash
+sleep 30 && gh pr checks 5708 --json name,state
+```
+
+Then if it's still in progress:
+
+```bash
+sleep 60 && gh pr checks 5708 --json name,state
+```
+
+And then:
+
+```bash
+sleep 120 && gh pr checks 5708 --json name,state
+```
