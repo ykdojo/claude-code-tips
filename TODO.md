@@ -31,3 +31,11 @@ This tip will take time to prepare because we need to:
 - Set up a Docker container with the right environment
 - Install Claude Code, Gemini CLI, and tmux
 - Manually log into both Claude Code and Gemini CLI (can't be automated, requires interactive auth)
+
+### First: Extract skills.md from README
+
+Before setting up the container, we should reorganize the skills documentation:
+1. Extract the skills.md content from the README into its own file within this project
+2. Link to it from the README instead of having it inline
+3. Make the actual skills file we're currently using (in ~/.claude or wherever) into a symlink that points to the extracted file here
+4. This way we can more easily set up the container - just copy/symlink the skills file into the container environment
