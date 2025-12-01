@@ -145,23 +145,38 @@ This applies to any AI, not just Claude Code.
 
 ## Tip 9 (Experimental): Use Gemini CLI as a fallback for blocked sites
 
-Claude Code's WebFetch tool can't access certain sites, like Reddit. But you can work around this by adding a CLAUDE.md instruction that tells Claude to use Gemini CLI as a fallback. Gemini has web access and can fetch content from sites that Claude can't reach directly.
+Claude Code's WebFetch tool can't access certain sites, like Reddit. But you can work around this by creating a skill that tells Claude to use Gemini CLI as a fallback. Gemini has web access and can fetch content from sites that Claude can't reach directly.
 
-Here's what I put in my `~/.claude/CLAUDE.md`:
+The best way to do this is with a skill file. Create `~/.claude/skills/reddit-fetch/SKILL.md`:
 
 ````markdown
-When WebFetch fails to access Reddit, use Gemini CLI (run in foreground):
+---
+name: reddit-fetch
+description: Fetch content from Reddit using Gemini CLI when WebFetch is blocked. Use when accessing Reddit URLs, researching topics on Reddit, or when Reddit returns 403/blocked errors.
+---
 
-Loading a specific Reddit page (verbatim content) - 60s timeout:
+# Reddit Fetch via Gemini CLI
+
+When WebFetch fails to access Reddit (blocked, 403, etc.), use Gemini CLI instead. Run commands in foreground.
+
+## Loading a specific Reddit page (verbatim content)
+
+Use 60s timeout:
+
 ```bash
 gemini -m gemini-2.5-flash-lite -o text --yolo "Fetch the EXACT content verbatim from: <URL>"
 ```
 
-Researching a topic on Reddit (search, aggregate, reason) - 90s timeout:
+## Researching a topic on Reddit (search, aggregate, reason)
+
+Use 90s timeout:
+
 ```bash
 gemini -m gemini-2.5-flash -o text --yolo "Search Reddit for <topic>. List the top relevant posts with: title, URL, and main points from each. Keep posts separate, don't summarize across them."
 ```
 ````
+
+Skills are more token-efficient because Claude Code only loads them when needed. If you want something simpler, you can put a condensed version in `~/.claude/CLAUDE.md` instead, but that gets loaded into every conversation whether you need it or not.
 
 This is experimental because I haven't tested it extensively yet, but it's been working well so far. The idea is that Claude Code will automatically fall back to Gemini when it encounters a blocked site.
 
