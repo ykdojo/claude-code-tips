@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 8 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 9 tips so far)
 
 ## Tip 0: Customize your status line
 
@@ -132,3 +132,13 @@ tmux capture-pane -t test-session -p
 Once you have a test like this, Claude Code can run `git bisect` and automatically test each commit until it finds the one that broke things.
 
 This is also an example of why your software engineering skills still matter. If you're a software engineer, you probably know about tools like `git bisect`. That knowledge is still really valuable when working with AI - you just apply it in new ways.
+
+## Tip 8: Cmd+A and Ctrl+A are your friends
+
+I've been saying this for a few years now: Cmd+A and Ctrl+A are friends in the world of AI. This applies to Claude Code too.
+
+Sometimes you want to give Claude Code a URL, but it can't access it directly. Maybe it's a private page (not sensitive data, just not publicly accessible), or something like a Reddit post that Claude Code has trouble fetching. In those cases, you can just select all the content you see (Cmd+A on Mac, Ctrl+A on other platforms), copy it, and paste it directly into Claude Code. It's a pretty powerful method.
+
+This works great for terminal output too. When I have output from Claude Code itself or any other CLI application, I can use the same trick: select all, copy, and paste it back to CC. Pretty helpful.
+
+This applies to any AI, not just Claude Code.
