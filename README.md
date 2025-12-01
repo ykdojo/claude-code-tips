@@ -143,7 +143,7 @@ This works great for terminal output too. When I have output from Claude Code it
 
 This applies to any AI, not just Claude Code.
 
-## Tip 9 (Experimental): Use Gemini CLI as a fallback for blocked sites
+## Tip 9: Use Gemini CLI as a fallback for blocked sites
 
 Claude Code's WebFetch tool can't access certain sites, like Reddit. But you can work around this by creating a skill that tells Claude to use Gemini CLI as a fallback. Gemini has web access and can fetch content from sites that Claude can't reach directly.
 
@@ -212,7 +212,7 @@ tmux kill-session -t <session_name>
 
 Skills are more token-efficient because Claude Code only loads them when needed. If you want something simpler, you can put a condensed version in `~/.claude/CLAUDE.md` instead, but that gets loaded into every conversation whether you need it or not.
 
-This is experimental because I haven't tested it extensively yet, but it's been working well so far. The idea is that Claude Code will automatically fall back to Gemini when it encounters a blocked site.
+I tested this by asking Claude Code to check how Claude Code skills are regarded on Reddit - a bit meta. It goes back and forth with Gemini for a while, so it's not fast, but the report quality was surprisingly good.
 
 You'll need to have Gemini CLI installed for this to work. Check out [Google's Gemini CLI repo](https://github.com/google-gemini/gemini-cli) for installation instructions.
 
