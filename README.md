@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 14 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 15 tips so far)
 
 Tips for getting the most out of Claude Code - includes a custom status line script, system prompt patching, and using Gemini CLI as Claude Code's minion.
 
@@ -205,7 +205,7 @@ In this example:
 4. **Fourth tab** - Working on an engineering project
 5. **Fifth tab (current)** - Writing this very tip
 
-## Tip 13: Slim down the system prompt (experimental)
+## Tip 14: Slim down the system prompt (experimental)
 
 Claude Code's system prompt and tool definitions take up about 18k tokens (~9% of your 200k context) before you even start working. I created a patch system that reduces this to about 11k tokens - saving around 7,000 tokens (39% of the static overhead).
 
@@ -231,3 +231,11 @@ The patches work by trimming verbose examples and redundant text from the minifi
 This is still experimental - I'm testing it across different types of tasks to make sure nothing important is lost. But so far it's been working well, and the output quality seems to have improved somewhat (probably because there's less noise in the context).
 
 Check out the [system-prompt folder](system-prompt/2.0.55/) for the patch scripts and full details on what gets trimmed.
+
+## Tip 13: Git worktrees for parallel branch work
+
+If you're working on multiple files or multiple branches and you don't want them to get conflicted, Git worktrees are a great way to work on them at the same time. You can just ask Claude Code to create a git worktree and start working on it there - you don't have to worry about the specific syntax.
+
+The basic idea is that you can work on a different branch in a different directory. It's essentially a branch + a directory.
+
+You can add this layer of Git worktrees on top of the cascade method I discussed in the multitasking tip.
