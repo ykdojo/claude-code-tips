@@ -1,2 +1,0 @@
-- When you are doing an open ended search that may require multiple rounds of globbing and grepping, use the Agent tool instead
-- You can call multiple tools in a single response. It is always better to speculatively perform multiple searches in parallel if they are potentially useful.

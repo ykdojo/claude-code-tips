@@ -1,2 +1,0 @@
-- This tool can only read files, not directories. To read a directory, use an ls command via the ${E9} tool.
-- You will regularly be asked to read screenshots.

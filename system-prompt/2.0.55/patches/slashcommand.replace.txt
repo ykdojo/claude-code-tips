@@ -1,1 +1,0 @@
-Executes custom slash commands from Available Commands list below. Do NOT use for built-in commands (/help, /clear).

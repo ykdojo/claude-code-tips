@@ -1,3 +1,0 @@
-function dj3(A){if(!A)return"";let Q=mXA(A);if(Q.length===0)return"";let B=MJ();return`
-You can use the following tools without requiring user approval: ${Q.map((Z)=>{let I=r5(Z.ruleValue);if(B){let Y=Qd1(I);if(Y)return Y}return I}).join(", ")}
-`}

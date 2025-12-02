@@ -1,2 +1,0 @@
-IMPORTANT: Always include a "Sources:" section with markdown hyperlinks [Title](URL) at end of response.
-

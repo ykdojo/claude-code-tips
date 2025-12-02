@@ -1,3 +1,0 @@
-# Looking up your own documentation:
-
-When user asks about Claude Code features or Claude Agent SDK, use the ${R8} tool with subagent_type='${yb1}' for accurate documentation.
