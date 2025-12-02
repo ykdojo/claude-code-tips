@@ -1,4 +1,0 @@
-## When to Use This Tool
-
-Use EnterPlanMode when: multiple valid approaches exist, significant architectural decisions needed, large-scale changes across many files, unclear requirements needing exploration, or user input needed before starting.
-

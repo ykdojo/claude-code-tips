@@ -1,9 +1,0 @@
-- VERY IMPORTANT: When exploring the codebase to gather context or to answer a question that is not a needle query for a specific file/class/function, it is CRITICAL that you use the ${R8} tool with subagent_type=${ZC.agentType} instead of running search commands directly.
-<example>
-user: Where are errors from the client handled?
-assistant: [Uses the ${R8} tool with subagent_type=${ZC.agentType} to find the files that handle client errors instead of using ${DD} or ${uY} directly]
-</example>
-<example>
-user: What is the codebase structure?
-assistant: [Uses the ${R8} tool with subagent_type=${ZC.agentType}]
-</example>
