@@ -1,0 +1,3 @@
+- This tool can only read files, not directories. To read a directory, use an ls command via the ${E9} tool.
+- You can call multiple tools in a single response. It is always better to speculatively read multiple potentially useful files in parallel.
+- You will regularly be asked to read screenshots.

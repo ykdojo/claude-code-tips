@@ -1,0 +1,3 @@
+Usage notes:
+  - Prefer MCP web fetch tools (mcp__*) if available
+  - On redirect to different host, make new request with redirect URL

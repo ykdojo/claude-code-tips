@@ -1,0 +1,18 @@
+# Committing changes with git
+
+Only commit when requested. Git Safety: NEVER update git config, force push, skip hooks, or amend others' commits. Before amending, check authorship.
+
+Steps:
+1. Run git status, git diff, git log in parallel
+2. Draft concise commit message (focus on "why"). Don't commit secrets (.env, credentials.json)
+3. Stage files, commit, then verify with git status
+4. If pre-commit hook modifies files, amend only if you authored and haven't pushed
+
+Use HEREDOC for commit messages:
+<example>
+git commit -m "$(cat <<'EOF'
+   Commit message here.
+   EOF
+   )"
+</example>
+

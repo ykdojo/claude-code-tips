@@ -1,0 +1,3 @@
+<skills_instructions>
+Invoke skills with skill name only. Only use skills from <available_skills>.
+</skills_instructions>

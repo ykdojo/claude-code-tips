@@ -9,38 +9,44 @@ const crypto = require('crypto');
 const path = require('path');
 
 // Configuration
-const EXPECTED_VERSION = '2.0.55';
-const EXPECTED_HASH = '97641f09bea7d318ce5172d536581bb1da49c99b132d90f71007a3bb0b942f57';
+const EXPECTED_VERSION = '2.0.56';
+const EXPECTED_HASH = 'ab7dc714eae784d2478f7831d43cabd14df5687d503d69381d08a0704e50386d';
 
-// Find claude CLI by checking shell rc files for alias, then following the launcher
+// Auto-detect CLI path by following the claude binary
+const { execSync } = require('child_process');
+
 function findClaudeCli() {
   const home = process.env.HOME;
-  const rcFiles = ['.zshrc', '.bashrc', '.bash_profile'];
 
-  // Check shell rc files for alias definition
-  for (const rc of rcFiles) {
-    const rcPath = path.join(home, rc);
-    if (fs.existsSync(rcPath)) {
-      const content = fs.readFileSync(rcPath, 'utf8');
-      const match = content.match(/alias\s+claude=['"]([^'"]+)['"]/);
-      if (match) {
-        let launcher = match[1].replace(/^~/, home);
-        if (fs.existsSync(launcher)) {
-          // Read launcher and extract exec path
-          const launcherContent = fs.readFileSync(launcher, 'utf8');
-          const execMatch = launcherContent.match(/exec\s+"([^"]+)"/);
-          if (execMatch) {
-            return fs.realpathSync(execMatch[1]);
-          }
-        }
-      }
-    }
+  // Method 1: Use 'which claude' and follow symlinks
+  try {
+    const claudePath = execSync('which claude', { encoding: 'utf8' }).trim();
+    const realPath = fs.realpathSync(claudePath);
+
+    // cli.js is in the same directory as the symlink target
+    const cliPath = path.join(path.dirname(realPath), 'cli.js');
+    if (fs.existsSync(cliPath)) return cliPath;
+
+    // Fallback: check if realPath itself is cli.js
+    if (realPath.endsWith('cli.js')) return realPath;
+  } catch (e) {
+    // which failed, try other methods
   }
 
-  // Fallback to default location
-  const defaultLauncher = path.join(home, '.claude/local/claude');
-  if (fs.existsSync(defaultLauncher)) {
-    const content = fs.readFileSync(defaultLauncher, 'utf8');
+  // Method 2: Check common npm global locations
+  const globalLocations = [
+    '/opt/homebrew/lib/node_modules/@anthropic-ai/claude-code/cli.js',
+    '/usr/local/lib/node_modules/@anthropic-ai/claude-code/cli.js',
+  ];
+
+  for (const loc of globalLocations) {
+    if (fs.existsSync(loc)) return loc;
+  }
+
+  // Method 3: Check local install location
+  const localLauncher = path.join(home, '.claude/local/claude');
+  if (fs.existsSync(localLauncher)) {
+    const content = fs.readFileSync(localLauncher, 'utf8');
     const execMatch = content.match(/exec\s+"([^"]+)"/);
     if (execMatch) {
       return fs.realpathSync(execMatch[1]);
@@ -51,8 +57,19 @@ function findClaudeCli() {
 }
 
 // Allow custom path for testing, otherwise find it dynamically
-const basePath = process.argv[2] || findClaudeCli() ||
-  path.join(process.env.HOME, '.claude/local/node_modules/@anthropic-ai/claude-code/cli.js');
+const basePath = process.argv[2] || findClaudeCli();
+
+if (!basePath) {
+  console.error('Error: Could not find Claude Code CLI. Tried:');
+  console.error('  - which claude');
+  console.error('  - /opt/homebrew/lib/node_modules/@anthropic-ai/claude-code/cli.js');
+  console.error('  - /usr/local/lib/node_modules/@anthropic-ai/claude-code/cli.js');
+  console.error('  - ~/.claude/local/claude');
+  console.error('');
+  console.error('Pass the path as an argument: node patch-cli.js /path/to/cli.js');
+  process.exit(1);
+}
+
 const backupPath = basePath + '.backup';
 const patchDir = __dirname;
 
