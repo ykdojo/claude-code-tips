@@ -82,7 +82,37 @@ Update:
 - `EXPECTED_HASH` (run `shasum -a 256` on the CLI)
 - `findClaudeCli()` if installation path changed
 
-## 6. Build patches one at a time
+## 6. Update existing patches
+
+**Critical:** Update variable names in BOTH `*.find.txt` AND `*.replace.txt` files!
+
+The replace files contain variable references that must match the new version. Old variable names will cause runtime crashes (TypeError: Cannot read properties of undefined).
+
+```bash
+# Find patches with old variable names
+grep -l '\${OLD_VAR}' patches/*.txt
+
+# Bulk update (example for E9 -> C9)
+sed -i '' 's/\${E9}/\${C9}/g' patches/*.txt
+```
+
+### Debugging broken patches
+
+Use bisect mode to find which patch breaks the CLI:
+
+```bash
+# Apply only first N patches
+node patch-cli.js --max=10
+
+# Test if claude works
+claude -p "test"
+
+# Binary search: if works, try more; if crashes, try fewer
+```
+
+Common crash: `TypeError: Cannot read properties of undefined (reading 'body')` usually means a variable reference in a replace file points to a non-existent function.
+
+## 7. Build new patches
 
 For each section to slim:
 
@@ -93,6 +123,6 @@ For each section to slim:
 5. Re-run extraction to verify
 6. Start Claude Code and run `/context` to make sure it still works
 
-## 7. Update README
+## 8. Update README
 
 Document which patches were created and token savings.
