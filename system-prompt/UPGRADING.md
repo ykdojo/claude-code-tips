@@ -101,12 +101,12 @@ sed -i '' 's/\${E9}/\${C9}/g' patches/*.txt
 When a patch shows "not found in bundle", find the exact mismatch point:
 
 ```javascript
-// Run: node -e '<paste this>'
+// Run: node -e '<paste this>' (from the version folder)
 const fs = require('fs');
 const bundle = fs.readFileSync('/opt/homebrew/lib/node_modules/@anthropic-ai/claude-code/cli.js', 'utf8');
 const patch = fs.readFileSync('patches/PATCHNAME.find.txt', 'utf8');
 
-let lo = 100, hi = patch.length;
+let lo = 10, hi = patch.length;
 while (lo < hi) {
   const mid = Math.floor((lo + hi + 1) / 2);
   if (bundle.indexOf(patch.slice(0, mid)) !== -1) lo = mid;
@@ -142,6 +142,24 @@ cat /tmp/claude-test.txt
 - Claude hangs/interrupts immediately = similar issue
 
 **Root cause is almost always:** A `*.replace.txt` file contains old variable names like `${i8.name}` that need to be updated to match the new version (e.g., `${m8.name}`).
+
+### Function-based patches
+
+Some patches replace entire functions (like `allowed-tools`). These need the full function signature updated:
+
+```bash
+# Find the new function pattern
+grep -oE 'function [a-zA-Z0-9_]+\(A\)\{if\(!A\)return"";let Q=[a-zA-Z0-9_]+\(A\);if\(Q\.length===0\)return"";' \
+  /opt/homebrew/lib/node_modules/@anthropic-ai/claude-code/cli.js
+
+# Then get the full function with node
+node -e '
+const fs = require("fs");
+const bundle = fs.readFileSync("/opt/homebrew/lib/node_modules/@anthropic-ai/claude-code/cli.js", "utf8");
+const start = bundle.indexOf("function FUNCNAME(A){if(!A)");
+if (start !== -1) console.log(bundle.slice(start, start + 300));
+'
+```
 
 ## 7. Build new patches
 
