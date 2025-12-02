@@ -113,17 +113,9 @@ output+=" | ${ctx}"
 
 echo "$output"
 
-# Get conversation title (from summary entry) and user's last message
-# Format: 📌 {title} | 💬 {last_message}
+# Get user's last message (text only, not tool results)
 if [[ -n "$transcript_path" && -f "$transcript_path" ]]; then
-    max_len=${#output}
-
-    # Extract title from the last summary entry
-    title=$(jq -rs '
-        [.[] | select(.type == "summary")] | last | .summary // empty
-    ' < "$transcript_path" 2>/dev/null)
-
-    # Extract last user message (text only, not tool results)
+    max_len=$((${#output} - 4))  # subtract for "💬 " prefix
     last_user_msg=$(jq -rs '
         [.[] | select(.type == "user") |
          select(.message.content | type == "string" or
@@ -134,41 +126,9 @@ if [[ -n "$transcript_path" && -f "$transcript_path" ]]; then
         gsub("\n"; " ") | gsub("  +"; " ")
     ' < "$transcript_path" 2>/dev/null)
 
-    # Build second line: title first, then last message if room
-    if [[ -n "$title" && -n "$last_user_msg" ]]; then
-        # Format: 📌 title | 💬 message
-        prefix="📌 "
-        separator=" | 💬 "
-        title_len=$((max_len - ${#prefix} - ${#separator} - 3))  # reserve 3 for "..."
-
-        if [[ ${#title} -le $title_len ]]; then
-            # Title fits, add message with remaining space
-            remaining=$((max_len - ${#prefix} - ${#title} - ${#separator}))
-            if [[ $remaining -gt 10 ]]; then
-                if [[ ${#last_user_msg} -gt $remaining ]]; then
-                    last_user_msg="${last_user_msg:0:$((remaining - 3))}..."
-                fi
-                echo "${prefix}${title}${separator}${last_user_msg}"
-            else
-                echo "${prefix}${title}"
-            fi
-        else
-            # Title too long, truncate it
-            echo "${prefix}${title:0:$title_len}..."
-        fi
-    elif [[ -n "$title" ]]; then
-        # Only title available
-        title_max=$((max_len - 4))
-        if [[ ${#title} -gt $title_max ]]; then
-            echo "📌 ${title:0:$title_max}..."
-        else
-            echo "📌 ${title}"
-        fi
-    elif [[ -n "$last_user_msg" ]]; then
-        # Only message available
-        msg_max=$((max_len - 4))
-        if [[ ${#last_user_msg} -gt $msg_max ]]; then
-            echo "💬 ${last_user_msg:0:$msg_max}..."
+    if [[ -n "$last_user_msg" ]]; then
+        if [[ ${#last_user_msg} -gt $max_len ]]; then
+            echo "💬 ${last_user_msg:0:$((max_len - 3))}..."
         else
             echo "💬 ${last_user_msg}"
         fi
