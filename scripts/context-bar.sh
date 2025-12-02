@@ -11,10 +11,11 @@
 
 input=$(cat)
 
-# Extract model, directory, and cwd
+# Extract model, directory, cwd, and session_id
 model=$(echo "$input" | jq -r '.model.display_name // .model.id // "?"')
 cwd=$(echo "$input" | jq -r '.cwd // empty')
 dir=$(basename "$cwd" 2>/dev/null || echo "?")
+session_id=$(echo "$input" | jq -r '.session_id // empty')
 
 # Get git branch, uncommitted file count, and sync status
 branch=""
@@ -118,8 +119,12 @@ echo "$output"
 if [[ -n "$transcript_path" && -f "$transcript_path" ]]; then
     max_len=${#output}
 
-    # Extract title from summary entry (if exists)
-    title=$(jq -rs '[.[] | select(.type == "summary")] | last | .summary // empty' < "$transcript_path" 2>/dev/null)
+    # Extract title from summary entry (only if its leafUuid matches a message in this session)
+    title=$(jq -rs --arg sid "$session_id" '
+        [.[] | select(.sessionId == $sid) | .uuid] as $session_uuids |
+        [.[] | select(.type == "summary") | select(.leafUuid as $leaf | $session_uuids | any(. == $leaf))] |
+        last | .summary // empty
+    ' < "$transcript_path" 2>/dev/null)
 
     # Extract last user message (text only, not tool results)
     last_user_msg=$(jq -rs '
