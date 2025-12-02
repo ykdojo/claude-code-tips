@@ -20,12 +20,12 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Claude Code 2.0.55 (specific version for patching) and Gemini CLI
+# Install Claude Code 2.0.56 (specific version for patching) and Gemini CLI
 # Must be done as root for global npm install
-RUN npm install -g @anthropic-ai/claude-code@2.0.55 @google/gemini-cli
+RUN npm install -g @anthropic-ai/claude-code@2.0.56 @google/gemini-cli
 
 # Copy patching files and apply patches (must be done as root before user switch)
-COPY system-prompt/2.0.55/ /tmp/patches/
+COPY system-prompt/2.0.56/ /tmp/patches/
 RUN CLI_PATH=/usr/local/lib/node_modules/@anthropic-ai/claude-code/cli.js && \
     cp "$CLI_PATH" "$CLI_PATH.backup" && \
     node /tmp/patches/patch-cli.js "$CLI_PATH" && \
