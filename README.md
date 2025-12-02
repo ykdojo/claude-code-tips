@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 17 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 18 tips so far)
 
 Tips for getting the most out of Claude Code - includes a custom status line script, system prompt patching, and using Gemini CLI as Claude Code's minion.
 
@@ -287,3 +287,11 @@ So it's this sort of back-and-forth process, maybe with the terminal on the left
 ![Side-by-side writing workflow with Claude Code](writing-assistant-side-by-side.png)
 
 That tends to work really well.
+
+## Tip 17: Markdown is the s**t
+
+Typically when people write a new document, they might use something like Google Docs or maybe Notion. But now I honestly think the most efficient way to go about it is markdown.
+
+Markdown was already pretty good even before AI, but with Claude Code in particular, because it's so efficient as I mentioned with regards to writing, it makes the value of markdown higher in my opinion. Whenever you want to write a blog post or even a LinkedIn post, you can just talk to Claude Code, have it be saved as markdown, and then go from there.
+
+A quick tip for this one: if you want to copy and paste markdown content into a platform that doesn't accept it easily, you can paste it into a fresh Notion file first, then copy from Notion into the other platform. Notion converts it to a format that other platforms can accept.
