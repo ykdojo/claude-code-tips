@@ -88,21 +88,10 @@ function loadPatch(name) {
 }
 
 // Patches to apply (find → replace)
-// Inline patches for small changes, file-based for large ones
+// All patches are file-based (loaded at runtime from patches/ folder)
 const patches = [
-  {
-    name: 'Remove duplicate emoji instruction in Edit tool',
-    find: `- Only use emojis if the user explicitly requests it. Avoid adding emojis to files unless asked.
-- The edit will FAIL`,
-    replace: `- The edit will FAIL`
-  },
-  {
-    name: 'Remove duplicate emoji instruction in Write tool',
-    find: `- NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
-- Only use emojis if the user explicitly requests it. Avoid writing emojis to files unless asked.`,
-    replace: `- NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.`
-  },
-  // File-based patches (loaded at runtime)
+  { name: 'Remove duplicate emoji instruction in Edit tool', file: 'edit-emoji' },
+  { name: 'Remove duplicate emoji instruction in Write tool', file: 'write-emoji' },
   { name: 'Slim TodoWrite examples (6KB → 0.4KB)', file: 'todowrite-examples' },
   { name: 'Slim TodoWrite states section (1.8KB → 0.4KB)', file: 'todowrite-states' },
   { name: 'Slim EnterPlanMode examples (670 → 150 chars)', file: 'enterplanmode-examples' },
@@ -112,19 +101,7 @@ const patches = [
   // Git/PR simplification
   { name: 'Simplify git commit section', file: 'git-commit' },
   { name: 'Simplify PR creation section', file: 'pr-creation' },
-  {
-    name: 'Remove Code References section (363 chars)',
-    find: `# Code References
-
-When referencing specific functions or pieces of code include the pattern \\\`file_path:line_number\\\` to allow the user to easily navigate to the source code location.
-
-<example>
-user: Where are errors from the client handled?
-assistant: Clients are marked as failed in the \\\`connectToServer\\\` function in src/services/process.ts:712.
-</example>
-`,
-    replace: '# .\n'  // Must be non-whitespace to avoid API error
-  },
+  { name: 'Remove Code References section (363 chars)', file: 'code-references' },
   // New patches - Round 2
   { name: 'Slim TodoWrite When to Use (1.2KB → 200 chars)', file: 'todowrite-when-to-use' },
   { name: 'Slim Professional objectivity (762 → 120 chars)', file: 'professional-objectivity' },
