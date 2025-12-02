@@ -225,7 +225,7 @@ Here's what `/context` looks like before and after patching:
 
 | Unpatched (18k, 9%) | Patched (11k, 5%) |
 |---------------------|-------------------|
-| ![Unpatched context](system-prompt/2.0.56/context-unpatched.png) | ![Patched context](system-prompt/2.0.56/context-patched.png) |
+| ![Unpatched context](system-prompt/2.0.55/context-unpatched.png) | ![Patched context](system-prompt/2.0.55/context-patched.png) |
 
 The patches work by trimming verbose examples and redundant text from the minified CLI bundle while keeping all the essential instructions. For example, the TodoWrite examples go from 6KB to 0.4KB, and the Bash tool description drops from 3.7KB to 0.6KB.
 
