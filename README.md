@@ -233,7 +233,7 @@ This is still experimental - I'm testing it across different types of tasks to m
 
 **After a few days of testing**: It's been working pretty well. My impression is that it feels more raw - more powerful, but maybe a little less regulated, which makes sense because the system instruction is shorter. It feels more like a pro tool when you use it this way. Another thing I like is that you start with lower context in the first place, so you have more room before it fills up completely.
 
-Check out the [system-prompt folder](system-prompt/2.0.56/) for the patch scripts and full details on what gets trimmed.
+Check out the [system-prompt folder](system-prompt/2.0.57/) for the patch scripts and full details on what gets trimmed.
 
 **Requirements**: These patches require npm installation (`npm install -g @anthropic-ai/claude-code`). The patching works by modifying the JavaScript bundle (`cli.js`) - other installation methods may produce compiled binaries that can't be patched this way.
 

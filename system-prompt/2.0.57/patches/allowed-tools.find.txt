@@ -1,3 +1,3 @@
-function OS3(A){if(!A)return"";let Q=dXA(A);if(Q.length===0)return"";let B=OJ();return`
-You can use the following tools without requiring user approval: ${Q.map((Z)=>{let I=o5(Z.ruleValue);if(B){let Y=Cd1(I);if(Y)return Y}return I}).join(", ")}
+function vk3(A){if(!A)return"";let Q=QFA(A);if(Q.length===0)return"";let B=RJ();return`
+You can use the following tools without requiring user approval: ${Q.map((Z)=>{let I=r5(Z.ruleValue);if(B){let Y=ld1(I);if(Y)return Y}return I}).join(", ")}
 `}

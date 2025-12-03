@@ -4,7 +4,7 @@ This document tracks the progress of upgrading the system prompt patches for new
 
 ## Current Status: 2.0.57
 
-**Status**: 🟢 Working - Core testing complete
+**Status**: ✅ Complete - All 33 patches working
 
 ### Completed Steps
 1. ✅ Installed Claude Code 2.0.57 in Docker container (peaceful_lovelace)
@@ -54,7 +54,7 @@ This document tracks the progress of upgrading the system prompt patches for new
 
 ### Patch Status
 
-**Applied: 32/33 patches**
+**Applied: 33/33 patches**
 
 | Patch | Status | Notes |
 |-------|--------|-------|
@@ -76,7 +76,7 @@ This document tracks the progress of upgrading the system prompt patches for new
 | slashcommand | ✅ OK | |
 | enterplanmode-when-to-use | ✅ OK | |
 | read-tool | ✅ OK | |
-| allowed-tools | ❌ SKIP | Function signature changed, needs investigation |
+| allowed-tools | ✅ OK | Fixed: OS3→vk3, dXA→QFA, OJ→RJ, o5→r5, Cd1→ld1 |
 | over-engineering | ✅ OK | |
 | documentation-lookup | ✅ OK | |
 | tool-usage-examples | ✅ OK | |
@@ -92,11 +92,11 @@ This document tracks the progress of upgrading the system prompt patches for new
 ### Remaining Tasks
 
 - [x] Test `/context` command in interactive mode
-- [ ] Test tool calls work correctly (Bash, Read, Edit, etc.)
-- [ ] Verify no [DYNAMIC] or [object Object] in prompts
-- [ ] Test agent spawning (Task tool)
-- [ ] Investigate allowed-tools patch (currently skipped)
-- [ ] Update README with 2.0.57 support
+- [x] Test tool calls work correctly (Bash, Read, Edit, etc.)
+- [x] Verify no [DYNAMIC] or [object Object] in prompts
+- [x] Test agent spawning (Task tool)
+- [x] Investigate allowed-tools patch (fixed: function name changed OS3→vk3)
+- [x] Update README with 2.0.57 support
 
 ### How to Test
 
@@ -117,11 +117,11 @@ claude
 # Then test /context, tool calls, etc.
 ```
 
-### Known Issues
+### Testing Results
 
-1. **allowed-tools patch skipped**: The function signature for removing the allowed tools list has changed. This patch is optional but saves 5-10KB.
-
-2. **Interactive mode testing**: The Claude instance in the container may have rate limiting or auth issues that affect interactive testing.
+1. **All tools tested**: Bash, Read, Edit, Task (agent spawning) all work correctly
+2. **No prompt corruptions**: No [DYNAMIC] or [object Object] in prompts
+3. **Token reduction confirmed**: 2.0k tokens in `/context` (down from ~31k unpatched)
 
 ---
 
