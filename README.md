@@ -312,26 +312,14 @@ I like to think of it like a billion token rule instead of the 10,000 hour rule.
 
 Sometimes you want to try a different approach from a specific point in a conversation without losing your original thread. The [clone-conversation script](scripts/clone-conversation.sh) lets you duplicate a conversation with new UUIDs so you can branch off.
 
+The first message is tagged with `[CLONED]`, which shows up both in the `claude -r` list and inside the conversation.
+
+To set it up, symlink both files:
 ```bash
-~/.claude/scripts/clone-conversation.sh <session-id> [project-path]
+ln -s /path/to/this/repo/scripts/clone-conversation.sh ~/.claude/scripts/clone-conversation.sh
+ln -s /path/to/this/repo/commands/clone.md ~/.claude/commands/clone.md
 ```
 
-The cloned conversation appears in `claude -r` marked with `[CLONED]`, and the first message inside also gets tagged so you know you're in a clone.
-
-To set it up:
-1. Copy the script to your repo or `~/.claude/scripts/`
-2. Add an instruction to your global `~/.claude/CLAUDE.md`:
-
-```markdown
-## Cloning Conversations
-
-When the user asks to clone the current conversation, run the clone script:
-
-~/.claude/scripts/clone-conversation.sh <session-id> [project-path]
-
-The current session ID can be found by checking the most recent entry in `~/.claude/history.jsonl` or from the conversation context. After cloning, tell the user they can access the cloned conversation with `claude -r` and look for the one marked `[CLONED]`.
-```
-
-Then you can just ask Claude to "clone this conversation" and it'll handle finding the session ID and running the script.
+Then just type `/clone` in any conversation and Claude will handle finding the session ID and running the script.
 
 This is experimental. I'm still testing this.
