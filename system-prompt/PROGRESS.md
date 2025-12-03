@@ -125,6 +125,57 @@ claude
 
 ---
 
+## Iterative System Prompt Extraction (2.0.57)
+
+**Status**: 🔄 In Progress - 0/5 consecutive verifications
+
+A second extraction method using model self-reporting. See [2.0.57/ITERATIVE-EXTRACTION.md](2.0.57/ITERATIVE-EXTRACTION.md) for full methodology.
+
+### Approach
+1. Ask Claude instances to document their own system instructions
+2. Iteratively refine with fresh instances reviewing and improving
+3. Continue until **5 consecutive instances confirm no changes needed**
+4. Instances can ADD missing content or DELETE inaccurate content
+
+### Current State
+- **Container**: `eager_moser` (Claude Code 2.0.57)
+- **File**: `/tmp/system_prompt.md` → `system-prompt-iterative-extraction.md`
+- **Size**: 1309 lines (~62KB) vs programmatic extraction's 833 lines (~53KB)
+- **Consecutive "no change" count**: 0/5
+
+### Files Produced
+| File | Lines | Method |
+|------|-------|--------|
+| `system-prompt-original-unpatched.md` | 833 | Programmatic (from CLI source) |
+| `system-prompt-iterative-extraction.md` | 1309 | Model self-report (iterative) |
+
+### Next Steps
+- [ ] Continue iterative refinement until 5 consecutive "VERIFIED COMPLETE"
+- [ ] Compare final iterative extraction with programmatic extraction
+- [ ] Document any discrepancies found
+
+### How to Continue
+
+```bash
+# Run one iteration
+docker exec eager_moser bash -c 'cat << "EOF" | claude --dangerously-skip-permissions --print
+Read /tmp/system_prompt.md carefully. Compare it against ALL your actual system instructions.
+
+Your task: If you find ANYTHING missing, inaccurate, or that could be improved - update the file.
+You may ADD missing content or DELETE inaccurate/redundant content.
+
+If the document is truly complete and accurate, respond ONLY with:
+"VERIFIED COMPLETE - no changes needed"
+
+Otherwise, make your changes and describe what you modified.
+EOF'
+
+# When 5/5 verified, copy to repo
+docker cp eager_moser:/tmp/system_prompt.md ./system-prompt/2.0.57/system-prompt-iterative-extraction.md
+```
+
+---
+
 ## Previous Versions
 
 ### 2.0.56
