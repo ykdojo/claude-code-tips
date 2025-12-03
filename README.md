@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 20 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 21 tips so far)
 
 Tips for getting the most out of Claude Code - includes a custom status line script, system prompt patching, and using Gemini CLI as Claude Code's minion.
 
@@ -294,3 +294,31 @@ Recently I saw a world-class rock climber being interviewed by another rock clim
 That's how I feel about this too. Of course, there are supplementary things you can do, like watching videos, reading books, learning about tips. But using Claude Code is the best way to learn how to use it. Using AI in general is the best way to learn how to use AI.
 
 I like to think of it like a billion token rule instead of the 10,000 hour rule. If you want to get better at AI and truly get a good intuition about how it works, the best way is to consume a lot of tokens. And nowadays it's possible. I found that especially with Opus 4.5, it's powerful enough but affordable enough that you can run multiple sessions at the same time. You don't have to worry as much about token usage, which frees you up a lot.
+
+## Tip 20: Clone conversations to branch off (experimental)
+
+Sometimes you want to try a different approach from a specific point in a conversation without losing your original thread. The [clone-conversation script](scripts/clone-conversation.sh) lets you duplicate a conversation with new UUIDs so you can branch off.
+
+```bash
+~/.claude/scripts/clone-conversation.sh <session-id> [project-path]
+```
+
+The cloned conversation appears in `claude -r` marked with `[CLONED]`, and the first message inside also gets tagged so you know you're in a clone.
+
+To set it up:
+1. Copy the script to your repo or `~/.claude/scripts/`
+2. Add an instruction to your global `~/.claude/CLAUDE.md`:
+
+```markdown
+## Cloning Conversations
+
+When the user asks to clone the current conversation, run the clone script:
+
+~/.claude/scripts/clone-conversation.sh <session-id> [project-path]
+
+The current session ID can be found by checking the most recent entry in `~/.claude/history.jsonl` or from the conversation context. After cloning, tell the user they can access the cloned conversation with `claude -r` and look for the one marked `[CLONED]`.
+```
+
+Then you can just ask Claude to "clone this conversation" and it'll handle finding the session ID and running the script.
+
+This is experimental. I'm still testing this.
