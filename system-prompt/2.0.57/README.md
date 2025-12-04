@@ -53,7 +53,7 @@ node extract-system-prompt.js /tmp/patched.md
 └── system-prompt-iterative-extraction.md  # Model self-report extraction
 ```
 
-## Patches Applied (33 total)
+## Patches Applied (38 total)
 
 1. Removed duplicate emoji instruction from Edit tool
 2. Removed duplicate emoji instruction from Write tool
@@ -88,6 +88,11 @@ node extract-system-prompt.js /tmp/patched.md
 31. Removed redundant parallel calls from Read (~50 tokens)
 32. Removed duplicate security warning (~200 tokens)
 33. Slimmed parallel calls guidance (~100 tokens)
+34. Slimmed Task Management examples (~1.5KB to 300 chars)
+35. Slimmed Read tool images line (~170 to 70 chars)
+36. Slimmed NotebookEdit description (~400 to 120 chars)
+37. Slimmed BashOutput description (~400 to 100 chars)
+38. Slimmed KillShell description (~250 to 70 chars)
 
 ## Variable Mappings (v2.0.57)
 
@@ -117,6 +122,7 @@ These change with each minified build. When updating, search the CLI bundle for 
 | d8.name | Read |
 | oX.name | Write |
 | In.name | Task |
+| tI.name | TodoWrite |
 | Sq.agentType | Explore (agent type) |
 
 ### Function/Helper Variables

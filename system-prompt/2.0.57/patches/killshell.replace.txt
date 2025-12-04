@@ -1,0 +1,1 @@
+Terminates a background shell by shell_id. Find IDs with /tasks.

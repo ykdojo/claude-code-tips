@@ -1,0 +1,1 @@
+Can read images (PNG, JPG), PDFs, and Jupyter notebooks visually.

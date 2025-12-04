@@ -132,6 +132,12 @@ const patches = [
   // Round 8 - Remove duplicate content
   { name: 'Remove duplicate security warning (~200 tokens)', file: 'duplicate-security-warning' },
   { name: 'Slim parallel calls guidance (~100 tokens)', file: 'parallel-calls' },
+  // Round 9 - Additional slimming
+  { name: 'Slim Task Management examples (~1.5KB → 300 chars)', file: 'task-management-examples' },
+  { name: 'Slim Read tool images line (~170 → 70 chars)', file: 'read-images' },
+  { name: 'Slim NotebookEdit description (~400 → 120 chars)', file: 'notebookedit' },
+  { name: 'Slim BashOutput description (~400 → 100 chars)', file: 'bashoutput' },
+  { name: 'Slim KillShell description (~250 → 70 chars)', file: 'killshell' },
 ];
 
 // Helper: compute SHA256 hash

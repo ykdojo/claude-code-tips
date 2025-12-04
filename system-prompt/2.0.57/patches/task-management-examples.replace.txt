@@ -1,0 +1,12 @@
+Examples:
+
+<example>
+user: Run the build and fix any type errors
+assistant: [Creates todos: Run build, Fix type errors. Runs build, finds errors, creates todo per error, fixes each, marks complete]
+</example>
+
+<example>
+user: Help me implement usage metrics tracking with export
+assistant: [Creates todos: Research existing code, Design system, Implement tracking, Add export. Works through each step, marking progress]
+</example>
+
