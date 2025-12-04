@@ -1,4 +1,4 @@
-# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 21 tips so far)
+# 30 Claude Code Tips: From Basics to Advanced (Work in Progress - 22 tips so far)
 
 Tips for getting the most out of Claude Code - includes a custom status line script, system prompt patching, and using Gemini CLI as Claude Code's minion.
 
@@ -340,3 +340,15 @@ When you need to tell Claude Code about files in a different folder, use `realpa
 ```bash
 realpath some/relative/path
 ```
+
+## Tip 22: Understanding CLAUDE.md vs Skills vs Slash Commands vs Plugins
+
+These are somewhat similar features and I initially found them pretty confusing. I've been unpacking them and trying my best to wrap my head around them, so I wanted to share what I learned.
+
+**CLAUDE.md** is the simplest one. It's a bunch of files that get treated as the default prompt, loaded into the beginning of every conversation no matter what. The nice thing about it is the simplicity. You can explain what the project is about in a particular project (`./CLAUDE.md`) or globally (`~/.claude/CLAUDE.md`).
+
+**Skills** are like better-structured CLAUDE.md files. They're only invoked when Claude decides they need to be invoked. For example, you could have a skill that opens a Google Translate link with proper formatting when you ask how to pronounce a word in a certain language. If those instructions are in a skill, they only load when you ask a relevant question. If they were in CLAUDE.md, they'd already be there taking up space. So skills are more token-efficient in theory.
+
+**Slash Commands** are similar to skills in that they're ways of packaging instructions separately. The difference is they're invoked manually. If you need something more precise, to invoke at the right time at your own pace, slash commands are the tool to use.
+
+**Plugins** are a way to package all of these things together, plus three others: agents, hooks, and MCP servers (five things total). But a plugin doesn't have to use all of them. Anthropic's official `frontend-design` plugin is essentially just a skill and nothing else. It could be distributed as a standalone skill, but the plugin format makes it easier to install.
