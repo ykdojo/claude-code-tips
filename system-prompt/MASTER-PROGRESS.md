@@ -10,7 +10,7 @@ Every 20th version from most recent, providing coverage across all major series.
 |---|---------|--------|-------|-------|--------|
 | 1 | 2.0.57 | 2.0.x | Opus 4.5 | 1226 | Complete |
 | 2 | 2.0.33 | 2.0.x | Sonnet 4.5 | 551 | Complete |
-| 3 | 2.0.12 | 2.0.x | - | - | Not started |
+| 3 | 2.0.12 | 2.0.x | Sonnet 4.5 | 994 | Complete |
 | 4 | 1.0.117 | 1.0.x | - | - | Not started |
 | 5 | 1.0.93 | 1.0.x | - | - | Not started |
 | 6 | 1.0.72 | 1.0.x | - | - | Not started |
@@ -23,13 +23,13 @@ Every 20th version from most recent, providing coverage across all major series.
 | 13 | 0.2.45 | 0.2.x | - | - | Not started |
 | 14 | 0.2.18 | 0.2.x | - | - | Not started |
 
-**Progress**: 2/14 complete
+**Progress**: 3/14 complete
 
 ## Container
 
 **Name**: `claude-history`
 **Image**: `claude-code-container`
-**Current version**: 2.0.56 (will swap as needed)
+**Current version**: 2.0.12 (will swap as needed)
 
 ### Switching Versions
 
@@ -94,6 +94,11 @@ docker cp claude-history:/tmp/system_prompt.md ./system-prompt/X.X.XX/system-pro
 - Iterations: 37
 - See: [2.0.57/PROGRESS.md](2.0.57/PROGRESS.md)
 
+### 2.0.12
+- Container: `claude-history`
+- Iterations: 54+
+- Notes: Model uses Sonnet 4.5, extraction reached maturity after oscillating changes
+
 ### Older versions
 - May need different model selection
 - `--dangerously-skip-permissions` may not exist in very old versions
@@ -107,6 +112,8 @@ system-prompt/
 ├── 2.0.57/
 │   └── system-prompt-iterative-extraction.md
 ├── 2.0.33/
+│   └── system-prompt-iterative-extraction.md
+├── 2.0.12/
 │   └── system-prompt-iterative-extraction.md
 ├── ...
 └── 0.2.18/
