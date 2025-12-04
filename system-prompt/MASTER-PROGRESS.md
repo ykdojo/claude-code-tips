@@ -34,8 +34,8 @@ Every 20th version from most recent, providing coverage across all major series.
 ### Switching Versions
 
 ```bash
-# Install specific version
-docker exec claude-history npm install -g @anthropic-ai/claude-code@X.X.XX
+# Install specific version (needs root for npm global install)
+docker exec -u root claude-history npm install -g @anthropic-ai/claude-code@X.X.XX
 
 # Verify
 docker exec claude-history claude --version
@@ -45,13 +45,15 @@ docker exec claude-history claude --version
 
 Iterative model self-report: ask Claude to document its own instructions, refined iteratively until 5 consecutive instances confirm "VERIFIED COMPLETE".
 
+**Detecting maturity**: If the model oscillates on minor details (adding/removing the same content, capitalization changes), check if file length stabilizes. Once changes become cosmetic and length is stable, extraction has reached maturity even without 5 consecutive verifications.
+
 Output: `system-prompt-iterative-extraction.md`
 
 ## How to Extract a Version
 
 ### 1. Switch version
 ```bash
-docker exec claude-history npm install -g @anthropic-ai/claude-code@X.X.XX
+docker exec -u root claude-history npm install -g @anthropic-ai/claude-code@X.X.XX
 docker exec claude-history claude --version
 ```
 
@@ -103,6 +105,11 @@ docker cp claude-history:/tmp/system_prompt.md ./system-prompt/X.X.XX/system-pro
 - May need different model selection
 - `--dangerously-skip-permissions` may not exist in very old versions
 - Tool sets likely different (fewer tools in early versions)
+
+## Tips
+
+- **XML corruption**: If the file gets corrupted when documenting XML examples (tool call format), delete and restart with instructions to use markdown code blocks instead of actual XML tags
+- **File length tracking**: Use `wc -l` to monitor file length during iterations - stable length suggests maturity
 
 ## Files Structure
 
