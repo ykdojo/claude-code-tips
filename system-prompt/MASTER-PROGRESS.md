@@ -11,7 +11,7 @@ Every 20th version from most recent, providing coverage across all major series.
 | 1 | 2.0.57 | 2.0.x | Opus 4.5 | 1226 | Complete |
 | 2 | 2.0.33 | 2.0.x | Sonnet 4.5 | 551 | Complete |
 | 3 | 2.0.12 | 2.0.x | Sonnet 4.5 | 994 | Complete |
-| 4 | 1.0.117 | 1.0.x | - | - | Not started |
+| 4 | 1.0.117 | 1.0.x | Sonnet 4 | 823 | Complete |
 | 5 | 1.0.93 | 1.0.x | - | - | Not started |
 | 6 | 1.0.72 | 1.0.x | - | - | Not started |
 | 7 | 1.0.52 | 1.0.x | - | - | Not started |
@@ -23,7 +23,7 @@ Every 20th version from most recent, providing coverage across all major series.
 | 13 | 0.2.45 | 0.2.x | - | - | Not started |
 | 14 | 0.2.18 | 0.2.x | - | - | Not started |
 
-**Progress**: 3/14 complete
+**Progress**: 4/14 complete
 
 ## Container
 
@@ -100,6 +100,11 @@ docker cp claude-history:/tmp/system_prompt.md ./system-prompt/X.X.XX/system-pro
 - Container: `claude-history`
 - Iterations: 54+
 - Notes: Model uses Sonnet 4.5, extraction reached maturity after oscillating changes
+
+### 1.0.117
+- Container: `claude-history-2`
+- Iterations: 85+
+- Notes: Model uses Sonnet 4, extensive oscillation but reached maturity
 
 ### Older versions
 - May need different model selection
