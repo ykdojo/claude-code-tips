@@ -2,9 +2,13 @@
 
 ## context-bar.sh
 
-A complete status line script for Claude Code that shows model, directory, git branch, uncommitted file count, sync status with origin, and context usage.
+A two-line status line script for Claude Code that shows model, directory, git branch, uncommitted file count, sync status with origin, context usage, and your last message.
 
-**Example output:** `Opus 4.5 | 📁myproject | 🔀main (2 files uncommitted, synced) | ████▄░░░░░ 45% of 200k tokens used (/context)`
+**Example output:**
+```
+Opus 4.5 | 📁Daft | 🔀fix/colab-pydantic-pickle (0 files uncommitted, synced) | █░░░░░░░░░ 12% of 200k tokens used (/context)
+💬 Okay, and this part I don't quite understand. What is type checking and why are we using it there? from typing impor...
+```
 
 ### Installation
 
