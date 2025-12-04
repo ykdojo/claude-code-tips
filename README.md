@@ -4,13 +4,14 @@ Tips for getting the most out of Claude Code - includes a custom status line scr
 
 ## Tip 0: Customize your status line
 
-You can customize the status line at the bottom of Claude Code to show useful info. I set mine up to show the model, current directory, git branch (if any), uncommitted file count, sync status with origin, and a visual progress bar for token usage:
+You can customize the status line at the bottom of Claude Code to show useful info. I set mine up to show the model, current directory, git branch (if any), uncommitted file count, sync status with origin, and a visual progress bar for token usage. It also shows a second line with my last message so I can see what the conversation was about:
 
 ```
-Opus 4.5 | 📁claude-code-tips | 🔀main (2 files uncommitted, synced) | ████▄░░░░░ 45% of 200k tokens used (/context)
+Opus 4.5 | 📁Daft | 🔀fix/colab-pydantic-pickle (0 files uncommitted, synced) | █░░░░░░░░░ 12% of 200k tokens used (/context)
+💬 Okay, and this part I don't quite understand. What is type checking and why are we using it there? from typing impor...
 ```
 
-This is especially helpful for keeping an eye on your context usage.
+This is especially helpful for keeping an eye on your context usage and remembering what you were working on.
 
 To set this up, you can use [this sample script](scripts/context-bar.sh) and check the [setup instructions](scripts/README.md).
 
