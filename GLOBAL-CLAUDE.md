@@ -27,3 +27,5 @@ tmux new-session -d -s <name> '<command>'
 tmux send-keys -t <name> '<input>' Enter  # don't forget Enter!
 tmux capture-pane -t <name> -p
 ```
+
+Note: For Claude Code sessions, you may need to send Enter again after a short delay to ensure the prompt is submitted.
