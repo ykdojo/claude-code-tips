@@ -237,7 +237,7 @@ Check out the [system-prompt folder](system-prompt/2.0.57/) for the patch script
 
 **Requirements**: These patches require npm installation (`npm install -g @anthropic-ai/claude-code`). The patching works by modifying the JavaScript bundle (`cli.js`) - other installation methods may produce compiled binaries that can't be patched this way.
 
-**Important**: If you want to keep your patched system prompt, disable auto-updates by adding `export DISABLE_AUTOUPDATER=1` to your shell config (e.g., `~/.zshrc`). Otherwise Claude Code will auto-update and overwrite your patches. You can manually update later with `npm update -g @anthropic-ai/claude-code` when you're ready to re-apply patches to a new version.
+**Important**: If you want to keep your patched system prompt, disable auto-updates by adding `export DISABLE_AUTOUPDATER=1` to your shell config (e.g., `~/.zshrc`) **and** adding `"env": {"DISABLE_AUTOUPDATER": "1"}` to your `~/.claude/settings.json`. Do both - in my experience the shell export alone wasn't always respected. Otherwise Claude Code will auto-update and overwrite your patches. You can manually update later with `npm update -g @anthropic-ai/claude-code` when you're ready to re-apply patches to a new version.
 
 ## Tip 14: Git worktrees for parallel branch work
 
