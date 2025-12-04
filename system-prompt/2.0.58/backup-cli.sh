@@ -5,8 +5,8 @@
 set -e
 
 # Known original - update these when Claude Code updates
-EXPECTED_VERSION="2.0.57"
-EXPECTED_HASH="895f335ee2703e1da848413ac6074dfb283666755170e13574ba4d8034b1cd83"
+EXPECTED_VERSION="2.0.58"
+EXPECTED_HASH="cb47049499173ed95c8dcb914de549ca3c2c56c199300eea7966350bd6625f05"
 
 # Find claude CLI using which and common locations
 get_claude_cli() {
