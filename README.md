@@ -356,3 +356,7 @@ These are somewhat similar features and I initially found them pretty confusing.
 **Slash Commands** are similar to skills in that they're ways of packaging instructions separately. The difference is they're invoked manually. If you need something more precise, to invoke at the right time at your own pace, slash commands are the tool to use.
 
 **Plugins** are a way to package skills, slash commands, agents, hooks, and MCP servers together. But a plugin doesn't have to use all of them. Anthropic's official `frontend-design` plugin is essentially just a skill and nothing else. It could be distributed as a standalone skill, but the plugin format makes it easier to install.
+
+---
+
+📺 **Related talk**: [Claude Code Masterclass](https://youtu.be/9UdZhTnMrTA) - lessons and project examples from 31 months of agentic coding
