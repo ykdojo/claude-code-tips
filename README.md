@@ -364,6 +364,14 @@ You can do a general review, or go file by file, step by step. You control the p
 
 The key difference is that Claude Code acts as an interactive PR reviewer, not just a one-shot machine. Some AI tools are good at one-shot reviews (including the latest GPT models), but with Claude Code you can have a conversation.
 
+## Tip 25: Claude Code as a research tool
+
+Claude Code is amazing for any sort of research. It's essentially a Google replacement or deep research replacement, but more advanced in a few different ways. Whether you're researching why certain GitHub Actions failed (which I've been doing a lot recently), doing sentiment or market analysis on Reddit, exploring your codebase, or exploring public information to find something - it's able to do that.
+
+The key is giving it the right pieces of information and instructions about how to access those pieces of information. It might be `gh` terminal command access, or the container approach (Tip 19), or Reddit through Gemini CLI (Tip 9), or private information through an MCP like Slack MCP, or the Cmd+A / Ctrl+A method (Tip 8) - whatever it is.
+
+In fact, I was able to save $10,000 using some research through Claude Code. I hope to be able to share this story at some point soon.
+
 ---
 
 📺 **Related talk**: [Claude Code Masterclass](https://youtu.be/9UdZhTnMrTA) - lessons and project examples from 31 months of agentic coding
