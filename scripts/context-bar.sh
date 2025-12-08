@@ -29,11 +29,35 @@ if [[ -n "$cwd" && -d "$cwd" ]]; then
         sync_status=""
         upstream=$(git -C "$cwd" rev-parse --abbrev-ref @{upstream} 2>/dev/null)
         if [[ -n "$upstream" ]]; then
+            # Get last fetch time
+            fetch_head="$cwd/.git/FETCH_HEAD"
+            fetch_ago=""
+            if [[ -f "$fetch_head" ]]; then
+                fetch_time=$(stat -f %m "$fetch_head" 2>/dev/null || stat -c %Y "$fetch_head" 2>/dev/null)
+                if [[ -n "$fetch_time" ]]; then
+                    now=$(date +%s)
+                    diff=$((now - fetch_time))
+                    if [[ $diff -lt 60 ]]; then
+                        fetch_ago="<1m ago"
+                    elif [[ $diff -lt 3600 ]]; then
+                        fetch_ago="$((diff / 60))m ago"
+                    elif [[ $diff -lt 86400 ]]; then
+                        fetch_ago="$((diff / 3600))h ago"
+                    else
+                        fetch_ago="$((diff / 86400))d ago"
+                    fi
+                fi
+            fi
+
             counts=$(git -C "$cwd" rev-list --left-right --count HEAD...@{upstream} 2>/dev/null)
             ahead=$(echo "$counts" | cut -f1)
             behind=$(echo "$counts" | cut -f2)
             if [[ "$ahead" -eq 0 && "$behind" -eq 0 ]]; then
-                sync_status="synced"
+                if [[ -n "$fetch_ago" ]]; then
+                    sync_status="synced ${fetch_ago}"
+                else
+                    sync_status="synced"
+                fi
             elif [[ "$ahead" -gt 0 && "$behind" -eq 0 ]]; then
                 sync_status="${ahead} ahead"
             elif [[ "$ahead" -eq 0 && "$behind" -gt 0 ]]; then
