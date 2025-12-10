@@ -574,7 +574,7 @@ This is useful when you realize a command is taking longer than expected and you
 
 If you need to load a bunch of PDF documents or super large files, keeping everything in the main conversation can fill up your context quickly. That can be expensive and inefficient. One way to deal with this is by spinning up sub-agents.
 
-There's a DIY approach I've discussed throughout this document. But there are also built-in sub-agents that Claude Code can use. Sometimes it's smart enough to decide to use them on its own, or you can just ask it to spin up sub-agents and it'll figure out how to use them.
+There's a DIY approach I've discussed throughout this document. But there are also built-in sub-agents that Claude Code can use. Sometimes it's smart enough to decide to use them on its own, or you can just ask it to spin up sub-agents and it'll figure out how to use them. You can even specify which model you want it to use, e.g. Opus.
 
 For example, you could say "spin up a sub-agent for each of these 10 folders that you want to explore." Each sub-agent loads its own context, does its work, and returns a summary. The main agent then aggregates and summarizes results from each sub-agent and goes from there.
 
