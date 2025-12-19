@@ -2,7 +2,7 @@
 
 Here are my tips for getting the most out of Claude Code, including a custom status line script, cutting the system prompt in half, using Gemini CLI as Claude Code's minion, and Claude Code running itself in a container.
 
-📺 Quick demo - See some of these tips in action with a multi-Claude workflow and voice input:
+📺 [Quick demo](https://www.youtube.com/watch?v=hiISl558JGE) - See some of these tips in action with a multi-Claude workflow and voice input:
 
 [![Demo video thumbnail](demo-thumbnail.png)](https://www.youtube.com/watch?v=hiISl558JGE)
 
