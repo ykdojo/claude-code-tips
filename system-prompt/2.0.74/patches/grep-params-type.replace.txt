@@ -1,0 +1,1 @@
+type:m.string().optional().describe("File type (rg --type)"),

@@ -1,0 +1,1 @@
+Get task output (shell/agent/remote). block=true waits. IDs via /tasks.

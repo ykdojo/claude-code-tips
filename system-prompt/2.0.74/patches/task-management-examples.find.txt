@@ -1,0 +1,20 @@
+Examples:
+
+<example>
+user: Run the build and fix any type errors
+assistant: I'm going to use the ${MX.name} tool to write the following items to the todo list:
+- Run the build
+- Fix any type errors
+
+I'm now going to run the build using ${O4}.
+
+Looks like I found 10 type errors. I'm going to use the ${MX.name} tool to write 10 items to the todo list.
+
+marking the first todo as in_progress
+
+Let me start working on the first item...
+
+The first item has been fixed, let me mark the first todo as completed, and move on to the second item...
+..
+..
+</example>

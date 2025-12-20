@@ -1,0 +1,1 @@
+Example: "Run build and fix errors" → Create todos for build + each error, mark in_progress before starting each, completed immediately when done.

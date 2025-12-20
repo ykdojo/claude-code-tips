@@ -1,0 +1,3 @@
+Signal plan mode completion after writing plan to the designated file. Only for code implementation planning, not research.
+
+Use ${PI} to clarify ambiguous requirements before exiting. Plan file content is read automatically.

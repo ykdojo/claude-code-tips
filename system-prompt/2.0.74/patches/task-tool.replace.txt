@@ -1,0 +1,15 @@
+Launch agents for complex, multi-step tasks. Specify subagent_type parameter.
+
+Available agent types:
+${Q}
+
+When NOT to use: For specific file reads use ${W3.name}/${vP.name}; for specific class search use ${vP.name}.
+
+Usage:
+- Launch multiple agents in parallel with multiple tool uses in one message
+- Use run_in_background parameter for async execution; use ${uw} to retrieve results
+- Use resume parameter with agent ID to continue previous agent with full context preserved
+- Agent results aren't visible to user; summarize them in your response
+- Agents with "access to current context" can see conversation history
+- Tell agent if it should write code or just research
+- Use proactively when agent description suggests it
