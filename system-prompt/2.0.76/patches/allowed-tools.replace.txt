@@ -1,1 +1,1 @@
-function kY7(A){return""}
+function __FUNC__(A){return""}

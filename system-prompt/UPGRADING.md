@@ -163,14 +163,18 @@ done
 
 ## How regex matching works
 
-`patch-cli.js` auto-detects `${...}` variable patterns and converts them to regex capture groups. This means:
+`patch-cli.js` auto-detects placeholder patterns and converts them to regex capture groups:
 
-| Patch Type | Example | Matching |
-|------------|---------|----------|
-| **LIT** (no vars) | `"Use this tool when..."` | Simple string match |
-| **VAR** (has `${...}`) | `"Use ${T3} to read..."` | Regex with capture groups |
+| Placeholder | Matches | Use Case |
+|-------------|---------|----------|
+| `${varName}` | Template literal vars like `${n3}` | Tool references in prompts |
+| `__NAME__` | Plain identifiers like `kY7` | Function names in code |
 
-For VAR patches, the regex captures whatever variable name exists in the bundle and reuses it in the replacement. So `${T3}` in your patch file will match `${XYZ}` in the actual bundle if the surrounding text matches.
+**Examples:**
+- `"Use ${T3} to read..."` matches even if `${T3}` became `${XYZ}` in the new version
+- `function __FUNC__(A){...}` matches any function name like `kY7`, `aBC`, etc.
+
+For VAR patches, the regex captures whatever exists in the bundle and reuses it in the replacement.
 
 **When patches fail**, it's because the text content changed, not the variable names. Use the binary search technique below to find where text diverges.
 
@@ -270,9 +274,9 @@ This appears as a harmless orphan section header but keeps the API happy.
 
 **Why remove code-references?** The original reminds Claude to cite code with `file_path:line_number` format. Removing it saves ~360 chars. Claude can still do this naturally without the instruction - the patch just removes the explicit reminder.
 
-## Function-based patches (manual update needed)
+## Function-based patches
 
-Some patches replace entire functions (like `allowed-tools`). These are **not** covered by regex matching because the function name itself can change completely (e.g., `OS3` -> `vk3`).
+Some patches replace entire functions (like `allowed-tools`). Use `__NAME__` placeholders for function and helper names:
 
 **Step 1: Find the function by its unique string content:**
 ```bash

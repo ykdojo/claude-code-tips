@@ -90,48 +90,63 @@ function loadPatch(name) {
 // Convert find/replace patterns to regex-based matching for variable references
 // This allows patches to work across versions where variable names change
 function createRegexPatch(find, replace) {
-  // Pattern to match ${varName}, ${varName()}, ${obj.prop} style references
+  // Two types of placeholders:
+  // 1. ${varName} - matches template literal vars like ${n3}, ${T3}
+  // 2. __NAME__ - matches plain identifiers like kY7, aDA (for function names)
   const varRegex = /\$\{[a-zA-Z0-9_.]+(?:\(\))?\}/g;
+  const identRegex = /__[A-Z0-9_]+__/g;
 
-  // Extract unique variable references from find pattern (in order)
-  const findVars = [];
+  // Extract unique placeholders from find pattern (in order)
+  const placeholders = [];
+  const seenPlaceholders = new Set();
+
+  // Find all ${...} patterns
   let match;
-  const seenVars = new Set();
   while ((match = varRegex.exec(find)) !== null) {
-    if (!seenVars.has(match[0])) {
-      seenVars.add(match[0]);
-      findVars.push(match[0]);
+    if (!seenPlaceholders.has(match[0])) {
+      seenPlaceholders.add(match[0]);
+      placeholders.push({ text: match[0], type: 'var' });
     }
   }
 
-  // If no variables, return null (use simple string match)
-  if (findVars.length === 0) {
+  // Find all __NAME__ patterns
+  while ((match = identRegex.exec(find)) !== null) {
+    if (!seenPlaceholders.has(match[0])) {
+      seenPlaceholders.add(match[0]);
+      placeholders.push({ text: match[0], type: 'ident' });
+    }
+  }
+
+  // If no placeholders, return null (use simple string match)
+  if (placeholders.length === 0) {
     return null;
   }
 
-  // Build regex pattern: escape everything except variable refs, which become capture groups
+  // Build regex pattern: escape everything except placeholders, which become capture groups
   let regexStr = find;
   // First escape all regex special chars
   regexStr = regexStr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  // Then replace each unique variable with a capture group
-  // The capture group matches any ${...} pattern (including dots and parens)
-  const varCapture = '(\\$\\{[a-zA-Z0-9_.]+(?:\\(\\))?\\})';
-  for (const v of findVars) {
-    const escaped = v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    regexStr = regexStr.split(escaped).join(varCapture);
+
+  // Then replace each unique placeholder with appropriate capture group
+  for (const p of placeholders) {
+    const escaped = p.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // ${...} matches template literals, __NAME__ matches identifiers
+    const capture = p.type === 'var'
+      ? '(\\$\\{[a-zA-Z0-9_.]+(?:\\(\\))?\\})'
+      : '([a-zA-Z0-9_]+)';
+    regexStr = regexStr.split(escaped).join(capture);
   }
 
   // Build replacement string with backreferences
   let replaceStr = replace;
-  for (let i = 0; i < findVars.length; i++) {
-    // Replace the variable placeholder with $N backreference
-    replaceStr = replaceStr.split(findVars[i]).join(`$${i + 1}`);
+  for (let i = 0; i < placeholders.length; i++) {
+    replaceStr = replaceStr.split(placeholders[i].text).join(`$${i + 1}`);
   }
 
   return {
     regex: new RegExp(regexStr),
     replace: replaceStr,
-    varCount: findVars.length
+    varCount: placeholders.length
   };
 }
 
