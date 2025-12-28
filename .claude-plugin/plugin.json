@@ -1,0 +1,12 @@
+{
+  "name": "dx",
+  "description": "Developer experience essentials: GitHub Actions debugging, conversation cloning, context handoffs, and Reddit research via Gemini CLI",
+  "version": "1.0.0",
+  "author": {
+    "name": "YK",
+    "email": "yoyoyosss@wearehackerone.com"
+  },
+  "repository": "https://github.com/ykdojo/claude-code-tips",
+  "license": "MIT",
+  "keywords": ["developer", "github-actions", "productivity", "workflow", "devtools"]
+}

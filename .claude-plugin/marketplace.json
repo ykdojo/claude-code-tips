@@ -1,0 +1,15 @@
+{
+  "name": "ykdojo",
+  "owner": {
+    "name": "YK",
+    "email": "yoyoyosss@wearehackerone.com"
+  },
+  "plugins": [
+    {
+      "name": "dx",
+      "source": ".",
+      "description": "Developer experience essentials: GitHub Actions debugging, conversation cloning, context handoffs, and Reddit research",
+      "version": "1.0.0"
+    }
+  ]
+}
