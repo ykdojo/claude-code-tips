@@ -16,13 +16,13 @@
 | hesreallyhim/awesome-claude-code | 18k | Issue #424 | Open | https://github.com/hesreallyhim/awesome-claude-code/issues/424 |
 | travisvn/awesome-claude-skills | 3.7k | PR #32 | Open | https://github.com/travisvn/awesome-claude-skills/pull/32 |
 | jqueryscript/awesome-claude-code | 85 | PR #9 | Open | https://github.com/jqueryscript/awesome-claude-code/pull/9 |
+| BoringDystopiaDevelopment/awesome-claude | 604 | PR #14 | Open | https://github.com/BoringDystopiaDevelopment/awesome-claude/pull/14 |
 
 ## To Submit
 
 | Repo | Stars | What to Submit | Notes |
 |------|-------|----------------|-------|
 | ComposioHQ/awesome-claude-skills | 12k | reddit-fetch skill | Another skills list |
-| BoringDystopiaDevelopment/awesome-claude | 604 | claude-code-tips | General Claude list |
 
 ## Not Submitting
 
