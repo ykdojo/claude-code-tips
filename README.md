@@ -95,7 +95,7 @@ Type `/usage` to see detailed information about your rate limits:
  Extra usage not enabled • /extra-usage to enable
 ```
 
-This shows your session usage (resets daily), weekly limits across all models, Sonnet-specific usage, and whether extra usage is enabled.
+This shows your session usage, weekly limits across all models, Sonnet-specific usage, and whether extra usage is enabled.
 
 ## Tip 2: Talk to Claude Code with your voice
 
