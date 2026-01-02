@@ -9,7 +9,7 @@
       "name": "dx",
       "source": "./",
       "description": "Developer experience essentials: GitHub Actions debugging, conversation cloning, context handoffs, and Reddit research",
-      "version": "0.1.0"
+      "version": "0.2.1"
     }
   ]
 }

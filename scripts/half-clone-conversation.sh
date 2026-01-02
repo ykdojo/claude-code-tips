@@ -152,6 +152,19 @@ nullify_parent_uuid() {
     echo "$line" | sed 's/"parentUuid":"[a-f0-9-]*"/"parentUuid":null/g'
 }
 
+# Halve token counts in usage data (for accurate context bar display)
+halve_usage_tokens() {
+    local line="$1"
+    for field in input_tokens cache_read_input_tokens cache_creation_input_tokens; do
+        local value=$(echo "$line" | grep -oE "\"${field}\":[0-9]+" | grep -oE '[0-9]+')
+        if [[ -n "$value" ]]; then
+            local halved=$((value / 2))
+            line=$(echo "$line" | sed "s/\"${field}\":${value}/\"${field}\":${halved}/")
+        fi
+    done
+    echo "$line"
+}
+
 # Process a single JSONL line
 process_line() {
     local line="$1"
@@ -211,6 +224,9 @@ process_line() {
             fi
         fi
     fi
+
+    # Halve token counts in usage data
+    result=$(halve_usage_tokens "$result")
 
     echo "$result"
 }
