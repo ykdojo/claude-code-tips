@@ -2,11 +2,9 @@
 
 ### Motivation
 
-When you run `/context` in Claude Code, you can see that roughly 10% of your token budget is already consumed before you even start a conversation. That's a lot. I wanted to cut that in half—down to around 5%.
+I've been obsessively using Claude Code ever since it launched about 11 months ago, and I've gotten pretty good at using it effectively over that time. One principle I always stick to: minimize the context. This helps you not only save costs, but also maximize performance.
 
-The benefit of using Claude Code is that the model already knows how to use it. The downside? Cost efficiency and performance take a hit from all that overhead in the system prompt.
-
-So I asked myself: can I get the benefits of the pro without the con?
+However, when you run `/context` in Claude Code, you will typically see about 10% of your token budget already consumed before you even send a single prompt. That's a lot. I wanted to cut this in half, down to around 5%.
 
 ### Why npm over native binary
 
