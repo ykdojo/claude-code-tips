@@ -1,6 +1,4 @@
-# Automatically Patching Claude Code to Maximize Token Efficiency
-
-## A Lesson in Automation
+# Automatically patching Claude Code to maximize token efficiency - a lesson in automation
 
 ### Motivation
 
@@ -10,7 +8,7 @@ The benefit of using Claude Code is that the model already knows how to use it. 
 
 So I asked myself: can I get the benefits of the pro without the con?
 
-### Why npm Over Native Binary
+### Why npm over native binary
 
 Claude Code offers two installation methods: a native binary (built with Bun) or npm. The native binary is Anthropic's recommended approach—it doesn't require Node.js and tends to be more stable.
 
@@ -18,7 +16,7 @@ But here's the thing: the native binary isn't easy to edit. It's a bundled execu
 
 That's why I went with npm—so I could modify the `cli.js` file and trim down the system prompt.
 
-### The 4-Step Process
+### The 4-step process
 
 **1. Self-report**
 
@@ -36,7 +34,7 @@ I created a `patch-cli.js` script that reads patch files (find/replace pairs) an
 
 Run `/context` to verify the token reduction. Test basic functionality. Make sure nothing broke.
 
-### The Evolution: From Manual to Automated
+### The evolution: from manual to automated
 
 At first, I was patching manually for each new version. That got repetitive fast. Claude Code was releasing updates almost daily, and every version brought changes:
 
@@ -55,7 +53,7 @@ So I documented the entire process in `UPGRADING.md`. This file contains:
 
 The key insight: the document even has a self-improvement clause. As Claude Code works through upgrades, it can update UPGRADING.md itself with new learnings.
 
-### The Pattern
+### The pattern
 
 What I realized is that this is a powerful pattern: combining deterministic automation with non-deterministic automation (like Claude Code or Codex). Use them in different situations, but in combination.
 
@@ -65,7 +63,7 @@ What I realized is that this is a powerful pattern: combining deterministic auto
 
 The AI handles the parts that require judgment (finding where text diverged, deciding how to update patches). The scripts handle the deterministic parts (applying patches, validating hashes, running tests).
 
-### Example: CI Job Analysis
+### Example: CI job analysis
 
 I have a `/gha` command that analyzes GitHub Actions failures. When a CI job fails, I give it the URL and it:
 
@@ -77,7 +75,7 @@ I have a `/gha` command that analyzes GitHub Actions failures. When a CI job fai
 
 The command is just instructions in a markdown file. Claude Code does the actual investigation. But having the structured process means it doesn't miss steps or go off on tangents.
 
-### Example: Local Kubernetes Development
+### Example: local Kubernetes development
 
 I had a similar journey with local Kubernetes development using Tilt. It started as a mess of confusing setup steps in the README.
 
@@ -90,7 +88,7 @@ The progression:
 
 Each iteration reduced the friction and the places where things could go wrong.
 
-### The Automation Meta-Lesson
+### The automation meta-lesson
 
 Ask yourself:
 
