@@ -32,7 +32,7 @@ Here are my tips for getting the most out of Claude Code, including a custom sta
 - [Tip 20: Use Notion to preserve links when pasting](#tip-20-use-notion-to-preserve-links-when-pasting)
 - [Tip 21: Containers for long-running risky tasks](#tip-21-containers-for-long-running-risky-tasks)
 - [Tip 22: The best way to get better at using Claude Code is by using it](#tip-22-the-best-way-to-get-better-at-using-claude-code-is-by-using-it)
-- [Tip 23: Clone and half-clone conversations](#tip-23-clone-and-half-clone-conversations)
+- [Tip 23: Clone/fork and half-clone conversations](#tip-23-clonefork-and-half-clone-conversations)
 - [Tip 24: Use realpath to get absolute paths](#tip-24-use-realpath-to-get-absolute-paths)
 - [Tip 25: Understanding CLAUDE.md vs Skills vs Slash Commands vs Plugins](#tip-25-understanding-claudemd-vs-skills-vs-slash-commands-vs-plugins)
 - [Tip 26: Interactive PR reviews](#tip-26-interactive-pr-reviews)
@@ -563,9 +563,15 @@ That's how I feel about this too. Of course, there are supplementary things you 
 
 I like to think of it like a billion token rule instead of the 10,000 hour rule. If you want to get better at AI and truly get a good intuition about how it works, the best way is to consume a lot of tokens. And nowadays it's possible. I found that especially with Opus 4.5, it's powerful enough but affordable enough that you can run multiple sessions at the same time. You don't have to worry as much about token usage, which frees you up a lot.
 
-## Tip 23: Clone and half-clone conversations
+## Tip 23: Clone/fork and half-clone conversations
 
 Sometimes you want to try a different approach from a specific point in a conversation without losing your original thread. The [clone-conversation script](scripts/clone-conversation.sh) lets you duplicate a conversation with new UUIDs so you can branch off.
+
+**Built-in alternatives (recent versions):** Claude Code now has native forking:
+- `/fork` - forks the current session from within a conversation
+- `--fork-session` - use with `--resume` or `--continue` (e.g., `claude -c --fork-session`)
+
+The script below predates these built-in options.
 
 The first message is tagged with `[CLONED <timestamp>]` (e.g., `[CLONED Jan 7 14:30]`), which shows up both in the `claude -r` list and inside the conversation.
 
