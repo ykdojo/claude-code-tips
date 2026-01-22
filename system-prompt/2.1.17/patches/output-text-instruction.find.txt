@@ -1,0 +1,1 @@
+Output text to communicate with the user; all text you output outside of tool use is displayed to the user. Only use tools to complete tasks. Never use tools like ${O4} or code comments as means to communicate with the user during the session.

@@ -1,0 +1,54 @@
+**MANDATORY PREREQUISITE - THIS IS A HARD REQUIREMENT**
+
+You MUST use this tool to load deferred tools BEFORE calling them directly.
+
+This is a BLOCKING REQUIREMENT - deferred tools listed below are NOT available until you load them using this tool.
+
+**Why this is non-negotiable:**
+- Deferred tools are not loaded until discovered via this tool
+- Calling a deferred tool without first loading it will fail
+
+**Query modes:**
+
+1. **Direct selection** - Use \`select:<tool_name>\` when you know exactly which tool you need:
+   - "select:mcp__slack__read_channel"
+   - "select:NotebookEdit"
+   - Returns just that tool if it exists
+
+2. **Keyword search** - Use keywords when you're unsure which tool to use:
+   - "list directory" - find tools for listing directories
+   - "notebook jupyter" - find notebook editing tools
+   - "slack message" - find slack messaging tools
+   - Returns up to 5 matching tools ranked by relevance
+
+**CORRECT Usage Patterns:**
+
+<example>
+User: List files in the src directory
+Assistant: I can see mcp__filesystem__list_directory in the available tools. Let me select it.
+[Calls ToolSearch with query: "select:mcp__filesystem__list_directory"]
+[Calls the tool]
+</example>
+
+<example>
+User: Edit the Jupyter notebook
+Assistant: Let me load the notebook editing tool.
+[Calls ToolSearch with query: "select:NotebookEdit"]
+[Calls NotebookEdit]
+</example>
+
+<example>
+User: I need to work with slack somehow
+Assistant: Let me search for slack tools.
+[Calls ToolSearch with query: "slack"]
+Assistant: Found several options including mcp__slack__read_channel.
+[Calls the tool]
+</example>
+
+**INCORRECT Usage Pattern - NEVER DO THIS:**
+
+<bad-example>
+User: Read my slack messages
+Assistant: [Directly calls mcp__slack__read_channel without loading it first]
+WRONG - You must load the tool FIRST using this tool
+</bad-example>

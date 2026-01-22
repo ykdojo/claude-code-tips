@@ -1,0 +1,1 @@
+Exact string replacement. Read file with ${T3} first (required). Preserve exact indentation from output (ignore line number prefix). Fails if old_string not unique - add context or use replace_all. Prefer editing over creating new files.

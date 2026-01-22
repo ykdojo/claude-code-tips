@@ -1,0 +1,1 @@
+For broad codebase exploration (not specific file/class lookups), use ${n3} with subagent_type=${LL.agentType}.

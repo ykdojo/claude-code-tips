@@ -1,0 +1,15 @@
+Executes bash commands in a persistent shell session. For terminal operations (git, npm, docker), NOT file operations - use specialized tools instead.
+
+Usage:
+- Quote file paths with spaces: cd "/path/with spaces/file.txt"
+- Optional timeout up to ${__VAR1__()}ms. Default: ${__VAR2__()}ms.
+- Output over ${__VAR3__()} chars is truncated
+- Use \`run_in_background\` for long-running commands
+${__VAR4__()}
+- Avoid find/grep/cat/head/tail/sed/awk/echo - use dedicated tools:
+  Glob (NOT find/ls), Grep (NOT grep/rg), Read (NOT cat/head/tail), Edit (NOT sed/awk), Write (NOT echo/cat <<EOF)
+- NEVER use cat or heredoc to write files - use the Write tool instead
+- Multiple commands: make separate Bash calls if independent, '&&' only for dependent commands
+- Use absolute paths, avoid \`cd\`
+- \`cd\` to child directories persists; \`cd\` outside project resets to project root
+

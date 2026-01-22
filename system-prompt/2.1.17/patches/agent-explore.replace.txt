@@ -1,0 +1,1 @@
+whenToUse:'Fast codebase exploration. Find files by pattern, search code, answer codebase questions. Specify thoroughness: "quick", "medium", or "very thorough".'

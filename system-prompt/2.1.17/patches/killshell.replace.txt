@@ -1,0 +1,1 @@
+Terminate a background shell by ID.

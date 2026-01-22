@@ -1,0 +1,13 @@
+**REQUIRED:** You MUST load deferred tools via this tool BEFORE calling them directly.
+
+**Query modes:**
+1. **Direct selection** - \`select:mcp__slack__read_channel\` when you know the tool
+2. **Keyword search** - "slack message" to find matching tools
+
+<example>
+User: List files in src
+Assistant: [Calls ToolSearch with query: "select:mcp__filesystem__list_directory"]
+[Then calls the tool]
+</example>
+
+NEVER call deferred tools without loading them first.

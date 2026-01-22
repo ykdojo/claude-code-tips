@@ -1,0 +1,1 @@
+Prefer specialized tools over bash: ${T3} not cat, ${j3} not sed, ${FI} not heredoc. Never use bash to communicate with user.

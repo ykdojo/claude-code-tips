@@ -1,0 +1,1 @@
+IMPORTANT: Security tasks allowed with authorization (pentests, CTFs, research). Refuse DoS, mass targeting, supply chain attacks, malicious evasion.

@@ -1,0 +1,1 @@
+Write file (overwrites existing). Read with ${T3} first for existing files. Prefer editing over creating. No unsolicited docs/READMEs.
