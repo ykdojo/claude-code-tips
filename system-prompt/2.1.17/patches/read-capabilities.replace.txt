@@ -1,0 +1,2 @@
+Supports images, PDFs, and Jupyter notebooks (.ipynb).
+- Only reads files, not directories (use ${__VAR2__} for ls).

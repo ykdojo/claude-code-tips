@@ -201,6 +201,7 @@ const patches = [
   { name: 'Slim doing tasks intro (~230 → 30 chars)', file: 'doing-tasks-intro' },
   { name: 'Slim CLI format instruction (~230 → 35 chars)', file: 'cli-format-instruction' },
   { name: 'Slim Read tool intro (292 → 110 chars)', file: 'read-tool' },
+  { name: 'Slim Read capabilities (400 → 80 chars)', file: 'read-capabilities' },
   { name: 'Slim system-reminder instruction (~280 → 90 chars)', file: 'system-reminder-instruction' },
   { name: 'Slim output text instruction (~230 → 60 chars)', file: 'output-text-instruction' },
   { name: 'Slim general-purpose agent (~280 → 100 chars)', file: 'agent-general-purpose' },
