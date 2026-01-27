@@ -5,7 +5,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-BINARY_PATH="${1:-$HOME/.local/share/claude/versions/2.1.17}"
+BINARY_PATH="${1:-$HOME/.local/share/claude/versions/2.1.20}"
 BACKUP_PATH="${BINARY_PATH}.backup"
 TMP_CLI="/tmp/native-cli-$$.js"
 

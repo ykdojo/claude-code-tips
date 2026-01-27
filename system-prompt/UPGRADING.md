@@ -147,6 +147,12 @@ sed -i '' \
   -e 's/EXPECTED_HASH="[^"]*"/EXPECTED_HASH="NEW_HASH_HERE"/' \
   system-prompt/2.X.NEW/backup-cli.sh
 
+# Copy native patching scripts and update default version in patch-native.sh
+cp system-prompt/2.X.OLD/patch-native.sh system-prompt/2.X.NEW/
+cp system-prompt/2.X.OLD/native-extract.js system-prompt/2.X.NEW/
+cp system-prompt/2.X.OLD/native-repack.js system-prompt/2.X.NEW/
+sed -i '' 's/versions\/2.X.OLD/versions\/2.X.NEW/' system-prompt/2.X.NEW/patch-native.sh
+
 # Optional: Clean up unused patch files (patches not listed in patch-cli.js)
 # Find patches used in patch-cli.js
 grep "file: '" system-prompt/2.X.NEW/patch-cli.js | sed "s/.*file: '\([^']*\)'.*/\1/" | sort > /tmp/used.txt
