@@ -29,8 +29,6 @@ Run `npx cc-safe <directory>` to scan Claude Code settings for security issues.
 | Container | Purpose |
 |-----------|---------|
 | `peaceful_lovelace` | Main container for risky operations (has `gh` CLI installed) |
-| `eager_moser` | Secondary/backup |
-| `delfina` | Daft CI/GitHub Actions flaky test debugging |
 
 For read-only `gh` API calls on public repos, use the container: `docker exec peaceful_lovelace gh api <endpoint>`
 
