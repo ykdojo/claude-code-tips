@@ -41,7 +41,7 @@ If the page is JavaScript-heavy (curl returns minimal or empty content), use Pla
 
 ## Tmux
 
-For interactive Gemini or Claude Code sessions:
+For interactive Claude Code sessions:
 
 ```bash
 tmux new-session -d -s <name> '<command>'
