@@ -32,7 +32,7 @@ Run `npx cc-safe <directory>` to scan Claude Code settings for security issues.
 |-----------|---------|
 | `peaceful_lovelace` | Main container for risky operations (has `gh` CLI installed) |
 
-For read-only `gh` API calls on public repos, use the container: `docker exec peaceful_lovelace gh api <endpoint>`
+For read-only `gh` API calls on public repos, use the container: `docker exec peaceful_lovelace gh api <endpoint>`. If container `gh` lacks permissions, fall back to host `gh`.
 
 ## URL Fetching
 
