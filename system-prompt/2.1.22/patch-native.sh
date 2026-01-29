@@ -19,8 +19,31 @@ if [ ! -f "$BINARY_PATH" ]; then
   exit 1
 fi
 
+# Get expected hashes from patch-cli.js
+EXPECTED_HASHES=$(grep -E "^\s+'native-|^\s+npm:" "$SCRIPT_DIR/patch-cli.js" | sed "s/.*'\([a-f0-9]\{64\}\)'.*/\1/" | tr '\n' ' ')
+
 # Create backup if needed
 if [ ! -f "$BACKUP_PATH" ]; then
+  echo "Validating binary before creating backup..."
+
+  # Extract cli.js to check hash
+  TMP_CHECK="/tmp/native-cli-check-$$.js"
+  node "$SCRIPT_DIR/native-extract.js" "$BINARY_PATH" "$TMP_CHECK" 2>/dev/null
+  ACTUAL_HASH=$(shasum -a 256 "$TMP_CHECK" | cut -d' ' -f1)
+  rm -f "$TMP_CHECK"
+
+  # Validate hash
+  if ! echo "$EXPECTED_HASHES" | grep -q "$ACTUAL_HASH"; then
+    echo "Error: Binary hash doesn't match any expected hash"
+    echo "Got:      $ACTUAL_HASH"
+    echo "Expected: $EXPECTED_HASHES"
+    echo ""
+    echo "The binary may already be patched or is an unknown version."
+    echo "To force, manually create the backup: cp \"$BINARY_PATH\" \"$BACKUP_PATH\""
+    exit 1
+  fi
+
+  echo "Hash validated: $ACTUAL_HASH"
   echo "Creating backup: $BACKUP_PATH"
   cp "$BINARY_PATH" "$BACKUP_PATH"
 else
