@@ -122,31 +122,51 @@
     }
 
     .terminal-frame {
-      width: 100%;
-      height: 80vh;
+      width: calc(100% + 20px);
+      height: 100%;
       border: none;
       border-radius: 8px;
     }
 
+    .pr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
     .pr-screenshot {
-      height: 80vh;
-      width: auto;
+      max-height: 80vh;
+      max-width: 100%;
       object-fit: contain;
       border-radius: 8px;
+    }
+
+    .pr-link {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #888;
     }
 
     .side-by-side {
       display: flex;
       gap: 20px;
       width: 95%;
-      height: 80vh;
+      height: 85vh;
       align-items: center;
     }
 
     .terminal-container {
-      flex: 1;
-      height: 100%;
+      flex: 1.3;
+      height: 80vh;
       position: relative;
+      overflow: hidden;
+    }
+
+    .terminal-container.terminal-full {
+      flex: none;
+      width: 95%;
+      height: 85vh;
     }
 
     .terminal-fallback {
@@ -351,7 +371,8 @@
   </div>
 
   <!-- Slide 16: Terminal demo
-       To run: cd ~/Desktop/projects/librarian2 && ttyd -W zsh
+       To run: cd ~/Desktop/projects/librarian2 && ttyd -W tmux new -A -s demo \; set status off
+       (-W for writable, tmux for shared session across refreshes, status off hides the green bar)
   -->
   <div class="slide">
     <div class="side-by-side">
@@ -359,10 +380,13 @@
         <iframe src="http://localhost:7681" class="terminal-frame" id="terminal-iframe"></iframe>
         <div class="terminal-fallback" id="terminal-fallback">
           <p>Live terminal demo</p>
-          <p class="fallback-hint">To run locally: cd ~/Desktop/projects/librarian2 && ttyd -W zsh</p>
+          <p class="fallback-hint">To run locally: cd ~/Desktop/projects/librarian2 && ttyd -W tmux new -A -s demo \; set status off</p>
         </div>
       </div>
-      <img src="librarian2-pr-screenshot.png" alt="PR #2" class="pr-screenshot">
+      <div class="pr-container">
+        <img src="librarian2-pr-screenshot.png" alt="PR #2" class="pr-screenshot">
+        <span class="pr-link">github.com/Eventual-Inc/librarian2/pull/2</span>
+      </div>
     </div>
   </div>
 
@@ -451,7 +475,20 @@
     <h1>more tokens != s**t</h1>
   </div>
 
-  <!-- Slide 25: QR codes -->
+  <!-- Slide 25: Full terminal demo
+       Same ttyd command as slide 16
+  -->
+  <div class="slide">
+    <div class="terminal-container terminal-full">
+      <iframe src="http://localhost:7681" class="terminal-frame"></iframe>
+      <div class="terminal-fallback">
+        <p>Live terminal demo</p>
+        <p class="fallback-hint">To run locally: cd ~/Desktop/projects/librarian2 && ttyd -W tmux new -A -s demo \; set status off</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 26: QR codes -->
   <div class="slide">
     <div class="qr-container">
       <div class="qr-item">
@@ -581,11 +618,11 @@
     fetch('http://localhost:7681', { mode: 'no-cors' })
       .then(() => {
         // ttyd is running
-        document.querySelector('.terminal-container')?.classList.remove('offline');
+        document.querySelectorAll('.terminal-container').forEach(el => el.classList.remove('offline'));
       })
       .catch(() => {
         // ttyd is not running
-        document.querySelector('.terminal-container')?.classList.add('offline');
+        document.querySelectorAll('.terminal-container').forEach(el => el.classList.add('offline'));
       });
   </script>
 </body>
