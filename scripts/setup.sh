@@ -23,7 +23,18 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 GRAY='\033[0;90m'
+RED='\033[0;31m'
 NC='\033[0m' # No Color
+
+# Check for required dependencies
+if ! command -v jq &> /dev/null; then
+    echo -e "${RED}Error: jq is required but not installed.${NC}"
+    echo "Install it with:"
+    echo "  macOS:  brew install jq"
+    echo "  Ubuntu: sudo apt install jq"
+    echo "  Fedora: sudo dnf install jq"
+    exit 1
+fi
 
 echo -e "${BLUE}Claude Code Tips - Setup Script${NC}"
 echo "================================"
