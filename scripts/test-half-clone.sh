@@ -613,7 +613,7 @@ test_tag_on_genuine_not_meta() {
     session_id=$(uuidgen | tr '[:upper:]' '[:lower:]')
     local conv_file="${TEST_PROJECTS_DIR}/${TEST_PROJECT_DIRNAME}/${session_id}.jsonl"
 
-    local uuid1 uuid2 uuid3 uuid4 uuid5 uuid6 uuid7
+    local uuid1 uuid2 uuid3 uuid4 uuid5 uuid6 uuid7 uuid8
     uuid1=$(uuidgen | tr '[:upper:]' '[:lower:]')
     uuid2=$(uuidgen | tr '[:upper:]' '[:lower:]')
     uuid3=$(uuidgen | tr '[:upper:]' '[:lower:]')
@@ -621,18 +621,23 @@ test_tag_on_genuine_not_meta() {
     uuid5=$(uuidgen | tr '[:upper:]' '[:lower:]')
     uuid6=$(uuidgen | tr '[:upper:]' '[:lower:]')
     uuid7=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid8=$(uuidgen | tr '[:upper:]' '[:lower:]')
 
-    # Q1, A1, isMeta (skill), Q2 GENUINE, A2, Q3, A3
-    # isMeta comes right before the genuine Q2 in the second half
-    # The [HALF-CLONE] tag must land on Q2, not on isMeta
+    # Q1, A1, Q2, A2, isMeta (skill), Q3 CORRECT TAG, A3, Q4
+    # Unpatched: 4 clean (Q1, Q2, isMeta, Q3, Q4=5... no)
+    # Unpatched counts: Q1, Q2, isMeta, Q3, Q4 = 5, skip 2, 3rd = isMeta
+    # -> clone starts at isMeta line, tag goes on isMeta (BUG)
+    # Patched: Q1, Q2, Q3, Q4 = 4, skip 2, 3rd = Q3
+    # -> clone starts at Q3, tag goes on Q3 (CORRECT)
     {
         generate_message "$uuid1" "null" "$session_id" "user" "Question 1"
         generate_message "$uuid2" "$uuid1" "$session_id" "assistant" "Answer 1"
-        generate_meta_message "$uuid3" "$uuid2" "$session_id" "Skill expansion between halves"
-        generate_message "$uuid4" "$uuid3" "$session_id" "user" "Question 2 SHOULD HAVE TAG"
-        generate_message "$uuid5" "$uuid4" "$session_id" "assistant" "Answer 2"
-        generate_message "$uuid6" "$uuid5" "$session_id" "user" "Question 3"
+        generate_message "$uuid3" "$uuid2" "$session_id" "user" "Question 2"
+        generate_message "$uuid4" "$uuid3" "$session_id" "assistant" "Answer 2"
+        generate_meta_message "$uuid5" "$uuid4" "$session_id" "Skill expansion SHOULD NOT HAVE TAG"
+        generate_message "$uuid6" "$uuid5" "$session_id" "user" "Question 3 CORRECT TAG"
         generate_message "$uuid7" "$uuid6" "$session_id" "assistant" "Answer 3"
+        generate_message "$uuid8" "$uuid7" "$session_id" "user" "Question 4"
     } > "$conv_file"
 
     local output
@@ -642,18 +647,18 @@ test_tag_on_genuine_not_meta() {
     new_session=$(get_new_session_from_output "$output")
     local new_file="${TEST_PROJECTS_DIR}/${TEST_PROJECT_DIRNAME}/${new_session}.jsonl"
 
-    # Check the HALF-CLONE tag is on the right message
-    local tagged_line
-    tagged_line=$(grep 'HALF-CLONE' "$new_file" | grep -v "Continued from session" | head -1)
+    # Check the first genuine user content (skip synthetic marker)
+    local first_user_content
+    first_user_content=$(grep '"type":"user"' "$new_file" | grep -v "Continued from session" | head -1)
 
-    if echo "$tagged_line" | grep -q "SHOULD HAVE TAG"; then
-        log_pass "[HALF-CLONE] tag correctly placed on genuine user message"
-    elif echo "$tagged_line" | grep -q "Skill expansion"; then
-        log_fail "[HALF-CLONE] tag placed on isMeta skill expansion (bug)"
-    elif echo "$tagged_line" | grep -q '"isMeta":true'; then
-        log_fail "[HALF-CLONE] tag placed on isMeta message (bug)"
+    if echo "$first_user_content" | grep -q "CORRECT TAG"; then
+        log_pass "[HALF-CLONE] tag correctly placed on genuine Q3"
+    elif echo "$first_user_content" | grep -q "SHOULD NOT HAVE TAG"; then
+        log_fail "Clone starts at isMeta - tag on phantom message (bug)"
+    elif echo "$first_user_content" | grep -q "Question 2"; then
+        log_fail "Clone starts at Q2 - wrong split point"
     else
-        log_fail "Tag on unexpected message: $(echo "$tagged_line" | head -c 200)"
+        log_fail "Unexpected first user: $(echo "$first_user_content" | head -c 200)"
     fi
 }
 
