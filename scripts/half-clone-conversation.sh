@@ -233,7 +233,7 @@ half_clone_conversation() {
     local last_clean_user_line=0
 
     # Get all user message lines with line numbers (much faster than per-line grep)
-    # Filter to clean user messages (not tool_result, not isMeta)
+    # Filter to clean user messages (not tool_result, not isMeta, not interrupted)
     local clean_user_lines
     clean_user_lines=$(grep -nE '"type":"(user|queue-operation)"' "$source_file" | grep -v '"type":"tool_result"' | grep -v '"isMeta":true' | grep -v 'Request interrupted by user' || true)
 
