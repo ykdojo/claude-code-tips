@@ -397,6 +397,266 @@ test_thinking_blocks_stripped() {
     fi
 }
 
+# Helper: generate an isMeta user message (skill expansion)
+generate_meta_message() {
+    local uuid="$1"
+    local parent_uuid="$2"
+    local session_id="$3"
+    local content="$4"
+
+    local parent_field
+    if [ "$parent_uuid" = "null" ]; then
+        parent_field='"parentUuid":null'
+    else
+        parent_field="\"parentUuid\":\"${parent_uuid}\""
+    fi
+
+    echo "{${parent_field},\"sessionId\":\"${session_id}\",\"type\":\"user\",\"isMeta\":true,\"message\":{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"${content}\"}]},\"uuid\":\"${uuid}\",\"timestamp\":\"2025-01-01T00:00:00.000Z\"}"
+}
+
+# Helper: generate a tool_result user message
+generate_tool_result_message() {
+    local uuid="$1"
+    local parent_uuid="$2"
+    local session_id="$3"
+    local tool_use_id="$4"
+
+    echo "{\"parentUuid\":\"${parent_uuid}\",\"sessionId\":\"${session_id}\",\"type\":\"user\",\"message\":{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"tool_use_id\":\"${tool_use_id}\",\"content\":\"result data\"}]},\"uuid\":\"${uuid}\",\"timestamp\":\"2025-01-01T00:00:00.000Z\"}"
+}
+
+# Test 11: isMeta messages should NOT count as clean user messages
+# if isMeta messages count toward total, the halfway point lands on the wrong message
+test_ismeta_not_counted() {
+    log_test "isMeta:true skill expansions should NOT count as clean user messages"
+
+    local session_id
+    session_id=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    local conv_file="${TEST_PROJECTS_DIR}/${TEST_PROJECT_DIRNAME}/${session_id}.jsonl"
+
+    local uuid1 uuid2 uuid3 uuid4 uuid5 uuid6 uuid7 uuid8
+    uuid1=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid2=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid3=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid4=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid5=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid6=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid7=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid8=$(uuidgen | tr '[:upper:]' '[:lower:]')
+
+    # Conversation: user, isMeta-skill, assistant, user, assistant, user, assistant, user
+    # Real user messages: uuid1 (Q1), uuid4 (Q2), uuid6 (Q3), uuid8 (Q4) = 4 genuine
+    # isMeta: uuid2 (skill expansion) = phantom, should NOT count
+    # If isMeta counted: 5 "clean" msgs, skip 2, start at msg 3 (uuid4)
+    # If isMeta filtered: 4 clean msgs, skip 2, start at msg 3 (uuid6)
+    {
+        generate_message "$uuid1" "null" "$session_id" "user" "Question 1"
+        generate_meta_message "$uuid2" "$uuid1" "$session_id" "Skill expansion text injected by CC"
+        generate_message "$uuid3" "$uuid2" "$session_id" "assistant" "Answer to question 1"
+        generate_message "$uuid4" "$uuid3" "$session_id" "user" "Question 2"
+        generate_message "$uuid5" "$uuid4" "$session_id" "assistant" "Answer to question 2"
+        generate_message "$uuid6" "$uuid5" "$session_id" "user" "Question 3 THE CORRECT START"
+        generate_message "$uuid7" "$uuid6" "$session_id" "assistant" "Answer to question 3"
+        generate_message "$uuid8" "$uuid7" "$session_id" "user" "Question 4"
+    } > "$conv_file"
+
+    local output
+    output=$(run_half_clone "$session_id")
+
+    local new_session
+    new_session=$(get_new_session_from_output "$output")
+    local new_file="${TEST_PROJECTS_DIR}/${TEST_PROJECT_DIRNAME}/${new_session}.jsonl"
+
+    # Skip the synthetic "Continued from session" marker - check the SECOND user message
+    local first_real_user
+    first_real_user=$(grep '"type":"user"' "$new_file" | grep -v "Continued from session" | head -1)
+
+    if echo "$first_real_user" | grep -q "THE CORRECT START"; then
+        log_pass "Clone starts at correct genuine user message (Q3), isMeta filtered"
+    elif echo "$first_real_user" | grep -q "Question 2"; then
+        log_fail "Clone starts at Q2 - isMeta message was counted as clean (bug)"
+    else
+        log_fail "Unexpected first user message: $(echo "$first_real_user" | head -c 150)"
+    fi
+}
+
+# Test 12: [Request interrupted by user] at the halfway point shifts the start
+# Unpatched: 5 clean (Q1, Q2, interrupted, Q3, Q4), skip 2 -> 3rd = interrupted msg
+# Patched:   4 clean (Q1, Q2, Q3, Q4), skip 2 -> 3rd = Q3
+test_interrupted_not_counted() {
+    log_test "[Request interrupted by user] should NOT count - clone must start at Q3 not interrupted"
+
+    local session_id
+    session_id=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    local conv_file="${TEST_PROJECTS_DIR}/${TEST_PROJECT_DIRNAME}/${session_id}.jsonl"
+
+    local uuid1 uuid2 uuid3 uuid4 uuid5 uuid6 uuid7 uuid8 uuid9
+    uuid1=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid2=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid3=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid4=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid5=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid6=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid7=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid8=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid9=$(uuidgen | tr '[:upper:]' '[:lower:]')
+
+    # Q1, A1, Q2, A2, [interrupted], Q3 CORRECT, A3, Q4, A4
+    # Unpatched: Q1(1), Q2(2), interrupted(3=start!), Q3, Q4 = 5 clean, skip 2
+    # Patched:   Q1(1), Q2(2), Q3(3=start!), Q4 = 4 clean, skip 2
+    {
+        generate_message "$uuid1" "null" "$session_id" "user" "Question 1"
+        generate_message "$uuid2" "$uuid1" "$session_id" "assistant" "Answer 1"
+        generate_message "$uuid3" "$uuid2" "$session_id" "user" "Question 2"
+        generate_message "$uuid4" "$uuid3" "$session_id" "assistant" "Partial answer 2"
+        echo "{\"parentUuid\":\"${uuid4}\",\"sessionId\":\"${session_id}\",\"type\":\"user\",\"message\":{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"[Request interrupted by user]\"}]},\"uuid\":\"${uuid5}\",\"timestamp\":\"2025-01-01T00:00:00.000Z\"}"
+        generate_message "$uuid6" "$uuid5" "$session_id" "user" "Question 3 CORRECT START"
+        generate_message "$uuid7" "$uuid6" "$session_id" "assistant" "Answer 3"
+        generate_message "$uuid8" "$uuid7" "$session_id" "user" "Question 4"
+        generate_message "$uuid9" "$uuid8" "$session_id" "assistant" "Answer 4"
+    } > "$conv_file"
+
+    local output
+    output=$(run_half_clone "$session_id")
+
+    local new_session
+    new_session=$(get_new_session_from_output "$output")
+    local new_file="${TEST_PROJECTS_DIR}/${TEST_PROJECT_DIRNAME}/${new_session}.jsonl"
+
+    # Skip synthetic marker, check first real user message
+    local first_real_user
+    first_real_user=$(grep '"type":"user"' "$new_file" | grep -v "Continued from session" | head -1)
+
+    if echo "$first_real_user" | grep -q "CORRECT START"; then
+        log_pass "Clone starts at Q3 (correct), interrupted not counted"
+    elif echo "$first_real_user" | grep -q "Request interrupted by user"; then
+        log_fail "Clone starts at [Request interrupted] - it was counted as clean (bug)"
+    else
+        log_fail "Unexpected first user: $(echo "$first_real_user" | head -c 150)"
+    fi
+}
+
+# Test 13: isMeta inflation causes halfway to land on a half-clone command
+# Unpatched: Q1, isMeta1, Q2, /half-clone, isMeta2, Q3 = 6 clean, skip 3 -> 4th = /half-clone
+# Patched:   Q1, Q2, /half-clone, Q3 = 4 clean, skip 2 -> 3rd = /half-clone (but stop_at_line catches last)
+# Actually need the clone cmd in the MIDDLE not at end. Let's add Q4 after.
+test_clone_cmd_not_starting_point() {
+    log_test "isMeta inflation should NOT cause clone to start at /half-clone command"
+
+    local session_id
+    session_id=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    local conv_file="${TEST_PROJECTS_DIR}/${TEST_PROJECT_DIRNAME}/${session_id}.jsonl"
+
+    local uuid1 uuid2 uuid3 uuid4 uuid5 uuid6 uuid7 uuid8 uuid9 uuid10 uuid11 uuid12
+    uuid1=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid2=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid3=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid4=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid5=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid6=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid7=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid8=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid9=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid10=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid11=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid12=$(uuidgen | tr '[:upper:]' '[:lower:]')
+
+    # Q1, A1, isMeta1, Q2, A2, /half-clone(mid), isMeta2, A3, Q3 CORRECT, A3, Q4, A4
+    # Unpatched: 6 clean (Q1, isMeta1, Q2, /half-clone, isMeta2, Q3, Q4... wait)
+    # Let me be precise. Unpatched counts: Q1, isMeta1, Q2, /half-clone, isMeta2, Q3, Q4 = 7
+    # skip 3, start at 4th = /half-clone command!
+    # Patched: Q1, Q2, /half-clone, Q3, Q4 = 5 genuine, skip 2, start at 3rd = /half-clone
+    # Hmm, still lands on /half-clone. I need the structure so patched skips past it.
+    # Better: just test that the tag goes on a genuine message, not a phantom.
+    # Or: make the isMeta messages shift past the clone command.
+    #
+    # Simplest: Q1, A1, isMeta1, isMeta2, Q2, A2, Q3 CORRECT, A3, Q4, A4
+    # Unpatched: 6 clean (Q1, isMeta1, isMeta2, Q2, Q3, Q4), skip 3, 4th = Q2
+    # Patched:   4 clean (Q1, Q2, Q3, Q4), skip 2, 3rd = Q3
+    # Q2 vs Q3 - that's a testable difference!
+    {
+        generate_message "$uuid1" "null" "$session_id" "user" "Question 1"
+        generate_message "$uuid2" "$uuid1" "$session_id" "assistant" "Answer 1"
+        generate_meta_message "$uuid3" "$uuid2" "$session_id" "Skill expansion one"
+        generate_meta_message "$uuid4" "$uuid3" "$session_id" "Skill expansion two"
+        generate_message "$uuid5" "$uuid4" "$session_id" "user" "Question 2 WRONG if isMeta counted"
+        generate_message "$uuid6" "$uuid5" "$session_id" "assistant" "Answer 2"
+        generate_message "$uuid7" "$uuid6" "$session_id" "user" "Question 3 CORRECT START"
+        generate_message "$uuid8" "$uuid7" "$session_id" "assistant" "Answer 3"
+        generate_message "$uuid9" "$uuid8" "$session_id" "user" "Question 4"
+        generate_message "$uuid10" "$uuid9" "$session_id" "assistant" "Answer 4"
+    } > "$conv_file"
+
+    local output
+    output=$(run_half_clone "$session_id")
+
+    local new_session
+    new_session=$(get_new_session_from_output "$output")
+    local new_file="${TEST_PROJECTS_DIR}/${TEST_PROJECT_DIRNAME}/${new_session}.jsonl"
+
+    local first_user_content
+    first_user_content=$(grep '"type":"user"' "$new_file" | grep -v '"isMeta"' | grep -v "Continued from session" | head -1)
+
+    if echo "$first_user_content" | grep -q "CORRECT START"; then
+        log_pass "Clone starts at Q3 (correct), isMeta not counted"
+    elif echo "$first_user_content" | grep -q "WRONG if isMeta counted"; then
+        log_fail "Clone starts at Q2 - isMeta inflated the count (bug)"
+    else
+        log_fail "Unexpected first user: $(echo "$first_user_content" | head -c 150)"
+    fi
+}
+
+# Test 14: HALF-CLONE tag should go on genuine user message, not isMeta
+test_tag_on_genuine_not_meta() {
+    log_test "[HALF-CLONE] tag should be on genuine user message, not isMeta"
+
+    local session_id
+    session_id=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    local conv_file="${TEST_PROJECTS_DIR}/${TEST_PROJECT_DIRNAME}/${session_id}.jsonl"
+
+    local uuid1 uuid2 uuid3 uuid4 uuid5 uuid6 uuid7
+    uuid1=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid2=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid3=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid4=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid5=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid6=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    uuid7=$(uuidgen | tr '[:upper:]' '[:lower:]')
+
+    # Q1, A1, isMeta (skill), Q2 GENUINE, A2, Q3, A3
+    # isMeta comes right before the genuine Q2 in the second half
+    # The [HALF-CLONE] tag must land on Q2, not on isMeta
+    {
+        generate_message "$uuid1" "null" "$session_id" "user" "Question 1"
+        generate_message "$uuid2" "$uuid1" "$session_id" "assistant" "Answer 1"
+        generate_meta_message "$uuid3" "$uuid2" "$session_id" "Skill expansion between halves"
+        generate_message "$uuid4" "$uuid3" "$session_id" "user" "Question 2 SHOULD HAVE TAG"
+        generate_message "$uuid5" "$uuid4" "$session_id" "assistant" "Answer 2"
+        generate_message "$uuid6" "$uuid5" "$session_id" "user" "Question 3"
+        generate_message "$uuid7" "$uuid6" "$session_id" "assistant" "Answer 3"
+    } > "$conv_file"
+
+    local output
+    output=$(run_half_clone "$session_id")
+
+    local new_session
+    new_session=$(get_new_session_from_output "$output")
+    local new_file="${TEST_PROJECTS_DIR}/${TEST_PROJECT_DIRNAME}/${new_session}.jsonl"
+
+    # Check the HALF-CLONE tag is on the right message
+    local tagged_line
+    tagged_line=$(grep 'HALF-CLONE' "$new_file" | grep -v "Continued from session" | head -1)
+
+    if echo "$tagged_line" | grep -q "SHOULD HAVE TAG"; then
+        log_pass "[HALF-CLONE] tag correctly placed on genuine user message"
+    elif echo "$tagged_line" | grep -q "Skill expansion"; then
+        log_fail "[HALF-CLONE] tag placed on isMeta skill expansion (bug)"
+    elif echo "$tagged_line" | grep -q '"isMeta":true'; then
+        log_fail "[HALF-CLONE] tag placed on isMeta message (bug)"
+    else
+        log_fail "Tag on unexpected message: $(echo "$tagged_line" | head -c 200)"
+    fi
+}
+
 # Main
 main() {
     echo "================================"
@@ -422,6 +682,10 @@ main() {
     test_history_entry
     test_double_tagging
     test_thinking_blocks_stripped
+    test_ismeta_not_counted
+    test_interrupted_not_counted
+    test_clone_cmd_not_starting_point
+    test_tag_on_genuine_not_meta
 
     echo ""
     echo "================================"
