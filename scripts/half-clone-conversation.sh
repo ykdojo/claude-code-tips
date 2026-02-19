@@ -185,7 +185,7 @@ half_clone_conversation() {
     # Count "clean" user messages (not tool_results - those require a preceding tool_use)
     # A clean user message is one where we can start a conversation
     local total_clean_user_messages
-    total_clean_user_messages=$(grep -E '"type":"(user|queue-operation)"' "$source_file" | grep -cv '"type":"tool_result"' || echo "0")
+    total_clean_user_messages=$(grep -E '"type":"(user|queue-operation)"' "$source_file" | grep -v '"type":"tool_result"' | grep -v '"isMeta":true' | grep -cv 'Request interrupted by user' || echo "0")
     log_info "Total clean user messages in conversation: $total_clean_user_messages"
 
     if [ "$total_clean_user_messages" -lt 2 ]; then
@@ -202,7 +202,7 @@ half_clone_conversation() {
     # OPTIMIZED: Find the line number where the target clean user message starts
     # Use grep -n to get all clean user message line numbers in one pass
     local clean_user_line_numbers
-    clean_user_line_numbers=$(grep -nE '"type":"(user|queue-operation)"' "$source_file" | grep -v '"type":"tool_result"' | cut -d: -f1)
+    clean_user_line_numbers=$(grep -nE '"type":"(user|queue-operation)"' "$source_file" | grep -v '"type":"tool_result"' | grep -v '"isMeta":true' | grep -v 'Request interrupted by user' | cut -d: -f1)
 
     # Get the line number of the (skip_clean_count + 1)th clean user message
     local skip_count
@@ -235,7 +235,7 @@ half_clone_conversation() {
     # Get all user message lines with line numbers (much faster than per-line grep)
     # Filter to clean user messages (not tool_result, not isMeta)
     local clean_user_lines
-    clean_user_lines=$(grep -nE '"type":"(user|queue-operation)"' "$source_file" | grep -v '"type":"tool_result"' | grep -v '"isMeta":true' || true)
+    clean_user_lines=$(grep -nE '"type":"(user|queue-operation)"' "$source_file" | grep -v '"type":"tool_result"' | grep -v '"isMeta":true' | grep -v 'Request interrupted by user' || true)
 
     if [ -n "$clean_user_lines" ]; then
         # Get the last clean user message line
@@ -416,11 +416,13 @@ half_clone_conversation() {
             gsub("\"messageId\":\"" old_msgid "\"", "\"messageId\":\"" new_msgid "\"", line)
         }
 
-        # Tag first user message (including queue-operation messages)
+        # Tag first genuine user message (skip isMeta skill expansions and interrupted messages)
         if (first_user && (index(line, "\"type\":\"user\"") > 0 || index(line, "\"type\":\"queue-operation\"") > 0)) {
-            gsub("\"content\":\"", "\"content\":\"" clone_tag " ", line)
-            gsub("\"text\":\"", "\"text\":\"" clone_tag " ", line)
-            first_user = 0
+            if (index(line, "\"isMeta\":true") == 0 && index(line, "Request interrupted by user") == 0) {
+                gsub("\"content\":\"", "\"content\":\"" clone_tag " ", line)
+                gsub("\"text\":\"", "\"text\":\"" clone_tag " ", line)
+                first_user = 0
+            }
         }
 
         # Halve token counts
