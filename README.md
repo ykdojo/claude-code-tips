@@ -744,7 +744,7 @@ The key difference is that Claude Code acts as an interactive PR reviewer, not j
 
 Claude Code is amazing for any sort of research. It's essentially a Google replacement or deep research replacement, but more advanced in a few different ways. Whether you're researching why certain GitHub Actions failed (which I've been doing a lot recently), doing sentiment or market analysis on Reddit, exploring your codebase, or exploring public information to find something - it's able to do that.
 
-The key is giving it the right pieces of information and instructions about how to access those pieces of information. It might be `gh` terminal command access, or the container approach (Tip 21), or Reddit through Gemini CLI (Tip 11), or private information through an MCP like Slack MCP, or the Cmd+A / Ctrl+A method (Tip 10) - whatever it is. Additionally, if Claude Code has trouble loading certain URLs, you can try using Playwright MCP or Claude's native browser integration (see Tip 9).
+The key is giving it the right pieces of information and instructions about how to access those pieces of information. It might be `gh` terminal command access, or the container approach (Tip 21), or Reddit through Gemini CLI (Tip 11), or private information through an MCP like Slack MCP, or the Cmd+A / Ctrl+A method (Tip 10) - whatever it is. Additionally, if Claude Code has trouble loading certain URLs, you can try using Playwright MCP or Claude's native browser integration (see Tip 9). For scientific research, I created a [paper-search](https://github.com/ykdojo/paper-search) plugin for searching academic papers.
 
 In fact, I was even able to [save $10,000 by using Claude Code for research](content/how-i-saved-10k-with-claude-code.md).
 
