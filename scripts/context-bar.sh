@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Use jq.exe from the same directory (Windows compatibility)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+JQ="${SCRIPT_DIR}/jq.exe"
+
 # Color theme: gray, orange, blue, teal, green, lavender, rose, gold, slate, cyan
 # Preview colors with: bash scripts/color-preview.sh
 COLOR="blue"
@@ -24,8 +28,8 @@ esac
 input=$(cat)
 
 # Extract model, directory, and cwd
-model=$(echo "$input" | jq -r '.model.display_name // .model.id // "?"')
-cwd=$(echo "$input" | jq -r '.cwd // empty')
+model=$(echo "$input" | "$JQ" -r '.model.display_name // .model.id // "?"')
+cwd=$(echo "$input" | "$JQ" -r '.cwd // empty')
 dir=$(basename "$cwd" 2>/dev/null || echo "?")
 
 # Get git branch, uncommitted file count, and sync status
@@ -95,17 +99,17 @@ if [[ -n "$cwd" && -d "$cwd" ]]; then
 fi
 
 # Get transcript path for context calculation and last message feature
-transcript_path=$(echo "$input" | jq -r '.transcript_path // empty')
+transcript_path=$(echo "$input" | "$JQ" -r '.transcript_path // empty')
 
 # Get context window size from JSON (accurate), but calculate tokens from transcript
 # (more accurate than total_input_tokens which excludes system prompt/tools/memory)
 # See: github.com/anthropics/claude-code/issues/13652
-max_context=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
+max_context=$(echo "$input" | "$JQ" -r '.context_window.context_window_size // 200000')
 max_k=$((max_context / 1000))
 
 # Calculate context bar from transcript
 if [[ -n "$transcript_path" && -f "$transcript_path" ]]; then
-    context_length=$(jq -s '
+    context_length=$("$JQ" -s '
         map(select(.message.usage and .isSidechain != true and .isApiErrorMessage != true)) |
         last |
         if . then
@@ -182,7 +186,7 @@ if [[ -n "$transcript_path" && -f "$transcript_path" ]]; then
     [[ -n "$branch" ]] && plain_output+=" | 🔀${branch} ${git_status}"
     plain_output+=" | xxxxxxxxxx ${pct}% of ${max_k}k tokens"
     max_len=${#plain_output}
-    last_user_msg=$(jq -rs '
+    last_user_msg=$("$JQ" -rs '
         # Messages to skip (not useful as context)
         def is_unhelpful:
             startswith("[Request interrupted") or
