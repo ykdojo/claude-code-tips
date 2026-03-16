@@ -1,8 +1,16 @@
 #!/bin/bash
 
-# Use jq.exe from the same directory (Windows compatibility)
+# Cross-platform jq detection (Windows compatibility)
+# On Windows (Git Bash/MSYS), use jq.exe from the same directory
+# On Linux/Mac, use system jq
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-JQ="${SCRIPT_DIR}/jq.exe"
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || -n "$MSYSTEM" ]]; then
+    # Windows (Git Bash/MSYS2)
+    JQ="${SCRIPT_DIR}/jq.exe"
+else
+    # Linux/Mac - use system jq
+    JQ="jq"
+fi
 
 # Color theme: gray, orange, blue, teal, green, lavender, rose, gold, slate, cyan
 # Preview colors with: bash scripts/color-preview.sh
