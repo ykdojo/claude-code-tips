@@ -1,24 +1,35 @@
 #!/usr/bin/env node
 /**
- * Generate table of contents for README.md
+ * Generate table of contents for README.md and README_zh.md
  * Extracts all "## Tip N: Title" headers and creates anchor links
- * Automatically updates README.md between <!-- TOC --> markers
+ * Automatically updates each file between <!-- TOC --> markers
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const readmePath = path.join(__dirname, '..', 'README.md');
 const TOC_START = '<!-- TOC -->';
 const TOC_END = '<!-- /TOC -->';
 
-function main() {
-  if (!fs.existsSync(readmePath)) {
-    console.error('Error: README.md not found');
-    process.exit(1);
+const readmeFiles = [
+  { path: path.join(__dirname, '..', 'README.md'), tocTitle: '## Table of Contents', skipSections: ['Table of Contents'] },
+  { path: path.join(__dirname, '..', 'README_zh.md'), tocTitle: '## 目录', skipSections: ['目录'] },
+];
+
+function generateAnchor(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^\w\u4e00-\u9fff\s-]/g, '')
+    .replace(/\s+/g, '-');
+}
+
+function processFile({ path: filePath, tocTitle, skipSections }) {
+  if (!fs.existsSync(filePath)) {
+    return;
   }
 
-  const content = fs.readFileSync(readmePath, 'utf8');
+  const fileName = path.basename(filePath);
+  const content = fs.readFileSync(filePath, 'utf8');
   const lines = content.split('\n');
 
   // Match "## Tip N: Title" pattern and other "## Section" headers
@@ -26,37 +37,28 @@ function main() {
   const sectionRegex = /^## (.+)$/;
   const tips = [];
   const sections = [];
-  const skipSections = ['Table of Contents']; // Sections to exclude from TOC
 
   for (const line of lines) {
     const tipMatch = line.match(tipRegex);
     if (tipMatch) {
       const title = tipMatch[1];
-      const anchor = title
-        .toLowerCase()
-        .replace(/[^\w\s-]/g, '')
-        .replace(/\s+/g, '-');
-      tips.push({ title, anchor });
+      tips.push({ title, anchor: generateAnchor(title) });
     } else {
       const sectionMatch = line.match(sectionRegex);
       if (sectionMatch && !skipSections.includes(sectionMatch[1]) && !sectionMatch[1].startsWith('Tip ')) {
         const title = sectionMatch[1];
-        const anchor = title
-          .toLowerCase()
-          .replace(/[^\w\s-]/g, '')
-          .replace(/\s+/g, '-');
-        sections.push({ title, anchor });
+        sections.push({ title, anchor: generateAnchor(title) });
       }
     }
   }
 
   if (tips.length === 0) {
-    console.error('No tips found in README.md');
-    process.exit(1);
+    console.error(`No tips found in ${fileName}`);
+    return;
   }
 
   // Build TOC - tips first, then other sections
-  let toc = '## Table of Contents\n\n';
+  let toc = tocTitle + '\n\n';
   for (const tip of tips) {
     toc += `- [${tip.title}](#${tip.anchor})\n`;
   }
@@ -69,12 +71,12 @@ function main() {
   const endIdx = content.indexOf(TOC_END);
 
   if (startIdx === -1 || endIdx === -1) {
-    console.log('No TOC markers found. Add these to README.md where you want the TOC:');
+    console.log(`No TOC markers found in ${fileName}. Add these where you want the TOC:`);
     console.log('  <!-- TOC -->');
     console.log('  <!-- /TOC -->');
     console.log('\nGenerated TOC:\n');
     console.log(toc);
-    process.exit(0);
+    return;
   }
 
   // Replace content between markers
@@ -83,12 +85,18 @@ function main() {
   const newContent = before + '\n' + toc + '\n' + after;
 
   if (newContent === content) {
-    console.log(`TOC is up to date (${tips.length} tips)`);
-    process.exit(0);
+    console.log(`${fileName}: TOC is up to date (${tips.length} tips)`);
+    return;
   }
 
-  fs.writeFileSync(readmePath, newContent);
-  console.log(`Updated TOC with ${tips.length} tips`);
+  fs.writeFileSync(filePath, newContent);
+  console.log(`${fileName}: Updated TOC with ${tips.length} tips`);
+}
+
+function main() {
+  for (const file of readmeFiles) {
+    processFile(file);
+  }
 }
 
 main();
