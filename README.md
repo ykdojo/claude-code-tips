@@ -400,7 +400,7 @@ Sometimes you want to give Claude Code a URL, but it can't access it directly. M
 
 This works great for terminal output too. When I have output from Claude Code itself or any other CLI application, I can use the same trick: select all, copy, and paste it back to CC. Pretty helpful.
 
-Some pages don't lend themselves well to select all by default - but there are tricks to get them into a better state first. For example, with Gmail threads, click Print All to get the print preview (but cancel the actual print). That page shows all emails in the thread expanded, so you can Cmd+A the entire conversation cleanly.
+Some pages don't lend themselves well to select all by default - but there are tricks to get them into a better state first. For example, with Gmail threads, click Print All to get the print preview (but cancel the actual print). That page shows all emails in the thread expanded, so you can Cmd+A the entire conversation cleanly. For asking questions about a YouTube video or summarizing it, you can click "Show transcript" on a YouTube video and then do Cmd+A or Ctrl+A.
 
 This applies to any AI, not just Claude Code.
 
