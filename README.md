@@ -1038,3 +1038,8 @@ Skip any? [e.g., 1 4 7 or Enter for all]:
 📝 **Story**: [How I got a full-time job with Claude Code](content/how-i-got-a-job-with-claude-code.md)
 
 📰 **Newsletter**: [Agentic Coding with Discipline and Skill](https://agenticcoding.substack.com/) - bring the practice of agentic coding to the next level
+
+## Community Tools & Resources
+
+- [Claude Code Power Stack](https://github.com/bluzername/claude-code-power-stack) - Curated toolkit bundling Ghost (persistent memory), cc-conversation-search (cross-project session search), session naming, and Manus-style file-based planning into one-command install with cheat sheet PDF.
+
