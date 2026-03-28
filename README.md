@@ -1038,3 +1038,24 @@ Skip any? [e.g., 1 4 7 or Enter for all]:
 📝 **Story**: [How I got a full-time job with Claude Code](content/how-i-got-a-job-with-claude-code.md)
 
 📰 **Newsletter**: [Agentic Coding with Discipline and Skill](https://agenticcoding.substack.com/) - bring the practice of agentic coding to the next level
+
+## Tip 46: Use structured debugging to prevent guessing loops
+
+When asking Claude Code to debug, it tends to see the error and immediately start editing code — guessing at fixes. To enforce systematic investigation instead:
+
+**Quick setup** — copy one file:
+```bash
+mkdir -p .claude/rules
+curl -o .claude/rules/debug.md https://raw.githubusercontent.com/krabat-l/claude-debug/master/rules/debug.md
+```
+
+This teaches Claude to follow a 5-phase protocol: reproduce → isolate (with `// DEBUG` logging) → root cause → fix → verify. The key: Claude must present its root cause analysis and wait for your confirmation before editing code.
+
+**Full plugin** — adds PreToolUse hooks that physically block code edits during investigation phases:
+```bash
+claude plugin add claude-debug
+```
+
+Then start debugging with `/debug <description>`.
+
+More info: [claude-debug](https://github.com/krabat-l/claude-debug)
