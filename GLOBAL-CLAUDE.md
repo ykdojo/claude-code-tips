@@ -63,7 +63,7 @@ For read-only `gh` API calls on public repos, use a running safeclaw container: 
 
 ## URL Fetching
 
-For URLs, fetch them through a safeclaw container:
+Always fetch individual URLs through a safeclaw container:
 `docker exec safeclaw-<name> curl -sL <url>`
 
 If the page is JavaScript-heavy (curl returns minimal or empty content), use Playwright instead (safeclaw containers have Playwright installed).
