@@ -156,6 +156,16 @@ else
         cp "$SCRIPT_DIR/context-bar.sh" "$CLAUDE_DIR/scripts/context-bar.sh"
     else
         curl -sL "$REPO_URL/scripts/context-bar.sh" -o "$CLAUDE_DIR/scripts/context-bar.sh"
+        # Verify integrity before making the downloaded script executable
+        EXPECTED_SHA256="ccc61ad0365a52502659ba1e9c1d4f4677a23b7139a2bd8c3807e18a930d6011"
+        ACTUAL_SHA256=$(command -v sha256sum &>/dev/null && sha256sum "$CLAUDE_DIR/scripts/context-bar.sh" | awk "{print \$1}" || shasum -a 256 "$CLAUDE_DIR/scripts/context-bar.sh" | awk "{print \$1}")
+        if [[ "$ACTUAL_SHA256" != "$EXPECTED_SHA256" ]]; then
+            echo -e "${RED}[Error]${NC} context-bar.sh checksum mismatch — aborting"
+            echo "  Expected: $EXPECTED_SHA256"
+            echo "  Got:      $ACTUAL_SHA256"
+            rm -f "$CLAUDE_DIR/scripts/context-bar.sh"
+            exit 1
+        fi
     fi
     chmod +x "$CLAUDE_DIR/scripts/context-bar.sh"
     tmp=$(mktemp)
