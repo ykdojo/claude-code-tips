@@ -134,12 +134,12 @@ elif command -v cc-safe &> /dev/null; then
     echo -e "${GREEN}[Already installed]${NC} cc-safe"
 else
     echo "[Installing] cc-safe..."
-    if npm install -g cc-safe 2>/dev/null; then
+    if npm install -g cc-safe@0.1.13 2>/dev/null; then
         echo -e "${GREEN}[Installed]${NC} cc-safe"
-    elif sudo npm install -g cc-safe 2>/dev/null; then
+    elif sudo npm install -g cc-safe@0.1.13 2>/dev/null; then
         echo -e "${GREEN}[Installed]${NC} cc-safe (with sudo)"
     else
-        echo -e "${YELLOW}[Manual install needed]${NC} cc-safe - run: sudo npm install -g cc-safe"
+        echo -e "${YELLOW}[Manual install needed]${NC} cc-safe - run: sudo npm install -g cc-safe@0.1.13"
     fi
 fi
 
