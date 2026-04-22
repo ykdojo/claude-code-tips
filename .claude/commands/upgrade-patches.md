@@ -1,5 +1,6 @@
 ---
 description: Upgrade system prompt patches to the latest Claude Code version
+allowed-tools: [Bash]
 ---
 
 Upgrade system prompt patches to the latest Claude Code version.
