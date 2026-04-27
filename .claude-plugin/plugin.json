@@ -1,7 +1,7 @@
 {
   "name": "dx",
   "description": "Developer experience essentials: GitHub Actions debugging, conversation cloning/half-cloning, context handoffs, and Reddit research via Gemini CLI",
-  "version": "0.14.12",
+  "version": "0.14.13",
   "author": {
     "name": "YK",
     "email": "yoyoyosss@wearehackerone.com"
