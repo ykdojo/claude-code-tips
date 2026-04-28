@@ -6,7 +6,7 @@ set -e
 
 # Known original - update these when Claude Code updates
 EXPECTED_VERSION="2.1.83"
-EXPECTED_HASH="e19a27df55b31271c82c7b39c49f6b221c9809e0be2af0b83c4cc6f1a9163c06"
+EXPECTED_HASH="903cb3c96b314d86856632c8702f5cdf971b804d0b19ef87446573bcd1d7df1c"
 
 # Find claude CLI using which and common locations
 get_claude_cli() {
@@ -67,7 +67,7 @@ if [ ! -f "$CLI_PATH" ]; then
 fi
 
 # Compute current hash
-CURRENT_HASH=$(shasum -a 256 "$CLI_PATH" | cut -d' ' -f1)
+CURRENT_HASH=$(sha256sum "$CLI_PATH" | cut -d' ' -f1)
 
 # Compare hashes
 if [ "$CURRENT_HASH" != "$EXPECTED_HASH" ]; then

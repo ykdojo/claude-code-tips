@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "node-lief": "^1.0.0"
+  }
+}

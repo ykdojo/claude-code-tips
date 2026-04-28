@@ -1,0 +1,3 @@
+Reads a file from the local filesystem. Assume paths provided by user are valid. Non-existent files return errors.
+
+Usage:

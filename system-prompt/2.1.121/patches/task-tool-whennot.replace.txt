@@ -1,0 +1,1 @@
+## When not to use: For specific file reads use ${__VAR1__}; for specific string search use ${__VAR2__}.

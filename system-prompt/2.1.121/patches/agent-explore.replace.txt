@@ -1,0 +1,1 @@
+'Fast read-only agent for finding code & symbols. Breadth: quick, medium, or very thorough.'
