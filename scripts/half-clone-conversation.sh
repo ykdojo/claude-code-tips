@@ -493,6 +493,32 @@ half_clone_conversation() {
     # Touch the file to ensure it appears at the top of claude -r
     touch "$target_file"
 
+    # Override session title so resumed half-cloned session shows the [HALF-CLONE ...] tag.
+    # Claude Code 2.1.x stores titles as custom-title/agent-name records in the
+    # jsonl; it reads the LAST occurrence to determine the resumed session's name.
+    # The awk pass copies source records (with rewritten sessionId) but leaves the
+    # customTitle string alone — without this, half-cloned session inherits source's
+    # title instead of the [HALF-CLONE ...] prefix.
+    local original_title
+    original_title=$(grep '"type":"custom-title"' "$source_file" 2>/dev/null | tail -1 | \
+        grep -oE '"customTitle":"[^"]*"' | head -1 | \
+        sed 's/"customTitle":"//;s/"$//' || true)
+
+    local clone_title
+    if [ -n "$original_title" ]; then
+        clone_title="${clone_tag} ${original_title}"
+    else
+        clone_title="${clone_tag}"
+    fi
+
+    # JSON-escape (backslash first, then double-quote)
+    local clone_title_esc
+    clone_title_esc=$(printf '%s' "$clone_title" | sed 's/\\/\\\\/g; s/"/\\"/g')
+
+    echo "{\"type\":\"custom-title\",\"customTitle\":\"${clone_title_esc}\",\"sessionId\":\"${new_session}\"}" >> "$target_file"
+    echo "{\"type\":\"agent-name\",\"agentName\":\"${clone_title_esc}\",\"sessionId\":\"${new_session}\"}" >> "$target_file"
+    log_info "Set session title: ${clone_title}"
+
     # Update history.jsonl
     log_info "Updating history file..."
 
