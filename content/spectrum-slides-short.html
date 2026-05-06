@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Spectrum of Agentic Coding</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -213,6 +214,11 @@
     .slide img.smaller {
       max-width: 60%;
       max-height: 60vh;
+    }
+
+    #cube-canvas {
+      width: 100vw;
+      height: 100vh;
     }
 
     table {
@@ -584,6 +590,11 @@
     <img src="vibe-iceberg-decompose.png" alt="The vibe iceberg - decompose">
   </div>
 
+  <!-- Slide: 3D pink cube demo -->
+  <div class="slide" id="cube-slide">
+    <canvas id="cube-canvas"></canvas>
+  </div>
+
   <!-- Slide: Vibe iceberg - decompose step (repeat) -->
   <div class="slide">
     <img src="vibe-iceberg-decompose.png" alt="The vibe iceberg - decompose">
@@ -734,6 +745,114 @@
         // ttyd is not running
         document.querySelectorAll('.terminal-container').forEach(el => el.classList.add('offline'));
       });
+  </script>
+
+  <script>
+    // 3D pink cube scene
+    const canvas = document.getElementById('cube-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setClearColor(0x1a1a1a);
+
+    // Pink cube - semi-transparent
+    const cubeGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+    const cubeMat = new THREE.MeshPhysicalMaterial({
+      color: 0xff69b4,
+      emissive: 0xff69b4,
+      emissiveIntensity: 0.1,
+      transparent: true,
+      opacity: 0.55,
+      roughness: 0.1,
+      metalness: 0.2,
+      side: THREE.DoubleSide
+    });
+    const cube = new THREE.Mesh(cubeGeo, cubeMat);
+    // Wireframe edges
+    const edgesGeo = new THREE.EdgesGeometry(cubeGeo);
+    const edgesMat = new THREE.LineBasicMaterial({ color: 0xff69b4, transparent: true, opacity: 0.8 });
+    const edges = new THREE.LineSegments(edgesGeo, edgesMat);
+    cube.add(edges);
+    scene.add(cube);
+
+    // Warm directional light
+    const dirLight = new THREE.DirectionalLight(0xffd4a0, 1.2);
+    dirLight.position.set(5, 8, 4);
+    scene.add(dirLight);
+
+    // Ambient light
+    const ambLight = new THREE.AmbientLight(0x404040, 0.6);
+    scene.add(ambLight);
+
+    // Orange point light for warmth
+    const pointLight = new THREE.PointLight(0xff8c32, 0.8, 15);
+    pointLight.position.set(-2, 3, -2);
+    scene.add(pointLight);
+
+    camera.position.set(3, 3, 3);
+    camera.lookAt(0, 0, 0);
+
+    // Drag to rotate
+    let isDragging = false;
+    let prevMouse = { x: 0, y: 0 };
+
+    canvas.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      prevMouse = { x: e.clientX, y: e.clientY };
+    });
+
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - prevMouse.x;
+      const dy = e.clientY - prevMouse.y;
+      cube.rotation.y += dx * 0.01;
+      cube.rotation.x += dy * 0.01;
+      prevMouse = { x: e.clientX, y: e.clientY };
+    });
+
+    // Touch support for drag
+    canvas.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      e.stopPropagation();
+    }, { passive: true });
+
+    canvas.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const dx = e.touches[0].clientX - prevMouse.x;
+      const dy = e.touches[0].clientY - prevMouse.y;
+      cube.rotation.y += dx * 0.01;
+      cube.rotation.x += dy * 0.01;
+      prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      e.stopPropagation();
+    }, { passive: true });
+
+    canvas.addEventListener('touchend', () => { isDragging = false; });
+
+    let cubeAnimId;
+    function animateCube() {
+      cubeAnimId = requestAnimationFrame(animateCube);
+      renderer.render(scene, camera);
+    }
+
+    // Only animate when the cube slide is active
+    const origShowSlide = showSlide;
+    showSlide = function(n, itemCount, showAll) {
+      origShowSlide(n, itemCount, showAll);
+      const cubeSlide = document.getElementById('cube-slide');
+      if (slides[current] === cubeSlide) {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        animateCube();
+      } else {
+        cancelAnimationFrame(cubeAnimId);
+      }
+    };
   </script>
 </body>
 </html>
