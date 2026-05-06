@@ -25,70 +25,54 @@ function createModel() {
   function makeBat() {
     const group = new THREE.Group();
 
-    // Body
-    const bodyGeo = new THREE.SphereGeometry(0.3, 16, 16);
+    // Body (slim, matching flat model)
+    const bodyGeo = new THREE.SphereGeometry(0.18, 16, 16);
     const body = new THREE.Mesh(bodyGeo, batMat);
-    body.scale.set(0.8, 1.3, 0.7);
+    body.scale.set(1.0, 2.2, 0.8);
     group.add(body);
 
     // Head
-    const headGeo = new THREE.SphereGeometry(0.22, 16, 16);
+    const headGeo = new THREE.SphereGeometry(0.18, 16, 16);
     const head = new THREE.Mesh(headGeo, batMat);
-    head.position.set(0, 0.45, 0.1);
+    head.position.set(0, 0.45, 0.05);
     group.add(head);
 
     // Snout
-    const snoutGeo = new THREE.SphereGeometry(0.1, 12, 12);
+    const snoutGeo = new THREE.SphereGeometry(0.07, 12, 12);
     const snout = new THREE.Mesh(snoutGeo, batMat);
     snout.scale.set(0.8, 0.6, 1.0);
-    snout.position.set(0, 0.4, 0.3);
+    snout.position.set(0, 0.4, 0.2);
     group.add(snout);
 
     // Ears
-    const earGeo = new THREE.ConeGeometry(0.08, 0.25, 8);
+    const earGeo = new THREE.ConeGeometry(0.06, 0.2, 8);
     [-1, 1].forEach(s => {
       const ear = new THREE.Mesh(earGeo, batMat);
-      ear.position.set(0.12 * s, 0.68, 0.05);
+      ear.position.set(0.1 * s, 0.62, 0.02);
       ear.rotation.z = -0.15 * s;
       group.add(ear);
     });
 
     // Eyes
     const eyeMat = new THREE.MeshBasicMaterial({ color: 0xff4444 });
-    const eyeGeo = new THREE.SphereGeometry(0.04, 8, 8);
+    const eyeGeo = new THREE.SphereGeometry(0.035, 8, 8);
     [-1, 1].forEach(s => {
       const eye = new THREE.Mesh(eyeGeo, eyeMat);
-      eye.position.set(0.1 * s, 0.5, 0.28);
+      eye.position.set(0.08 * s, 0.48, 0.18);
       group.add(eye);
     });
 
     // Wings
     function makeWing(xSign) {
       const wingGroup = new THREE.Group();
-      const boneGeo = new THREE.CylinderGeometry(0.015, 0.01, 0.7, 6);
-      const upperArm = new THREE.Mesh(boneGeo, batMat);
-      upperArm.rotation.z = (Math.PI / 2) * xSign;
-      upperArm.position.set(0.35 * xSign, 0.1, 0);
-      wingGroup.add(upperArm);
-
-      const fingerGeo = new THREE.CylinderGeometry(0.01, 0.005, 0.5, 6);
-      [-0.3, 0.0, 0.3, 0.55].forEach(angle => {
-        const finger = new THREE.Mesh(fingerGeo, batMat);
-        finger.position.set(0.7 * xSign, 0.1, 0);
-        finger.rotation.z = ((Math.PI / 2) + angle) * xSign;
-        finger.position.y += Math.cos(angle) * 0.15;
-        finger.position.x += Math.sin(angle) * 0.15 * xSign;
-        wingGroup.add(finger);
-      });
-
+      // Wing membrane (same shape as flat model)
       const memShape = new THREE.Shape();
-      memShape.moveTo(0, 0.15);
-      memShape.lineTo(0.7 * xSign, 0.3);
-      memShape.quadraticCurveTo(0.85 * xSign, 0.15, 0.9 * xSign, 0.0);
-      memShape.quadraticCurveTo(0.8 * xSign, -0.05, 0.7 * xSign, -0.1);
-      memShape.quadraticCurveTo(0.55 * xSign, -0.15, 0.45 * xSign, -0.2);
-      memShape.quadraticCurveTo(0.3 * xSign, -0.1, 0.2 * xSign, -0.25);
-      memShape.lineTo(0, -0.35);
+      memShape.moveTo(0, 0);
+      memShape.quadraticCurveTo(0.4 * xSign, 0.3, 0.8 * xSign, 0.15);
+      memShape.quadraticCurveTo(0.7 * xSign, 0.0, 0.9 * xSign, -0.1);
+      memShape.quadraticCurveTo(0.75 * xSign, -0.15, 0.6 * xSign, -0.2);
+      memShape.quadraticCurveTo(0.45 * xSign, -0.1, 0.35 * xSign, -0.25);
+      memShape.quadraticCurveTo(0.15 * xSign, -0.15, 0, -0.3);
       memShape.closePath();
 
       const memGeo = new THREE.ShapeGeometry(memShape);
@@ -103,16 +87,25 @@ function createModel() {
     }
 
     const leftWing = makeWing(-1);
+    leftWing.position.set(-0.12, 0.05, 0);
     const rightWing = makeWing(1);
+    rightWing.position.set(0.12, 0.05, 0);
     group.add(leftWing);
     group.add(rightWing);
 
-    // Feet
-    const footGeo = new THREE.SphereGeometry(0.04, 8, 8);
+    // Hind feet with claws
     [-1, 1].forEach(s => {
-      const foot = new THREE.Mesh(footGeo, batMat);
-      foot.position.set(0.1 * s, -0.45, 0);
-      group.add(foot);
+      const legGeo = new THREE.CylinderGeometry(0.015, 0.01, 0.12, 6);
+      const leg = new THREE.Mesh(legGeo, batMat);
+      leg.position.set(0.06 * s, -0.42, 0);
+      group.add(leg);
+      const clawGeo = new THREE.CylinderGeometry(0.006, 0.002, 0.06, 4);
+      [-1, 0, 1].forEach(t => {
+        const claw = new THREE.Mesh(clawGeo, batMat);
+        claw.position.set(0.06 * s + 0.015 * t, -0.49, 0);
+        claw.rotation.z = 0.15 * t;
+        group.add(claw);
+      });
     });
 
     group.userData.leftWing = leftWing;

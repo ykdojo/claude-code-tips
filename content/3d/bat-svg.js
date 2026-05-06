@@ -76,6 +76,22 @@ function createModel() {
   group.add(leftWing);
   group.add(rightWing);
 
+  // --- Hind feet ---
+  const footGeo = new THREE.CylinderGeometry(0.01, 0.006, 0.12, 6);
+  [-1, 1].forEach(s => {
+    const leg = new THREE.Mesh(footGeo, batMat);
+    leg.position.set(0.05 * s, -0.42, 0);
+    group.add(leg);
+    // Claws
+    const clawGeo = new THREE.CylinderGeometry(0.005, 0.002, 0.06, 4);
+    [-1, 0, 1].forEach(t => {
+      const claw = new THREE.Mesh(clawGeo, batMat);
+      claw.position.set(0.05 * s + 0.015 * t, -0.49, 0);
+      claw.rotation.z = 0.15 * t;
+      group.add(claw);
+    });
+  });
+
   // Store wing refs for animation
   group.userData.leftWing = leftWing;
   group.userData.rightWing = rightWing;
