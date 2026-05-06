@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Spectrum of Agentic Coding</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -213,6 +214,11 @@
     .slide img.smaller {
       max-width: 60%;
       max-height: 60vh;
+    }
+
+    .canvas-3d {
+      width: 100vw;
+      height: 100vh;
     }
 
     table {
@@ -509,6 +515,16 @@
     <div class="subtitle">Start with vibe → adjust as necessary</div>
   </div>
 
+  <!-- Slide: Vibe iceberg - overview -->
+  <div class="slide">
+    <img src="vibe-iceberg-overview.png" alt="The vibe iceberg - overview">
+  </div>
+
+  <!-- Slide: Vibe iceberg - isolate -->
+  <div class="slide">
+    <img src="vibe-iceberg-isolate.png" alt="The vibe iceberg - isolate">
+  </div>
+
   <!-- Slide 31: FPS game shooting -->
   <div class="slide">
     <img src="fps-game-shooting.png" alt="FPS game development">
@@ -529,9 +545,152 @@
     <img src="fps-game-simplified-env.png" alt="FPS game simplified environment">
   </div>
 
-  <!-- Slide 34: Vibe iceberg diagram -->
+  <!-- Slide: Vibe iceberg - isolate step -->
   <div class="slide">
-    <img src="vibe-iceberg-diagram.png" alt="The vibe iceberg diagram">
+    <img src="vibe-iceberg-isolate.png" alt="The vibe iceberg - isolate">
+  </div>
+
+  <!-- Slide: Vibe iceberg - overview -->
+  <div class="slide">
+    <img src="vibe-iceberg-overview.png" alt="The vibe iceberg - overview">
+  </div>
+
+  <!-- Slide: Vibe iceberg - cleanup step -->
+  <div class="slide">
+    <img src="vibe-iceberg-cleanup.png" alt="The vibe iceberg - cleanup">
+  </div>
+
+  <!-- Slide: Architecture - no highlight -->
+  <div class="slide">
+    <img src="architecture-nohighlight.svg" alt="Code architecture - no highlight">
+  </div>
+
+  <!-- Slide: Architecture - current -->
+  <div class="slide">
+    <img src="architecture-current.svg" alt="Current code architecture">
+  </div>
+
+  <!-- Slide: Architecture - planned -->
+  <div class="slide">
+    <img src="architecture-planned.svg" alt="Planned code architecture">
+  </div>
+
+  <!-- Slide: Vibe iceberg - cleanup step (repeat) -->
+  <div class="slide">
+    <img src="vibe-iceberg-cleanup.png" alt="The vibe iceberg - cleanup">
+  </div>
+
+  <!-- Slide: Vibe iceberg - overview -->
+  <div class="slide">
+    <img src="vibe-iceberg-overview.png" alt="The vibe iceberg - overview">
+  </div>
+
+  <!-- Slide: Vibe iceberg - decompose step -->
+  <div class="slide">
+    <img src="vibe-iceberg-decompose.png" alt="The vibe iceberg - decompose">
+  </div>
+
+  <!-- Slide: Butterfly video -->
+  <div class="slide">
+    <video src="butterfly-clip.mp4" autoplay loop muted playsinline style="max-width:100%;max-height:100%;"></video>
+  </div>
+
+  <!-- 3D: cube cube-canvas cube-slide -->
+  <div class="slide" id="cube-slide" style="position:relative;">
+    <canvas id="cube-canvas" class="canvas-3d"></canvas>
+    <h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;pointer-events:none;">Three.js in place of Unity for demo</h2>
+  </div>
+
+  <div class="slide" style="position:relative;"><h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;">"Make a 3D bat"</h2></div>
+
+  <!-- 3D: bat-v1 bat-v1-canvas bat-v1-slide -->
+  <div class="slide" id="bat-v1-slide" style="position:relative;">
+    <canvas id="bat-v1-canvas" class="canvas-3d"></canvas>
+    <h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;pointer-events:none;">"Make a 3D bat"</h2>
+  </div>
+
+  <div class="slide" style="position:relative;"><h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;">"Make a bat in SVG"</h2></div>
+
+  <!-- Slide: Static SVG bat -->
+  <div class="slide" style="position:relative;">
+    <h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;pointer-events:none;">"Make a bat in SVG"</h2>
+    <svg viewBox="-120 -100 240 200" width="600" height="500" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left wing -->
+      <path d="M-12,0 Q-40,-30 -80,-15 Q-70,0 -90,10 Q-75,15 -60,20 Q-45,10 -35,25 Q-15,15 -10,30 Z"
+            fill="#6a0dad" opacity="0.85"/>
+      <!-- Right wing -->
+      <path d="M12,0 Q40,-30 80,-15 Q70,0 90,10 Q75,15 60,20 Q45,10 35,25 Q15,15 10,30 Z"
+            fill="#6a0dad" opacity="0.85"/>
+      <!-- Body -->
+      <ellipse cx="0" cy="10" rx="12" ry="28" fill="#6a0dad"/>
+      <!-- Head -->
+      <circle cx="0" cy="-22" r="14" fill="#6a0dad"/>
+      <!-- Left ear -->
+      <polygon points="-10,-30 -16,-50 -4,-36" fill="#6a0dad"/>
+      <!-- Right ear -->
+      <polygon points="10,-30 16,-50 4,-36" fill="#6a0dad"/>
+      <!-- Eyes -->
+      <circle cx="-6" cy="-24" r="3" fill="#ff4444"/>
+      <circle cx="6" cy="-24" r="3" fill="#ff4444"/>
+    </svg>
+  </div>
+
+  <div class="slide" style="position:relative;"><h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;">"Now make it a flat 3D model"</h2></div>
+
+  <!-- 3D: bat-svg bat-svg-canvas bat-svg-slide -->
+  <div class="slide" id="bat-svg-slide" style="position:relative;">
+    <canvas id="bat-svg-canvas" class="canvas-3d"></canvas>
+    <h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;pointer-events:none;">"Now make it a flat 3D model"</h2>
+  </div>
+
+  <div class="slide" style="position:relative;"><h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;">"Now make it a full 3D model"</h2></div>
+
+  <!-- 3D: bat bat-canvas bat-slide -->
+  <div class="slide" id="bat-slide" style="position:relative;">
+    <canvas id="bat-canvas" class="canvas-3d"></canvas>
+    <h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;pointer-events:none;">"Now make it a full 3D model"</h2>
+  </div>
+
+  <div class="slide" style="position:relative;"><h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;">"Now make three of them circle around"</h2></div>
+
+  <!-- 3D: bat-trio-v1 bat-trio-v1-canvas bat-trio-v1-slide -->
+  <div class="slide" id="bat-trio-v1-slide" style="position:relative;">
+    <canvas id="bat-trio-v1-canvas" class="canvas-3d"></canvas>
+    <h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;pointer-events:none;">"Now make three of them circle around"</h2>
+  </div>
+
+  <div class="slide" style="position:relative;"><h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;">"They need to face the direction of movement"</h2></div>
+
+  <!-- 3D: bat-trio-v2 bat-trio-v2-canvas bat-trio-v2-slide -->
+  <div class="slide" id="bat-trio-v2-slide" style="position:relative;">
+    <canvas id="bat-trio-v2-canvas" class="canvas-3d"></canvas>
+    <h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;pointer-events:none;">"They need to face the direction of movement"</h2>
+  </div>
+
+  <div class="slide" style="position:relative;"><h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;">"They should be tilted forward"</h2></div>
+
+  <!-- 3D: bat-trio-v3 bat-trio-v3-canvas bat-trio-v3-slide -->
+  <div class="slide" id="bat-trio-v3-slide" style="position:relative;">
+    <canvas id="bat-trio-v3-canvas" class="canvas-3d"></canvas>
+    <h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;pointer-events:none;">"They should be tilted forward"</h2>
+  </div>
+
+  <div class="slide" style="position:relative;"><h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;">"Not that way, the other way!"</h2></div>
+
+  <!-- 3D: bat-trio bat-trio-canvas bat-trio-slide -->
+  <div class="slide" id="bat-trio-slide" style="position:relative;">
+    <canvas id="bat-trio-canvas" class="canvas-3d"></canvas>
+    <h2 style="position:absolute;top:40px;left:0;right:0;text-align:center;pointer-events:none;">"Not that way, the other way!"</h2>
+  </div>
+
+  <!-- Slide: Vibe iceberg - decompose step (repeat) -->
+  <div class="slide">
+    <img src="vibe-iceberg-decompose.png" alt="The vibe iceberg - decompose">
+  </div>
+
+  <!-- Slide: Vibe iceberg - overview -->
+  <div class="slide">
+    <img src="vibe-iceberg-overview.png" alt="The vibe iceberg - overview">
   </div>
 
   <!-- Slide 35: QR codes -->
@@ -675,5 +834,1861 @@
         document.querySelectorAll('.terminal-container').forEach(el => el.classList.add('offline'));
       });
   </script>
+
+  <!-- 3D-SCRIPTS-START -->
+  <script>
+    // 3D cube scene (generated by 3d/build.js)
+// Pink cube model
+function createModel() {
+  const geo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+  const mat = new THREE.MeshPhysicalMaterial({
+    color: 0xff69b4,
+    emissive: 0xff69b4,
+    emissiveIntensity: 0.1,
+    transparent: true,
+    opacity: 0.55,
+    roughness: 0.1,
+    metalness: 0.2,
+    side: THREE.DoubleSide
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+
+  // Wireframe edges
+  const edgesGeo = new THREE.EdgesGeometry(geo);
+  const edgesMat = new THREE.LineBasicMaterial({ color: 0xff69b4, transparent: true, opacity: 0.8 });
+  const edges = new THREE.LineSegments(edgesGeo, edgesMat);
+  mesh.add(edges);
+
+  return mesh;
+}
+
+// 3D slide base - shared scene setup, lighting, drag, animation
+// Expects: createModel() defined before this runs
+// Placeholders cube-canvas and cube-slide replaced by build.js
+(function() {
+  const canvas = document.getElementById('cube-canvas');
+  const slideEl = document.getElementById('cube-slide');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x1a1a1a);
+
+  // Add model
+  const model = createModel();
+  const onAnimate = typeof animateModel === 'function' ? animateModel : null;
+  scene.add(model);
+
+  // Warm directional light
+  const dirLight = new THREE.DirectionalLight(0xffd4a0, 1.2);
+  dirLight.position.set(5, 8, 4);
+  scene.add(dirLight);
+
+  // Ambient light
+  const ambLight = new THREE.AmbientLight(0x404040, 0.6);
+  scene.add(ambLight);
+
+  // Orange point light for warmth
+  const pointLight = new THREE.PointLight(0xff8c32, 0.8, 15);
+  pointLight.position.set(-2, 3, -2);
+  scene.add(pointLight);
+
+  camera.position.set(3, 3, 3);
+  camera.lookAt(0, 0, 0);
+
+  // Drag to rotate
+  let isDragging = false;
+  let prevMouse = { x: 0, y: 0 };
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - prevMouse.x;
+    const dy = e.clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  // Touch support for drag
+  canvas.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - prevMouse.x;
+    const dy = e.touches[0].clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchend', () => { isDragging = false; });
+
+  let animId;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    if (onAnimate) onAnimate(model, performance.now() / 1000);
+    renderer.render(scene, camera);
+  }
+
+  // Only animate when this slide is active
+  const origShowSlide = window.showSlide;
+  window.showSlide = function(n, itemCount, showAll) {
+    origShowSlide(n, itemCount, showAll);
+    if (slides[current] === slideEl) {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      animate();
+    } else {
+      cancelAnimationFrame(animId);
+    }
+  };
+})();
+  </script>
+
+  <script>
+    // 3D bat-v1 scene (generated by 3d/build.js)
+// Flying bat model with flapping wings
+function createModel() {
+  const bat = new THREE.Group();
+
+  // Body - dark elongated ellipsoid
+  const bodyGeo = new THREE.SphereGeometry(0.3, 16, 12);
+  bodyGeo.scale(1, 0.7, 1.5);
+  const bodyMat = new THREE.MeshPhysicalMaterial({
+    color: 0x2a1a2e,
+    roughness: 0.8,
+    metalness: 0.1
+  });
+  const body = new THREE.Mesh(bodyGeo, bodyMat);
+  bat.add(body);
+
+  // Head
+  const headGeo = new THREE.SphereGeometry(0.2, 16, 12);
+  const head = new THREE.Mesh(headGeo, bodyMat);
+  head.position.set(0, 0.1, 0.4);
+  bat.add(head);
+
+  // Ears
+  const earGeo = new THREE.ConeGeometry(0.06, 0.2, 4);
+  const leftEar = new THREE.Mesh(earGeo, bodyMat);
+  leftEar.position.set(-0.1, 0.28, 0.4);
+  leftEar.rotation.z = 0.2;
+  bat.add(leftEar);
+
+  const rightEar = new THREE.Mesh(earGeo, bodyMat);
+  rightEar.position.set(0.1, 0.28, 0.4);
+  rightEar.rotation.z = -0.2;
+  bat.add(rightEar);
+
+  // Eyes - small glowing orbs
+  const eyeGeo = new THREE.SphereGeometry(0.035, 8, 8);
+  const eyeMat = new THREE.MeshPhysicalMaterial({
+    color: 0xff4444,
+    emissive: 0xff2222,
+    emissiveIntensity: 0.8
+  });
+  const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
+  leftEye.position.set(-0.09, 0.15, 0.55);
+  bat.add(leftEye);
+
+  const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
+  rightEye.position.set(0.09, 0.15, 0.55);
+  bat.add(rightEye);
+
+  // Wings - using custom shapes
+  const wingMat = new THREE.MeshPhysicalMaterial({
+    color: 0x3a2a3e,
+    emissive: 0x1a0a1e,
+    emissiveIntensity: 0.1,
+    transparent: true,
+    opacity: 0.7,
+    roughness: 0.6,
+    metalness: 0.05,
+    side: THREE.DoubleSide
+  });
+
+  function makeWing() {
+    const shape = new THREE.Shape();
+    // Wing shape: starts at body, extends out and curves
+    shape.moveTo(0, 0);
+    shape.lineTo(0.15, 0.15);
+    shape.lineTo(0.6, 0.3);
+    shape.lineTo(1.0, 0.15);
+    shape.lineTo(1.2, -0.1);
+    shape.lineTo(0.9, -0.15);
+    shape.lineTo(0.5, -0.05);
+    shape.lineTo(0.2, -0.1);
+    shape.lineTo(0, 0);
+
+    const wingGeo = new THREE.ShapeGeometry(shape);
+    return new THREE.Mesh(wingGeo, wingMat);
+  }
+
+  // Left wing pivot
+  const leftWingPivot = new THREE.Group();
+  leftWingPivot.position.set(-0.15, 0.05, 0);
+  const leftWing = makeWing();
+  leftWing.scale.set(-1, 1, 1); // mirror
+  leftWingPivot.add(leftWing);
+  bat.add(leftWingPivot);
+  bat.userData.leftWing = leftWingPivot;
+
+  // Right wing pivot
+  const rightWingPivot = new THREE.Group();
+  rightWingPivot.position.set(0.15, 0.05, 0);
+  const rightWing = makeWing();
+  rightWingPivot.add(rightWing);
+  bat.add(rightWingPivot);
+  bat.userData.rightWing = rightWingPivot;
+
+  // Wing bone lines for detail
+  const boneMat = new THREE.LineBasicMaterial({ color: 0x4a3a4e, transparent: true, opacity: 0.5 });
+
+  function addBones(wing, mirror) {
+    const s = mirror ? -1 : 1;
+    const bones = [
+      [0, 0, s * 1.0, 0.15],
+      [0, 0, s * 0.8, -0.1],
+      [0, 0, s * 0.5, 0.25]
+    ];
+    for (const b of bones) {
+      const pts = [new THREE.Vector3(b[0], b[1], 0), new THREE.Vector3(b[2], b[3], 0)];
+      const geo = new THREE.BufferGeometry().setFromPoints(pts);
+      wing.add(new THREE.Line(geo, boneMat));
+    }
+  }
+
+  addBones(leftWing, true);
+  addBones(rightWing, false);
+
+  bat.scale.set(1.2, 1.2, 1.2);
+  return bat;
+}
+
+// Wing flapping animation
+function animateModel(model, time) {
+  const flap = Math.sin(time * 4) * 0.6;
+  if (model.userData.leftWing) {
+    model.userData.leftWing.rotation.z = -flap - 0.2;
+  }
+  if (model.userData.rightWing) {
+    model.userData.rightWing.rotation.z = flap + 0.2;
+  }
+  // Gentle bobbing
+  model.position.y = Math.sin(time * 2) * 0.15;
+}
+
+// 3D slide base - shared scene setup, lighting, drag, animation
+// Expects: createModel() defined before this runs
+// Placeholders bat-v1-canvas and bat-v1-slide replaced by build.js
+(function() {
+  const canvas = document.getElementById('bat-v1-canvas');
+  const slideEl = document.getElementById('bat-v1-slide');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x1a1a1a);
+
+  // Add model
+  const model = createModel();
+  const onAnimate = typeof animateModel === 'function' ? animateModel : null;
+  scene.add(model);
+
+  // Warm directional light
+  const dirLight = new THREE.DirectionalLight(0xffd4a0, 1.2);
+  dirLight.position.set(5, 8, 4);
+  scene.add(dirLight);
+
+  // Ambient light
+  const ambLight = new THREE.AmbientLight(0x404040, 0.6);
+  scene.add(ambLight);
+
+  // Orange point light for warmth
+  const pointLight = new THREE.PointLight(0xff8c32, 0.8, 15);
+  pointLight.position.set(-2, 3, -2);
+  scene.add(pointLight);
+
+  camera.position.set(3, 3, 3);
+  camera.lookAt(0, 0, 0);
+
+  // Drag to rotate
+  let isDragging = false;
+  let prevMouse = { x: 0, y: 0 };
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - prevMouse.x;
+    const dy = e.clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  // Touch support for drag
+  canvas.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - prevMouse.x;
+    const dy = e.touches[0].clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchend', () => { isDragging = false; });
+
+  let animId;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    if (onAnimate) onAnimate(model, performance.now() / 1000);
+    renderer.render(scene, camera);
+  }
+
+  // Only animate when this slide is active
+  const origShowSlide = window.showSlide;
+  window.showSlide = function(n, itemCount, showAll) {
+    origShowSlide(n, itemCount, showAll);
+    if (slides[current] === slideEl) {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      animate();
+    } else {
+      cancelAnimationFrame(animId);
+    }
+  };
+})();
+  </script>
+
+  <script>
+    // 3D bat-svg scene (generated by 3d/build.js)
+// SVG-style flying bat - flat extruded shape with wing flapping
+function createModel() {
+  const group = new THREE.Group();
+
+  // --- Body ---
+  const bodyShape = new THREE.Shape();
+  bodyShape.ellipse(0, 0, 0.18, 0.4, 0, Math.PI * 2, false, 0);
+  const bodyGeo = new THREE.ExtrudeGeometry(bodyShape, { depth: 0.08, bevelEnabled: false });
+  const batMat = new THREE.MeshPhysicalMaterial({
+    color: 0x6a0dad,
+    emissive: 0x6a0dad,
+    emissiveIntensity: 0.15,
+    roughness: 0.3,
+    metalness: 0.1,
+    side: THREE.DoubleSide
+  });
+  const body = new THREE.Mesh(bodyGeo, batMat);
+  body.position.set(0, 0, -0.04);
+  group.add(body);
+
+  // --- Head ---
+  const headGeo = new THREE.SphereGeometry(0.2, 16, 16);
+  const head = new THREE.Mesh(headGeo, batMat);
+  head.position.set(0, 0.5, 0);
+  group.add(head);
+
+  // --- Ears ---
+  function makeEar(xSign) {
+    const earShape = new THREE.Shape();
+    earShape.moveTo(0, 0);
+    earShape.lineTo(0.06 * xSign, 0.2);
+    earShape.lineTo(0.12 * xSign, 0);
+    earShape.closePath();
+    const earGeo = new THREE.ExtrudeGeometry(earShape, { depth: 0.04, bevelEnabled: false });
+    const ear = new THREE.Mesh(earGeo, batMat);
+    ear.position.set(0.08 * xSign, 0.65, -0.02);
+    return ear;
+  }
+  group.add(makeEar(-1));
+  group.add(makeEar(1));
+
+  // --- Eyes ---
+  const eyeMat = new THREE.MeshBasicMaterial({ color: 0xff4444 });
+  const eyeGeo = new THREE.SphereGeometry(0.04, 8, 8);
+  [-1, 1].forEach(s => {
+    const eye = new THREE.Mesh(eyeGeo, eyeMat);
+    eye.position.set(0.08 * s, 0.55, 0.15);
+    group.add(eye);
+  });
+
+  // --- Wings (flat shapes, will be animated) ---
+  function makeWing(xSign) {
+    const shape = new THREE.Shape();
+    // Wing origin at body side
+    shape.moveTo(0, 0);
+    // Top scallop
+    shape.quadraticCurveTo(0.4 * xSign, 0.3, 0.8 * xSign, 0.15);
+    // First finger dip
+    shape.quadraticCurveTo(0.7 * xSign, 0.0, 0.9 * xSign, -0.1);
+    // Second scallop
+    shape.quadraticCurveTo(0.75 * xSign, -0.15, 0.6 * xSign, -0.2);
+    // Third scallop dip
+    shape.quadraticCurveTo(0.45 * xSign, -0.1, 0.35 * xSign, -0.25);
+    // Back to body
+    shape.quadraticCurveTo(0.15 * xSign, -0.15, 0, -0.3);
+    shape.closePath();
+
+    const wingGeo = new THREE.ExtrudeGeometry(shape, { depth: 0.02, bevelEnabled: false });
+    const wing = new THREE.Mesh(wingGeo, batMat);
+    wing.position.set(0.15 * xSign, 0.1, -0.01);
+    return wing;
+  }
+
+  const leftWing = makeWing(-1);
+  const rightWing = makeWing(1);
+  group.add(leftWing);
+  group.add(rightWing);
+
+  // Store wing refs for animation
+  group.userData.leftWing = leftWing;
+  group.userData.rightWing = rightWing;
+
+  // Scale up a bit
+  group.scale.set(1.8, 1.8, 1.8);
+  group.position.y = -0.4;
+
+  return group;
+}
+
+function animateModel(model, time) {
+  const flapAngle = Math.sin(time * 5) * 0.4;
+  model.userData.leftWing.rotation.y = flapAngle;
+  model.userData.rightWing.rotation.y = -flapAngle;
+
+  // Gentle bobbing
+  model.position.y = -0.4 + Math.sin(time * 2) * 0.15;
+}
+
+// 3D slide base - shared scene setup, lighting, drag, animation
+// Expects: createModel() defined before this runs
+// Placeholders bat-svg-canvas and bat-svg-slide replaced by build.js
+(function() {
+  const canvas = document.getElementById('bat-svg-canvas');
+  const slideEl = document.getElementById('bat-svg-slide');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x1a1a1a);
+
+  // Add model
+  const model = createModel();
+  const onAnimate = typeof animateModel === 'function' ? animateModel : null;
+  scene.add(model);
+
+  // Warm directional light
+  const dirLight = new THREE.DirectionalLight(0xffd4a0, 1.2);
+  dirLight.position.set(5, 8, 4);
+  scene.add(dirLight);
+
+  // Ambient light
+  const ambLight = new THREE.AmbientLight(0x404040, 0.6);
+  scene.add(ambLight);
+
+  // Orange point light for warmth
+  const pointLight = new THREE.PointLight(0xff8c32, 0.8, 15);
+  pointLight.position.set(-2, 3, -2);
+  scene.add(pointLight);
+
+  camera.position.set(3, 3, 3);
+  camera.lookAt(0, 0, 0);
+
+  // Drag to rotate
+  let isDragging = false;
+  let prevMouse = { x: 0, y: 0 };
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - prevMouse.x;
+    const dy = e.clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  // Touch support for drag
+  canvas.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - prevMouse.x;
+    const dy = e.touches[0].clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchend', () => { isDragging = false; });
+
+  let animId;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    if (onAnimate) onAnimate(model, performance.now() / 1000);
+    renderer.render(scene, camera);
+  }
+
+  // Only animate when this slide is active
+  const origShowSlide = window.showSlide;
+  window.showSlide = function(n, itemCount, showAll) {
+    origShowSlide(n, itemCount, showAll);
+    if (slides[current] === slideEl) {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      animate();
+    } else {
+      cancelAnimationFrame(animId);
+    }
+  };
+})();
+  </script>
+
+  <script>
+    // 3D bat scene (generated by 3d/build.js)
+// 3D bat model with volumetric body, head, ears, and membrane wings
+function createModel() {
+  const group = new THREE.Group();
+
+  const batMat = new THREE.MeshPhysicalMaterial({
+    color: 0x6a0dad,
+    emissive: 0x6a0dad,
+    emissiveIntensity: 0.15,
+    roughness: 0.4,
+    metalness: 0.1,
+    side: THREE.DoubleSide
+  });
+
+  const membraneMat = new THREE.MeshPhysicalMaterial({
+    color: 0x5a0aad,
+    emissive: 0x5a0aad,
+    emissiveIntensity: 0.1,
+    transparent: true,
+    opacity: 0.6,
+    roughness: 0.5,
+    metalness: 0.0,
+    side: THREE.DoubleSide
+  });
+
+  // --- Body (ellipsoid) ---
+  const bodyGeo = new THREE.SphereGeometry(0.3, 16, 16);
+  const body = new THREE.Mesh(bodyGeo, batMat);
+  body.scale.set(0.8, 1.3, 0.7);
+  group.add(body);
+
+  // --- Head ---
+  const headGeo = new THREE.SphereGeometry(0.22, 16, 16);
+  const head = new THREE.Mesh(headGeo, batMat);
+  head.position.set(0, 0.45, 0.1);
+  group.add(head);
+
+  // --- Snout ---
+  const snoutGeo = new THREE.SphereGeometry(0.1, 12, 12);
+  const snout = new THREE.Mesh(snoutGeo, batMat);
+  snout.scale.set(0.8, 0.6, 1.0);
+  snout.position.set(0, 0.4, 0.3);
+  group.add(snout);
+
+  // --- Ears (cones) ---
+  const earGeo = new THREE.ConeGeometry(0.08, 0.25, 8);
+  [-1, 1].forEach(s => {
+    const ear = new THREE.Mesh(earGeo, batMat);
+    ear.position.set(0.12 * s, 0.68, 0.05);
+    ear.rotation.z = -0.15 * s;
+    group.add(ear);
+  });
+
+  // --- Eyes (glowing red) ---
+  const eyeMat = new THREE.MeshBasicMaterial({ color: 0xff4444 });
+  const eyeGeo = new THREE.SphereGeometry(0.04, 8, 8);
+  [-1, 1].forEach(s => {
+    const eye = new THREE.Mesh(eyeGeo, eyeMat);
+    eye.position.set(0.1 * s, 0.5, 0.28);
+    group.add(eye);
+  });
+
+  // --- Wings (each wing is a group that pivots at the shoulder) ---
+  function makeWing(xSign) {
+    const wingGroup = new THREE.Group();
+
+    // Wing arm bones (thin cylinders for structure)
+    const boneMat = batMat;
+    const boneGeo = new THREE.CylinderGeometry(0.015, 0.01, 0.7, 6);
+
+    // Upper arm
+    const upperArm = new THREE.Mesh(boneGeo, boneMat);
+    upperArm.rotation.z = (Math.PI / 2) * xSign;
+    upperArm.position.set(0.35 * xSign, 0.1, 0);
+    wingGroup.add(upperArm);
+
+    // Finger bones
+    const fingerGeo = new THREE.CylinderGeometry(0.01, 0.005, 0.5, 6);
+    const fingerAngles = [-0.3, 0.0, 0.3, 0.55];
+    fingerAngles.forEach(angle => {
+      const finger = new THREE.Mesh(fingerGeo, boneMat);
+      finger.position.set(0.7 * xSign, 0.1, 0);
+      finger.rotation.z = ((Math.PI / 2) + angle) * xSign;
+      finger.position.y += Math.cos(angle) * 0.15;
+      finger.position.x += Math.sin(angle) * 0.15 * xSign;
+      wingGroup.add(finger);
+    });
+
+    // Wing membrane (flat triangulated shape)
+    const memShape = new THREE.Shape();
+    memShape.moveTo(0, 0.15);
+    memShape.lineTo(0.7 * xSign, 0.3);
+    memShape.quadraticCurveTo(0.85 * xSign, 0.15, 0.9 * xSign, 0.0);
+    memShape.quadraticCurveTo(0.8 * xSign, -0.05, 0.7 * xSign, -0.1);
+    memShape.quadraticCurveTo(0.55 * xSign, -0.15, 0.45 * xSign, -0.2);
+    memShape.quadraticCurveTo(0.3 * xSign, -0.1, 0.2 * xSign, -0.25);
+    memShape.lineTo(0, -0.35);
+    memShape.closePath();
+
+    const memGeo = new THREE.ShapeGeometry(memShape);
+    const membrane = new THREE.Mesh(memGeo, membraneMat);
+    membrane.position.z = 0.005;
+    wingGroup.add(membrane);
+
+    // Mirror membrane on back side
+    const memBack = new THREE.Mesh(memGeo, membraneMat);
+    memBack.position.z = -0.005;
+    wingGroup.add(memBack);
+
+    return wingGroup;
+  }
+
+  const leftWing = makeWing(-1);
+  const rightWing = makeWing(1);
+  group.add(leftWing);
+  group.add(rightWing);
+
+  // --- Feet (small spheres dangling) ---
+  const footGeo = new THREE.SphereGeometry(0.04, 8, 8);
+  [-1, 1].forEach(s => {
+    const foot = new THREE.Mesh(footGeo, batMat);
+    foot.position.set(0.1 * s, -0.45, 0);
+    group.add(foot);
+  });
+
+  // Store refs
+  group.userData.leftWing = leftWing;
+  group.userData.rightWing = rightWing;
+
+  group.scale.set(1.6, 1.6, 1.6);
+  group.position.y = -0.2;
+
+  return group;
+}
+
+function animateModel(model, time) {
+  // Wing flap
+  const flapAngle = Math.sin(time * 5) * 0.5;
+  model.userData.leftWing.rotation.y = flapAngle;
+  model.userData.rightWing.rotation.y = -flapAngle;
+
+  // Slight wing tilt forward on downstroke
+  const tilt = Math.sin(time * 5) * 0.1;
+  model.userData.leftWing.rotation.x = tilt;
+  model.userData.rightWing.rotation.x = tilt;
+
+  // Bobbing flight motion
+  model.position.y = -0.2 + Math.sin(time * 2) * 0.15;
+
+  // Gentle body sway
+  model.rotation.z = Math.sin(time * 1.5) * 0.05;
+}
+
+// 3D slide base - shared scene setup, lighting, drag, animation
+// Expects: createModel() defined before this runs
+// Placeholders bat-canvas and bat-slide replaced by build.js
+(function() {
+  const canvas = document.getElementById('bat-canvas');
+  const slideEl = document.getElementById('bat-slide');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x1a1a1a);
+
+  // Add model
+  const model = createModel();
+  const onAnimate = typeof animateModel === 'function' ? animateModel : null;
+  scene.add(model);
+
+  // Warm directional light
+  const dirLight = new THREE.DirectionalLight(0xffd4a0, 1.2);
+  dirLight.position.set(5, 8, 4);
+  scene.add(dirLight);
+
+  // Ambient light
+  const ambLight = new THREE.AmbientLight(0x404040, 0.6);
+  scene.add(ambLight);
+
+  // Orange point light for warmth
+  const pointLight = new THREE.PointLight(0xff8c32, 0.8, 15);
+  pointLight.position.set(-2, 3, -2);
+  scene.add(pointLight);
+
+  camera.position.set(3, 3, 3);
+  camera.lookAt(0, 0, 0);
+
+  // Drag to rotate
+  let isDragging = false;
+  let prevMouse = { x: 0, y: 0 };
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - prevMouse.x;
+    const dy = e.clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  // Touch support for drag
+  canvas.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - prevMouse.x;
+    const dy = e.touches[0].clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchend', () => { isDragging = false; });
+
+  let animId;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    if (onAnimate) onAnimate(model, performance.now() / 1000);
+    renderer.render(scene, camera);
+  }
+
+  // Only animate when this slide is active
+  const origShowSlide = window.showSlide;
+  window.showSlide = function(n, itemCount, showAll) {
+    origShowSlide(n, itemCount, showAll);
+    if (slides[current] === slideEl) {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      animate();
+    } else {
+      cancelAnimationFrame(animId);
+    }
+  };
+})();
+  </script>
+
+  <script>
+    // 3D bat-trio-v1 scene (generated by 3d/build.js)
+// Three bats circling around each other
+function createModel() {
+  const scene = new THREE.Group();
+
+  const batMat = new THREE.MeshPhysicalMaterial({
+    color: 0x6a0dad,
+    emissive: 0x6a0dad,
+    emissiveIntensity: 0.15,
+    roughness: 0.4,
+    metalness: 0.1,
+    side: THREE.DoubleSide
+  });
+
+  const membraneMat = new THREE.MeshPhysicalMaterial({
+    color: 0x5a0aad,
+    emissive: 0x5a0aad,
+    emissiveIntensity: 0.1,
+    transparent: true,
+    opacity: 0.6,
+    roughness: 0.5,
+    metalness: 0.0,
+    side: THREE.DoubleSide
+  });
+
+  function makeBat() {
+    const group = new THREE.Group();
+
+    // Body
+    const bodyGeo = new THREE.SphereGeometry(0.3, 16, 16);
+    const body = new THREE.Mesh(bodyGeo, batMat);
+    body.scale.set(0.8, 1.3, 0.7);
+    group.add(body);
+
+    // Head
+    const headGeo = new THREE.SphereGeometry(0.22, 16, 16);
+    const head = new THREE.Mesh(headGeo, batMat);
+    head.position.set(0, 0.45, 0.1);
+    group.add(head);
+
+    // Snout
+    const snoutGeo = new THREE.SphereGeometry(0.1, 12, 12);
+    const snout = new THREE.Mesh(snoutGeo, batMat);
+    snout.scale.set(0.8, 0.6, 1.0);
+    snout.position.set(0, 0.4, 0.3);
+    group.add(snout);
+
+    // Ears
+    const earGeo = new THREE.ConeGeometry(0.08, 0.25, 8);
+    [-1, 1].forEach(s => {
+      const ear = new THREE.Mesh(earGeo, batMat);
+      ear.position.set(0.12 * s, 0.68, 0.05);
+      ear.rotation.z = -0.15 * s;
+      group.add(ear);
+    });
+
+    // Eyes
+    const eyeMat = new THREE.MeshBasicMaterial({ color: 0xff4444 });
+    const eyeGeo = new THREE.SphereGeometry(0.04, 8, 8);
+    [-1, 1].forEach(s => {
+      const eye = new THREE.Mesh(eyeGeo, eyeMat);
+      eye.position.set(0.1 * s, 0.5, 0.28);
+      group.add(eye);
+    });
+
+    // Wings
+    function makeWing(xSign) {
+      const wingGroup = new THREE.Group();
+      const boneGeo = new THREE.CylinderGeometry(0.015, 0.01, 0.7, 6);
+      const upperArm = new THREE.Mesh(boneGeo, batMat);
+      upperArm.rotation.z = (Math.PI / 2) * xSign;
+      upperArm.position.set(0.35 * xSign, 0.1, 0);
+      wingGroup.add(upperArm);
+
+      const fingerGeo = new THREE.CylinderGeometry(0.01, 0.005, 0.5, 6);
+      [-0.3, 0.0, 0.3, 0.55].forEach(angle => {
+        const finger = new THREE.Mesh(fingerGeo, batMat);
+        finger.position.set(0.7 * xSign, 0.1, 0);
+        finger.rotation.z = ((Math.PI / 2) + angle) * xSign;
+        finger.position.y += Math.cos(angle) * 0.15;
+        finger.position.x += Math.sin(angle) * 0.15 * xSign;
+        wingGroup.add(finger);
+      });
+
+      const memShape = new THREE.Shape();
+      memShape.moveTo(0, 0.15);
+      memShape.lineTo(0.7 * xSign, 0.3);
+      memShape.quadraticCurveTo(0.85 * xSign, 0.15, 0.9 * xSign, 0.0);
+      memShape.quadraticCurveTo(0.8 * xSign, -0.05, 0.7 * xSign, -0.1);
+      memShape.quadraticCurveTo(0.55 * xSign, -0.15, 0.45 * xSign, -0.2);
+      memShape.quadraticCurveTo(0.3 * xSign, -0.1, 0.2 * xSign, -0.25);
+      memShape.lineTo(0, -0.35);
+      memShape.closePath();
+
+      const memGeo = new THREE.ShapeGeometry(memShape);
+      const membrane = new THREE.Mesh(memGeo, membraneMat);
+      membrane.position.z = 0.005;
+      wingGroup.add(membrane);
+      const memBack = new THREE.Mesh(memGeo, membraneMat);
+      memBack.position.z = -0.005;
+      wingGroup.add(memBack);
+
+      return wingGroup;
+    }
+
+    const leftWing = makeWing(-1);
+    const rightWing = makeWing(1);
+    group.add(leftWing);
+    group.add(rightWing);
+
+    // Feet
+    const footGeo = new THREE.SphereGeometry(0.04, 8, 8);
+    [-1, 1].forEach(s => {
+      const foot = new THREE.Mesh(footGeo, batMat);
+      foot.position.set(0.1 * s, -0.45, 0);
+      group.add(foot);
+    });
+
+    group.userData.leftWing = leftWing;
+    group.userData.rightWing = rightWing;
+    return group;
+  }
+
+  // Create 3 bats in orbit pivots
+  const bats = [];
+  for (var i = 0; i < 3; i++) {
+    var pivot = new THREE.Group();
+    var bat = makeBat();
+    bat.scale.set(0.7, 0.7, 0.7);
+    bat.position.x = 1.5;
+    // No rotation - bats face inward (wrong)
+    pivot.rotation.y = (Math.PI * 2 / 3) * i;
+    // Stagger heights
+    bat.position.y = (i - 1) * 0.3;
+    pivot.add(bat);
+    scene.add(pivot);
+    bats.push({ pivot: pivot, bat: bat });
+  }
+
+  scene.userData.bats = bats;
+  return scene;
+}
+
+function animateModel(model, time) {
+  var bats = model.userData.bats;
+  for (var i = 0; i < bats.length; i++) {
+    var b = bats[i];
+    // Orbit
+    b.pivot.rotation.y = (Math.PI * 2 / 3) * i + time * 0.8;
+
+    // Wing flap
+    var flapAngle = Math.sin(time * 5 + i * 2) * 0.5;
+    b.bat.userData.leftWing.rotation.y = flapAngle;
+    b.bat.userData.rightWing.rotation.y = -flapAngle;
+
+    var tilt = Math.sin(time * 5 + i * 2) * 0.1;
+    b.bat.userData.leftWing.rotation.x = tilt;
+    b.bat.userData.rightWing.rotation.x = tilt;
+
+    // Bobbing
+    b.bat.position.y = (i - 1) * 0.3 + Math.sin(time * 2 + i * 1.5) * 0.15;
+  }
+}
+
+// 3D slide base - shared scene setup, lighting, drag, animation
+// Expects: createModel() defined before this runs
+// Placeholders bat-trio-v1-canvas and bat-trio-v1-slide replaced by build.js
+(function() {
+  const canvas = document.getElementById('bat-trio-v1-canvas');
+  const slideEl = document.getElementById('bat-trio-v1-slide');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x1a1a1a);
+
+  // Add model
+  const model = createModel();
+  const onAnimate = typeof animateModel === 'function' ? animateModel : null;
+  scene.add(model);
+
+  // Warm directional light
+  const dirLight = new THREE.DirectionalLight(0xffd4a0, 1.2);
+  dirLight.position.set(5, 8, 4);
+  scene.add(dirLight);
+
+  // Ambient light
+  const ambLight = new THREE.AmbientLight(0x404040, 0.6);
+  scene.add(ambLight);
+
+  // Orange point light for warmth
+  const pointLight = new THREE.PointLight(0xff8c32, 0.8, 15);
+  pointLight.position.set(-2, 3, -2);
+  scene.add(pointLight);
+
+  camera.position.set(3, 3, 3);
+  camera.lookAt(0, 0, 0);
+
+  // Drag to rotate
+  let isDragging = false;
+  let prevMouse = { x: 0, y: 0 };
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - prevMouse.x;
+    const dy = e.clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  // Touch support for drag
+  canvas.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - prevMouse.x;
+    const dy = e.touches[0].clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchend', () => { isDragging = false; });
+
+  let animId;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    if (onAnimate) onAnimate(model, performance.now() / 1000);
+    renderer.render(scene, camera);
+  }
+
+  // Only animate when this slide is active
+  const origShowSlide = window.showSlide;
+  window.showSlide = function(n, itemCount, showAll) {
+    origShowSlide(n, itemCount, showAll);
+    if (slides[current] === slideEl) {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      animate();
+    } else {
+      cancelAnimationFrame(animId);
+    }
+  };
+})();
+  </script>
+
+  <script>
+    // 3D bat-trio-v2 scene (generated by 3d/build.js)
+// Three bats circling around each other
+function createModel() {
+  const scene = new THREE.Group();
+
+  const batMat = new THREE.MeshPhysicalMaterial({
+    color: 0x6a0dad,
+    emissive: 0x6a0dad,
+    emissiveIntensity: 0.15,
+    roughness: 0.4,
+    metalness: 0.1,
+    side: THREE.DoubleSide
+  });
+
+  const membraneMat = new THREE.MeshPhysicalMaterial({
+    color: 0x5a0aad,
+    emissive: 0x5a0aad,
+    emissiveIntensity: 0.1,
+    transparent: true,
+    opacity: 0.6,
+    roughness: 0.5,
+    metalness: 0.0,
+    side: THREE.DoubleSide
+  });
+
+  function makeBat() {
+    const group = new THREE.Group();
+
+    // Body
+    const bodyGeo = new THREE.SphereGeometry(0.3, 16, 16);
+    const body = new THREE.Mesh(bodyGeo, batMat);
+    body.scale.set(0.8, 1.3, 0.7);
+    group.add(body);
+
+    // Head
+    const headGeo = new THREE.SphereGeometry(0.22, 16, 16);
+    const head = new THREE.Mesh(headGeo, batMat);
+    head.position.set(0, 0.45, 0.1);
+    group.add(head);
+
+    // Snout
+    const snoutGeo = new THREE.SphereGeometry(0.1, 12, 12);
+    const snout = new THREE.Mesh(snoutGeo, batMat);
+    snout.scale.set(0.8, 0.6, 1.0);
+    snout.position.set(0, 0.4, 0.3);
+    group.add(snout);
+
+    // Ears
+    const earGeo = new THREE.ConeGeometry(0.08, 0.25, 8);
+    [-1, 1].forEach(s => {
+      const ear = new THREE.Mesh(earGeo, batMat);
+      ear.position.set(0.12 * s, 0.68, 0.05);
+      ear.rotation.z = -0.15 * s;
+      group.add(ear);
+    });
+
+    // Eyes
+    const eyeMat = new THREE.MeshBasicMaterial({ color: 0xff4444 });
+    const eyeGeo = new THREE.SphereGeometry(0.04, 8, 8);
+    [-1, 1].forEach(s => {
+      const eye = new THREE.Mesh(eyeGeo, eyeMat);
+      eye.position.set(0.1 * s, 0.5, 0.28);
+      group.add(eye);
+    });
+
+    // Wings
+    function makeWing(xSign) {
+      const wingGroup = new THREE.Group();
+      const boneGeo = new THREE.CylinderGeometry(0.015, 0.01, 0.7, 6);
+      const upperArm = new THREE.Mesh(boneGeo, batMat);
+      upperArm.rotation.z = (Math.PI / 2) * xSign;
+      upperArm.position.set(0.35 * xSign, 0.1, 0);
+      wingGroup.add(upperArm);
+
+      const fingerGeo = new THREE.CylinderGeometry(0.01, 0.005, 0.5, 6);
+      [-0.3, 0.0, 0.3, 0.55].forEach(angle => {
+        const finger = new THREE.Mesh(fingerGeo, batMat);
+        finger.position.set(0.7 * xSign, 0.1, 0);
+        finger.rotation.z = ((Math.PI / 2) + angle) * xSign;
+        finger.position.y += Math.cos(angle) * 0.15;
+        finger.position.x += Math.sin(angle) * 0.15 * xSign;
+        wingGroup.add(finger);
+      });
+
+      const memShape = new THREE.Shape();
+      memShape.moveTo(0, 0.15);
+      memShape.lineTo(0.7 * xSign, 0.3);
+      memShape.quadraticCurveTo(0.85 * xSign, 0.15, 0.9 * xSign, 0.0);
+      memShape.quadraticCurveTo(0.8 * xSign, -0.05, 0.7 * xSign, -0.1);
+      memShape.quadraticCurveTo(0.55 * xSign, -0.15, 0.45 * xSign, -0.2);
+      memShape.quadraticCurveTo(0.3 * xSign, -0.1, 0.2 * xSign, -0.25);
+      memShape.lineTo(0, -0.35);
+      memShape.closePath();
+
+      const memGeo = new THREE.ShapeGeometry(memShape);
+      const membrane = new THREE.Mesh(memGeo, membraneMat);
+      membrane.position.z = 0.005;
+      wingGroup.add(membrane);
+      const memBack = new THREE.Mesh(memGeo, membraneMat);
+      memBack.position.z = -0.005;
+      wingGroup.add(memBack);
+
+      return wingGroup;
+    }
+
+    const leftWing = makeWing(-1);
+    const rightWing = makeWing(1);
+    group.add(leftWing);
+    group.add(rightWing);
+
+    // Feet
+    const footGeo = new THREE.SphereGeometry(0.04, 8, 8);
+    [-1, 1].forEach(s => {
+      const foot = new THREE.Mesh(footGeo, batMat);
+      foot.position.set(0.1 * s, -0.45, 0);
+      group.add(foot);
+    });
+
+    group.userData.leftWing = leftWing;
+    group.userData.rightWing = rightWing;
+    return group;
+  }
+
+  // Create 3 bats in orbit pivots
+  const bats = [];
+  for (var i = 0; i < 3; i++) {
+    var pivot = new THREE.Group();
+    var bat = makeBat();
+    bat.scale.set(0.7, 0.7, 0.7);
+    bat.position.x = 1.5;
+    // Correct facing, but standing upright
+    bat.rotation.y = Math.PI;
+    pivot.rotation.y = (Math.PI * 2 / 3) * i;
+    // Stagger heights
+    bat.position.y = (i - 1) * 0.3;
+    pivot.add(bat);
+    scene.add(pivot);
+    bats.push({ pivot: pivot, bat: bat });
+  }
+
+  scene.userData.bats = bats;
+  return scene;
+}
+
+function animateModel(model, time) {
+  var bats = model.userData.bats;
+  for (var i = 0; i < bats.length; i++) {
+    var b = bats[i];
+    // Orbit
+    b.pivot.rotation.y = (Math.PI * 2 / 3) * i + time * 0.8;
+
+    // Wing flap
+    var flapAngle = Math.sin(time * 5 + i * 2) * 0.5;
+    b.bat.userData.leftWing.rotation.y = flapAngle;
+    b.bat.userData.rightWing.rotation.y = -flapAngle;
+
+    var tilt = Math.sin(time * 5 + i * 2) * 0.1;
+    b.bat.userData.leftWing.rotation.x = tilt;
+    b.bat.userData.rightWing.rotation.x = tilt;
+
+    // Bobbing
+    b.bat.position.y = (i - 1) * 0.3 + Math.sin(time * 2 + i * 1.5) * 0.15;
+  }
+}
+
+// 3D slide base - shared scene setup, lighting, drag, animation
+// Expects: createModel() defined before this runs
+// Placeholders bat-trio-v2-canvas and bat-trio-v2-slide replaced by build.js
+(function() {
+  const canvas = document.getElementById('bat-trio-v2-canvas');
+  const slideEl = document.getElementById('bat-trio-v2-slide');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x1a1a1a);
+
+  // Add model
+  const model = createModel();
+  const onAnimate = typeof animateModel === 'function' ? animateModel : null;
+  scene.add(model);
+
+  // Warm directional light
+  const dirLight = new THREE.DirectionalLight(0xffd4a0, 1.2);
+  dirLight.position.set(5, 8, 4);
+  scene.add(dirLight);
+
+  // Ambient light
+  const ambLight = new THREE.AmbientLight(0x404040, 0.6);
+  scene.add(ambLight);
+
+  // Orange point light for warmth
+  const pointLight = new THREE.PointLight(0xff8c32, 0.8, 15);
+  pointLight.position.set(-2, 3, -2);
+  scene.add(pointLight);
+
+  camera.position.set(3, 3, 3);
+  camera.lookAt(0, 0, 0);
+
+  // Drag to rotate
+  let isDragging = false;
+  let prevMouse = { x: 0, y: 0 };
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - prevMouse.x;
+    const dy = e.clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  // Touch support for drag
+  canvas.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - prevMouse.x;
+    const dy = e.touches[0].clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchend', () => { isDragging = false; });
+
+  let animId;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    if (onAnimate) onAnimate(model, performance.now() / 1000);
+    renderer.render(scene, camera);
+  }
+
+  // Only animate when this slide is active
+  const origShowSlide = window.showSlide;
+  window.showSlide = function(n, itemCount, showAll) {
+    origShowSlide(n, itemCount, showAll);
+    if (slides[current] === slideEl) {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      animate();
+    } else {
+      cancelAnimationFrame(animId);
+    }
+  };
+})();
+  </script>
+
+  <script>
+    // 3D bat-trio-v3 scene (generated by 3d/build.js)
+// Three bats circling around each other
+function createModel() {
+  const scene = new THREE.Group();
+
+  const batMat = new THREE.MeshPhysicalMaterial({
+    color: 0x6a0dad,
+    emissive: 0x6a0dad,
+    emissiveIntensity: 0.15,
+    roughness: 0.4,
+    metalness: 0.1,
+    side: THREE.DoubleSide
+  });
+
+  const membraneMat = new THREE.MeshPhysicalMaterial({
+    color: 0x5a0aad,
+    emissive: 0x5a0aad,
+    emissiveIntensity: 0.1,
+    transparent: true,
+    opacity: 0.6,
+    roughness: 0.5,
+    metalness: 0.0,
+    side: THREE.DoubleSide
+  });
+
+  function makeBat() {
+    const group = new THREE.Group();
+
+    // Body
+    const bodyGeo = new THREE.SphereGeometry(0.3, 16, 16);
+    const body = new THREE.Mesh(bodyGeo, batMat);
+    body.scale.set(0.8, 1.3, 0.7);
+    group.add(body);
+
+    // Head
+    const headGeo = new THREE.SphereGeometry(0.22, 16, 16);
+    const head = new THREE.Mesh(headGeo, batMat);
+    head.position.set(0, 0.45, 0.1);
+    group.add(head);
+
+    // Snout
+    const snoutGeo = new THREE.SphereGeometry(0.1, 12, 12);
+    const snout = new THREE.Mesh(snoutGeo, batMat);
+    snout.scale.set(0.8, 0.6, 1.0);
+    snout.position.set(0, 0.4, 0.3);
+    group.add(snout);
+
+    // Ears
+    const earGeo = new THREE.ConeGeometry(0.08, 0.25, 8);
+    [-1, 1].forEach(s => {
+      const ear = new THREE.Mesh(earGeo, batMat);
+      ear.position.set(0.12 * s, 0.68, 0.05);
+      ear.rotation.z = -0.15 * s;
+      group.add(ear);
+    });
+
+    // Eyes
+    const eyeMat = new THREE.MeshBasicMaterial({ color: 0xff4444 });
+    const eyeGeo = new THREE.SphereGeometry(0.04, 8, 8);
+    [-1, 1].forEach(s => {
+      const eye = new THREE.Mesh(eyeGeo, eyeMat);
+      eye.position.set(0.1 * s, 0.5, 0.28);
+      group.add(eye);
+    });
+
+    // Wings
+    function makeWing(xSign) {
+      const wingGroup = new THREE.Group();
+      const boneGeo = new THREE.CylinderGeometry(0.015, 0.01, 0.7, 6);
+      const upperArm = new THREE.Mesh(boneGeo, batMat);
+      upperArm.rotation.z = (Math.PI / 2) * xSign;
+      upperArm.position.set(0.35 * xSign, 0.1, 0);
+      wingGroup.add(upperArm);
+
+      const fingerGeo = new THREE.CylinderGeometry(0.01, 0.005, 0.5, 6);
+      [-0.3, 0.0, 0.3, 0.55].forEach(angle => {
+        const finger = new THREE.Mesh(fingerGeo, batMat);
+        finger.position.set(0.7 * xSign, 0.1, 0);
+        finger.rotation.z = ((Math.PI / 2) + angle) * xSign;
+        finger.position.y += Math.cos(angle) * 0.15;
+        finger.position.x += Math.sin(angle) * 0.15 * xSign;
+        wingGroup.add(finger);
+      });
+
+      const memShape = new THREE.Shape();
+      memShape.moveTo(0, 0.15);
+      memShape.lineTo(0.7 * xSign, 0.3);
+      memShape.quadraticCurveTo(0.85 * xSign, 0.15, 0.9 * xSign, 0.0);
+      memShape.quadraticCurveTo(0.8 * xSign, -0.05, 0.7 * xSign, -0.1);
+      memShape.quadraticCurveTo(0.55 * xSign, -0.15, 0.45 * xSign, -0.2);
+      memShape.quadraticCurveTo(0.3 * xSign, -0.1, 0.2 * xSign, -0.25);
+      memShape.lineTo(0, -0.35);
+      memShape.closePath();
+
+      const memGeo = new THREE.ShapeGeometry(memShape);
+      const membrane = new THREE.Mesh(memGeo, membraneMat);
+      membrane.position.z = 0.005;
+      wingGroup.add(membrane);
+      const memBack = new THREE.Mesh(memGeo, membraneMat);
+      memBack.position.z = -0.005;
+      wingGroup.add(memBack);
+
+      return wingGroup;
+    }
+
+    const leftWing = makeWing(-1);
+    const rightWing = makeWing(1);
+    group.add(leftWing);
+    group.add(rightWing);
+
+    // Feet
+    const footGeo = new THREE.SphereGeometry(0.04, 8, 8);
+    [-1, 1].forEach(s => {
+      const foot = new THREE.Mesh(footGeo, batMat);
+      foot.position.set(0.1 * s, -0.45, 0);
+      group.add(foot);
+    });
+
+    group.userData.leftWing = leftWing;
+    group.userData.rightWing = rightWing;
+    return group;
+  }
+
+  // Create 3 bats in orbit pivots
+  const bats = [];
+  for (var i = 0; i < 3; i++) {
+    var pivot = new THREE.Group();
+    var bat = makeBat();
+    bat.scale.set(0.7, 0.7, 0.7);
+    bat.position.x = 1.5;
+    // Tilted the wrong way
+    bat.rotation.y = Math.PI;
+    bat.rotation.x = 0.5;
+    pivot.rotation.y = (Math.PI * 2 / 3) * i;
+    // Stagger heights
+    bat.position.y = (i - 1) * 0.3;
+    pivot.add(bat);
+    scene.add(pivot);
+    bats.push({ pivot: pivot, bat: bat });
+  }
+
+  scene.userData.bats = bats;
+  return scene;
+}
+
+function animateModel(model, time) {
+  var bats = model.userData.bats;
+  for (var i = 0; i < bats.length; i++) {
+    var b = bats[i];
+    // Orbit
+    b.pivot.rotation.y = (Math.PI * 2 / 3) * i + time * 0.8;
+
+    // Wing flap
+    var flapAngle = Math.sin(time * 5 + i * 2) * 0.5;
+    b.bat.userData.leftWing.rotation.y = flapAngle;
+    b.bat.userData.rightWing.rotation.y = -flapAngle;
+
+    var tilt = Math.sin(time * 5 + i * 2) * 0.1;
+    b.bat.userData.leftWing.rotation.x = tilt;
+    b.bat.userData.rightWing.rotation.x = tilt;
+
+    // Bobbing
+    b.bat.position.y = (i - 1) * 0.3 + Math.sin(time * 2 + i * 1.5) * 0.15;
+  }
+}
+
+// 3D slide base - shared scene setup, lighting, drag, animation
+// Expects: createModel() defined before this runs
+// Placeholders bat-trio-v3-canvas and bat-trio-v3-slide replaced by build.js
+(function() {
+  const canvas = document.getElementById('bat-trio-v3-canvas');
+  const slideEl = document.getElementById('bat-trio-v3-slide');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x1a1a1a);
+
+  // Add model
+  const model = createModel();
+  const onAnimate = typeof animateModel === 'function' ? animateModel : null;
+  scene.add(model);
+
+  // Warm directional light
+  const dirLight = new THREE.DirectionalLight(0xffd4a0, 1.2);
+  dirLight.position.set(5, 8, 4);
+  scene.add(dirLight);
+
+  // Ambient light
+  const ambLight = new THREE.AmbientLight(0x404040, 0.6);
+  scene.add(ambLight);
+
+  // Orange point light for warmth
+  const pointLight = new THREE.PointLight(0xff8c32, 0.8, 15);
+  pointLight.position.set(-2, 3, -2);
+  scene.add(pointLight);
+
+  camera.position.set(3, 3, 3);
+  camera.lookAt(0, 0, 0);
+
+  // Drag to rotate
+  let isDragging = false;
+  let prevMouse = { x: 0, y: 0 };
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - prevMouse.x;
+    const dy = e.clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  // Touch support for drag
+  canvas.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - prevMouse.x;
+    const dy = e.touches[0].clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchend', () => { isDragging = false; });
+
+  let animId;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    if (onAnimate) onAnimate(model, performance.now() / 1000);
+    renderer.render(scene, camera);
+  }
+
+  // Only animate when this slide is active
+  const origShowSlide = window.showSlide;
+  window.showSlide = function(n, itemCount, showAll) {
+    origShowSlide(n, itemCount, showAll);
+    if (slides[current] === slideEl) {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      animate();
+    } else {
+      cancelAnimationFrame(animId);
+    }
+  };
+})();
+  </script>
+
+  <script>
+    // 3D bat-trio scene (generated by 3d/build.js)
+// Three bats circling around each other
+function createModel() {
+  const scene = new THREE.Group();
+
+  const batMat = new THREE.MeshPhysicalMaterial({
+    color: 0x6a0dad,
+    emissive: 0x6a0dad,
+    emissiveIntensity: 0.15,
+    roughness: 0.4,
+    metalness: 0.1,
+    side: THREE.DoubleSide
+  });
+
+  const membraneMat = new THREE.MeshPhysicalMaterial({
+    color: 0x5a0aad,
+    emissive: 0x5a0aad,
+    emissiveIntensity: 0.1,
+    transparent: true,
+    opacity: 0.6,
+    roughness: 0.5,
+    metalness: 0.0,
+    side: THREE.DoubleSide
+  });
+
+  function makeBat() {
+    const group = new THREE.Group();
+
+    // Body
+    const bodyGeo = new THREE.SphereGeometry(0.3, 16, 16);
+    const body = new THREE.Mesh(bodyGeo, batMat);
+    body.scale.set(0.8, 1.3, 0.7);
+    group.add(body);
+
+    // Head
+    const headGeo = new THREE.SphereGeometry(0.22, 16, 16);
+    const head = new THREE.Mesh(headGeo, batMat);
+    head.position.set(0, 0.45, 0.1);
+    group.add(head);
+
+    // Snout
+    const snoutGeo = new THREE.SphereGeometry(0.1, 12, 12);
+    const snout = new THREE.Mesh(snoutGeo, batMat);
+    snout.scale.set(0.8, 0.6, 1.0);
+    snout.position.set(0, 0.4, 0.3);
+    group.add(snout);
+
+    // Ears
+    const earGeo = new THREE.ConeGeometry(0.08, 0.25, 8);
+    [-1, 1].forEach(s => {
+      const ear = new THREE.Mesh(earGeo, batMat);
+      ear.position.set(0.12 * s, 0.68, 0.05);
+      ear.rotation.z = -0.15 * s;
+      group.add(ear);
+    });
+
+    // Eyes
+    const eyeMat = new THREE.MeshBasicMaterial({ color: 0xff4444 });
+    const eyeGeo = new THREE.SphereGeometry(0.04, 8, 8);
+    [-1, 1].forEach(s => {
+      const eye = new THREE.Mesh(eyeGeo, eyeMat);
+      eye.position.set(0.1 * s, 0.5, 0.28);
+      group.add(eye);
+    });
+
+    // Wings
+    function makeWing(xSign) {
+      const wingGroup = new THREE.Group();
+      const boneGeo = new THREE.CylinderGeometry(0.015, 0.01, 0.7, 6);
+      const upperArm = new THREE.Mesh(boneGeo, batMat);
+      upperArm.rotation.z = (Math.PI / 2) * xSign;
+      upperArm.position.set(0.35 * xSign, 0.1, 0);
+      wingGroup.add(upperArm);
+
+      const fingerGeo = new THREE.CylinderGeometry(0.01, 0.005, 0.5, 6);
+      [-0.3, 0.0, 0.3, 0.55].forEach(angle => {
+        const finger = new THREE.Mesh(fingerGeo, batMat);
+        finger.position.set(0.7 * xSign, 0.1, 0);
+        finger.rotation.z = ((Math.PI / 2) + angle) * xSign;
+        finger.position.y += Math.cos(angle) * 0.15;
+        finger.position.x += Math.sin(angle) * 0.15 * xSign;
+        wingGroup.add(finger);
+      });
+
+      const memShape = new THREE.Shape();
+      memShape.moveTo(0, 0.15);
+      memShape.lineTo(0.7 * xSign, 0.3);
+      memShape.quadraticCurveTo(0.85 * xSign, 0.15, 0.9 * xSign, 0.0);
+      memShape.quadraticCurveTo(0.8 * xSign, -0.05, 0.7 * xSign, -0.1);
+      memShape.quadraticCurveTo(0.55 * xSign, -0.15, 0.45 * xSign, -0.2);
+      memShape.quadraticCurveTo(0.3 * xSign, -0.1, 0.2 * xSign, -0.25);
+      memShape.lineTo(0, -0.35);
+      memShape.closePath();
+
+      const memGeo = new THREE.ShapeGeometry(memShape);
+      const membrane = new THREE.Mesh(memGeo, membraneMat);
+      membrane.position.z = 0.005;
+      wingGroup.add(membrane);
+      const memBack = new THREE.Mesh(memGeo, membraneMat);
+      memBack.position.z = -0.005;
+      wingGroup.add(memBack);
+
+      return wingGroup;
+    }
+
+    const leftWing = makeWing(-1);
+    const rightWing = makeWing(1);
+    group.add(leftWing);
+    group.add(rightWing);
+
+    // Feet
+    const footGeo = new THREE.SphereGeometry(0.04, 8, 8);
+    [-1, 1].forEach(s => {
+      const foot = new THREE.Mesh(footGeo, batMat);
+      foot.position.set(0.1 * s, -0.45, 0);
+      group.add(foot);
+    });
+
+    group.userData.leftWing = leftWing;
+    group.userData.rightWing = rightWing;
+    return group;
+  }
+
+  // Create 3 bats in orbit pivots
+  const bats = [];
+  for (var i = 0; i < 3; i++) {
+    var pivot = new THREE.Group();
+    var bat = makeBat();
+    bat.scale.set(0.7, 0.7, 0.7);
+    bat.position.x = 1.5;
+    // Face the direction of travel (tangent to orbit), tilted forward in flight
+    bat.rotation.y = Math.PI;
+    bat.rotation.x = -0.7;
+    pivot.rotation.y = (Math.PI * 2 / 3) * i;
+    // Stagger heights
+    bat.position.y = (i - 1) * 0.3;
+    pivot.add(bat);
+    scene.add(pivot);
+    bats.push({ pivot: pivot, bat: bat });
+  }
+
+  scene.userData.bats = bats;
+  return scene;
+}
+
+function animateModel(model, time) {
+  var bats = model.userData.bats;
+  for (var i = 0; i < bats.length; i++) {
+    var b = bats[i];
+    // Orbit
+    b.pivot.rotation.y = (Math.PI * 2 / 3) * i + time * 0.8;
+
+    // Wing flap
+    var flapAngle = Math.sin(time * 5 + i * 2) * 0.5;
+    b.bat.userData.leftWing.rotation.y = flapAngle;
+    b.bat.userData.rightWing.rotation.y = -flapAngle;
+
+    var tilt = Math.sin(time * 5 + i * 2) * 0.1;
+    b.bat.userData.leftWing.rotation.x = tilt;
+    b.bat.userData.rightWing.rotation.x = tilt;
+
+    // Bobbing
+    b.bat.position.y = (i - 1) * 0.3 + Math.sin(time * 2 + i * 1.5) * 0.15;
+  }
+}
+
+// 3D slide base - shared scene setup, lighting, drag, animation
+// Expects: createModel() defined before this runs
+// Placeholders bat-trio-canvas and bat-trio-slide replaced by build.js
+(function() {
+  const canvas = document.getElementById('bat-trio-canvas');
+  const slideEl = document.getElementById('bat-trio-slide');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x1a1a1a);
+
+  // Add model
+  const model = createModel();
+  const onAnimate = typeof animateModel === 'function' ? animateModel : null;
+  scene.add(model);
+
+  // Warm directional light
+  const dirLight = new THREE.DirectionalLight(0xffd4a0, 1.2);
+  dirLight.position.set(5, 8, 4);
+  scene.add(dirLight);
+
+  // Ambient light
+  const ambLight = new THREE.AmbientLight(0x404040, 0.6);
+  scene.add(ambLight);
+
+  // Orange point light for warmth
+  const pointLight = new THREE.PointLight(0xff8c32, 0.8, 15);
+  pointLight.position.set(-2, 3, -2);
+  scene.add(pointLight);
+
+  camera.position.set(3, 3, 3);
+  camera.lookAt(0, 0, 0);
+
+  // Drag to rotate
+  let isDragging = false;
+  let prevMouse = { x: 0, y: 0 };
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - prevMouse.x;
+    const dy = e.clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  // Touch support for drag
+  canvas.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - prevMouse.x;
+    const dy = e.touches[0].clientY - prevMouse.y;
+    model.rotation.y += dx * 0.01;
+    model.rotation.x += dy * 0.01;
+    prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    e.stopPropagation();
+  }, { passive: true });
+
+  canvas.addEventListener('touchend', () => { isDragging = false; });
+
+  let animId;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    if (onAnimate) onAnimate(model, performance.now() / 1000);
+    renderer.render(scene, camera);
+  }
+
+  // Only animate when this slide is active
+  const origShowSlide = window.showSlide;
+  window.showSlide = function(n, itemCount, showAll) {
+    origShowSlide(n, itemCount, showAll);
+    if (slides[current] === slideEl) {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      animate();
+    } else {
+      cancelAnimationFrame(animId);
+    }
+  };
+})();
+  </script>
+  <!-- 3D-SCRIPTS-END -->
 </body>
 </html>
