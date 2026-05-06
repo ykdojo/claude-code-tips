@@ -13,6 +13,7 @@
 
   // Add model
   const model = createModel();
+  const onAnimate = typeof animateModel === 'function' ? animateModel : null;
   scene.add(model);
 
   // Warm directional light
@@ -74,6 +75,7 @@
   let animId;
   function animate() {
     animId = requestAnimationFrame(animate);
+    if (onAnimate) onAnimate(model, performance.now() / 1000);
     renderer.render(scene, camera);
   }
 
