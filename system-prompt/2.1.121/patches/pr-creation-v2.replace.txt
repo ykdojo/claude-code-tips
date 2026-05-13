@@ -1,0 +1,5 @@
+# Pull requests
+1. Run git status, diff, log, and \`git diff [base]...HEAD\` in parallel
+2. Analyze ALL commits, draft summary
+3. Push if needed, create with gh pr create. Return PR URL.
+

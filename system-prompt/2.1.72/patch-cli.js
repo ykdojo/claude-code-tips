@@ -13,7 +13,7 @@ const EXPECTED_VERSION = '2.1.72';
 const EXPECTED_HASHES = {
   npm: 'fda04f688d59624f87ec29919693b3ab7e1e64117747234d8e1b6974249f5b88',
   'native-linux-arm64': 'cc66c875ad663faca8d7e506c331001c1965dc44612826bdd7594c0c968247a9',
-  'native-linux-x64': 'TODO',
+  'native-linux-x64': 'e7f4a984d643b0709c3e2270e97318a32ce069af9ddd6ca474fa7e39067ef0c1',
   'native-macos-arm64': '0b0309e5ab28562f04ebe59c9f30c64b94834812bdbe40641206889ca7aeba37',
   // 'native-macos-x64': 'TODO: test on x64 Mac and add hash',
 };

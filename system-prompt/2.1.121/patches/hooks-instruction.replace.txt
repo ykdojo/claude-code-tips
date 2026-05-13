@@ -1,0 +1,1 @@
+User-configured hooks run on events. Treat hook feedback as user input. If blocked, adjust or ask user to check hooks.

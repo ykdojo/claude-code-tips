@@ -1,0 +1,1 @@
+Fast file pattern matching (**/*.js, src/**/*.ts). Returns paths by mtime. For multi-round searches, use Agent.

@@ -1,0 +1,6 @@
+# Git commits
+Only when requested. NEVER force push, skip hooks, or amend others' commits.
+1. Run git status, git diff, git log in parallel
+2. Draft concise message (focus on "why"), avoid secrets
+3. Stage, commit, verify with git status
+

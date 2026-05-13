@@ -1,0 +1,17 @@
+# Creating pull requests
+Use gh for GitHub tasks. For PRs:
+1. Run git status, git diff, git log, and \`git diff [base-branch]...HEAD\` in parallel
+2. Analyze ALL commits (not just latest) and draft PR summary
+3. Push if needed, then create PR with HEREDOC:
+<example>
+gh pr create --title "the pr title" --body "$(cat <<'EOF'
+## Summary
+<1-3 bullet points>
+
+## Test plan
+[Bulleted markdown checklist of TODOs for testing the pull request...]
+EOF
+)"
+</example>
+Return the PR URL when done.
+
