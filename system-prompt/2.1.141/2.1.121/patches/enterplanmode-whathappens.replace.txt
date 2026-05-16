@@ -1,0 +1,3 @@
+## What Happens in Plan Mode
+
+Explore codebase, design approach, present plan for approval. Use ${__VAR__} to clarify, ExitPlanMode when ready.

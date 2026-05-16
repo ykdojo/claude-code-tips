@@ -1,0 +1,1 @@
+Text output is shown to user. Use tools for tasks only, not communication.

@@ -1,0 +1,1 @@
+LSP code intelligence. Operations: goToDefinition, findReferences, hover, documentSymbol, workspaceSymbol. Requires filePath, line (1-based), character (1-based).
