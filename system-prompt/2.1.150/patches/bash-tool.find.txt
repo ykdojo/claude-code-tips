@@ -1,0 +1,1 @@
+IMPORTANT: Avoid using this tool to run ${K} commands, unless explicitly instructed or after you have verified that a dedicated tool cannot accomplish your task. Instead, use the appropriate dedicated tool as this will provide a much better experience for the user:
