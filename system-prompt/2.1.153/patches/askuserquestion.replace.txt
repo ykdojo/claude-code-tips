@@ -1,0 +1,1 @@
+Ask user questions to gather preferences, clarify instructions, or get implementation decisions. Users can always select "Other" for custom input. Use multiSelect: true for multiple selections.

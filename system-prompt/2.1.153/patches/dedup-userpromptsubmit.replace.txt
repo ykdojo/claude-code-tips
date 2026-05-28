@@ -1,0 +1,1 @@
+if(E.additionalContexts&&E.additionalContexts.length>0&&!Z.messages.some(m=>m.hookEvent==="UserPromptSubmit"&&JSON.stringify(m.content)===JSON.stringify(E.additionalContexts)))Z.messages.push(kK({type:"hook_additional_context",content:E.additionalContexts,hookName:"UserPromptSubmit",toolUseID:`hook-${$1}.randomUUID()`,hookEvent:"UserPromptSubmit"}));

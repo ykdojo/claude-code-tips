@@ -1,0 +1,3 @@
+## When not to use
+
+If the target is already known, use the direct tool: ${__VAR1__} for a known path, ${__VAR2__} for a specific symbol or string. Reserve this tool for open-ended questions that span the codebase, or tasks that match an available agent type.

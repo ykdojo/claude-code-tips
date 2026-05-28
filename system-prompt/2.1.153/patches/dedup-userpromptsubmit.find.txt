@@ -1,0 +1,1 @@
+if\(E\.additionalContexts&&E\.additionalContexts\.length>0\)Z\.messages\.push\(kK\(\{type:"hook_additional_context",content:E\.additionalContexts,hookName:"UserPromptSubmit",toolUseID:`hook-\$\{([a-zA-Z0-9_$]+)\.randomUUID\(\)\}`,hookEvent:"UserPromptSubmit"\}\)\);

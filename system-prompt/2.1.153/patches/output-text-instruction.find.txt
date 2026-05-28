@@ -1,0 +1,1 @@
+All text you output outside of tool use is displayed to the user. Output text to communicate with the user.

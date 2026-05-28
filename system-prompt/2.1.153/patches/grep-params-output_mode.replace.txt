@@ -1,0 +1,1 @@
+output_mode:__VAR1__.enum(["content","files_with_matches","count"]).optional().describe("Output mode. Default: files_with_matches"),
