@@ -1,0 +1,1 @@
+Blocked on user decision? Ask questions. Users can select "Other". Use multiSelect: true for multiple choices. Recommended option first with "(Recommended)". To plan, use ${Md}. In plan mode, clarify BEFORE plan finalization. Do not reference "the plan" in questions before calling ${_0}.
