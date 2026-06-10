@@ -13,7 +13,7 @@ Claude Code now has built-in conversation forking:
 - `/fork` - fork from within a conversation
 - `--fork-session` - use with `--resume` or `--continue` (e.g., `claude -c --fork-session`)
 
-Since `--fork-session` has no short form, I created a shell function to use `--fs` as a shortcut. [You can see it here](https://github.com/ykdojo/claude-code-tips?tab=readme-ov-file#tip-22-clonefork-and-half-clone-conversations).
+Since `--fork-session` has no short form, I created a shell function to use `--fs` as a shortcut. [You can see it here](https://github.com/ykdojo/claude-code-tips?tab=readme-ov-file#tip-21-clonefork-and-half-clone-conversations).
 
 ## 3. Plan mode for context handoff
 

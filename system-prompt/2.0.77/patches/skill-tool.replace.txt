@@ -1,1 +1,0 @@
-Invoke skills by name. Only use skills listed in "Available skills" below.

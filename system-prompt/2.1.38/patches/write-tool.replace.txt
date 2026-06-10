@@ -1,1 +1,0 @@
-Write file (overwrites existing).${NH5()} Prefer editing over creating. No unsolicited docs/READMEs.

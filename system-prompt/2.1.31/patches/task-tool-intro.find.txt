@@ -1,8 +1,0 @@
-Launch a new agent to handle complex, multi-step tasks autonomously.
-
-The ${n3} tool launches specialized agents (subprocesses) that autonomously handle complex tasks. Each agent type has specific capabilities and tools available to it.
-
-Available agent types and the tools they have access to:
-${Q}
-
-When using the ${n3} tool, you must specify a subagent_type parameter to select which agent type to use.

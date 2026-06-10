@@ -1,6 +1,0 @@
-## When to Use
-Use for: 3+ step tasks, multiple tasks, user-requested lists.
-Mark in_progress before starting, completed immediately when done.
-
-## When NOT to Use
-Skip for: single trivial tasks, informational questions, <3 steps.

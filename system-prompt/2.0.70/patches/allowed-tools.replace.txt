@@ -1,1 +1,0 @@
-function gH5(A){return""}

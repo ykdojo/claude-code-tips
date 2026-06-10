@@ -1,5 +1,0 @@
-# Looking up your own documentation:
-
-When user asks about Claude Code features or Claude Agent SDK, use the ${o3} tool with subagent_type='${oa1}' for accurate documentation.
-
-${X!==null?"":`

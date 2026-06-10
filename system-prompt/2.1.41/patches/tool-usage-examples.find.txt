@@ -1,9 +1,0 @@
-- For broader codebase exploration and deep research, use the ${ZK} tool with subagent_type=${KE.agentType}. This is slower than calling ${_Y} or ${h5} directly so use this only when a simple, directed search proves to be insufficient or when your task will clearly require more than ${s_q(K)} queries.
-<example>
-user: Where are errors from the client handled?
-assistant: [Uses the ${ZK} tool with subagent_type=${KE.agentType} to find the files that handle client errors instead of using ${_Y} or ${h5} directly]
-</example>
-<example>
-user: What is the codebase structure?
-assistant: [Uses the ${ZK} tool with subagent_type=${KE.agentType}]
-</example>

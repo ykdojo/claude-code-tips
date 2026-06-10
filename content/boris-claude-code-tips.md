@@ -44,4 +44,4 @@ Enable the "Explanatory" or "Learning" output style in `/config` to have Claude 
 
 ---
 
-I resonate with a lot of these tips, so I recommend trying out at least a few of them. If you're looking for more Claude Code tips, I have a repo with 44 tips of my own here: [claude-code-tips](https://github.com/ykdojo/claude-code-tips)
+I resonate with a lot of these tips, so I recommend trying out at least a few of them. If you're looking for more Claude Code tips, I have a repo with 43 tips of my own here: [claude-code-tips](https://github.com/ykdojo/claude-code-tips)

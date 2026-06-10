@@ -1,4 +1,0 @@
-Launch agents for complex, multi-step tasks. Specify subagent_type parameter.
-
-Available agent types:
-${__AGV1__}${__AGV2__}

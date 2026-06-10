@@ -1,1 +1,0 @@
-function v27(A){return""}

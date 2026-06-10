@@ -1,1 +1,0 @@
-type:__VAR1__.string().optional().describe("File type (rg --type)"),

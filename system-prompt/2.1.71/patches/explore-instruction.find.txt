@@ -1,1 +1,0 @@
-For broader codebase exploration and deep research, use the ${tq} tool with subagent_type=${QB.agentType}. This is slower than calling ${Sz} or ${k5} directly so use this only when a simple, directed search proves to be insufficient or when your task will clearly require more than ${T44} queries.

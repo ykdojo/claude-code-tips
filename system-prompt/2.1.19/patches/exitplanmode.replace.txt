@@ -1,4 +1,0 @@
-Signal plan completion for user approval. Plan is read from the file you wrote.
-
-Only for implementation tasks requiring code, NOT research/exploration.
-Use AskUserQuestion for clarifications BEFORE finalizing plan, not after.

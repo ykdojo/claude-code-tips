@@ -1,3 +1,0 @@
-function __FUNC__(A){if(!A)return"";let Q=__H1__(A);if(Q.length===0)return"";let B=__H2__();return`
-You can use the following tools without requiring user approval: ${Q.map((Z)=>{let Y=__H3__(Z.ruleValue);if(B){let J=__H4__(Y);if(J)return J}return Y}).join(", ")}
-`}

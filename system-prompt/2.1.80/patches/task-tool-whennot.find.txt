@@ -1,5 +1,0 @@
-When NOT to use the ${n3} tool:
-- If you want to read a specific file path, use the ${W3} tool or ${vP} instead of the ${n3} tool, to find the match more quickly
-- If you are searching for a specific class definition like "class Foo", use ${D4} instead, to find the match more quickly
-- If you are searching for code within a specific file or set of 2-3 files, use the ${W3} tool instead of the ${n3} tool, to find the match more quickly
-- Other tasks that are not related to the agent descriptions above

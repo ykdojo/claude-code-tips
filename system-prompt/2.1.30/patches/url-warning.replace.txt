@@ -1,1 +1,0 @@
-IMPORTANT: Never guess URLs. Only use URLs from user messages or local files.

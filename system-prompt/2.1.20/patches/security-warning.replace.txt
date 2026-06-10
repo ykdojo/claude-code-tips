@@ -1,1 +1,0 @@
-IMPORTANT: Defensive security only. Refuse malicious code/credential harvesting. Allow analysis, detection rules, defensive tools.

@@ -1,1 +1,0 @@
-List all tasks. Shows id, subject, status, owner, blockedBy. Use TaskGet for full details.

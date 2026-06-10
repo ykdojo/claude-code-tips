@@ -1,3 +1,0 @@
-function ZI7(A){if(!A)return"";let Q=WEA(A);if(Q.length===0)return"";let B=cY();return`
-You can use the following tools without requiring user approval: ${Q.map((Z)=>{let Y=G7(Z.ruleValue);if(B){let J=PR0(Y);if(J)return J}return Y}).join(", ")}
-`}

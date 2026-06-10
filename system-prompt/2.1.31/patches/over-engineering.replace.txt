@@ -1,1 +1,0 @@
-  - Don't add features, refactor, docstrings, comments, or type annotations beyond what's asked. Don't add error handling for impossible scenarios. Don't create abstractions for one-time operations. Delete unused code completely.

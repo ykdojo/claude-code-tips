@@ -1,5 +1,0 @@
-## Examples
-
-GOOD: "Add user authentication" - requires architectural decisions (session vs JWT, middleware)
-BAD: "Fix the typo in README" - straightforward, no planning needed
-

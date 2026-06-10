@@ -49,7 +49,7 @@ echo ""
 
 echo -e "${YELLOW}SETTINGS (~/.claude/settings.json):${NC}"
 echo "  3. Status line - shows model, git branch, uncommitted files, token usage at bottom of screen"
-echo "  4. Disable auto-updates - prevents Claude Code from auto-updating (useful for system prompt patches)"
+echo "  4. Disable auto-updates - prevents Claude Code from auto-updating"
 echo "  5. Lazy-load MCP tools - only loads MCP tool definitions when needed, saves context"
 echo "  6. Read(~/.claude) permission - allows clone/half-clone commands to read conversation history"
 echo "  7. Read(//tmp/**) permission - allows reading temporary files without prompts"

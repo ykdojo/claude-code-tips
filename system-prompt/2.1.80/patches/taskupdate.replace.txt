@@ -1,1 +1,0 @@
-Update task status/details. Only mark completed when FULLY done (no failing tests, partial work, or errors). Use TaskGet before updating stale tasks.

@@ -1,8 +1,0 @@
-## Task States
-States: pending, in_progress (one at a time), completed.
-Each task needs: content ("Run tests") and activeForm ("Running tests").
-
-Rules:
-- Mark complete IMMEDIATELY when done, never batch
-- Only mark complete if fully accomplished (no failing tests, partial work, or errors)
-- If blocked, keep in_progress and add new task for blocker

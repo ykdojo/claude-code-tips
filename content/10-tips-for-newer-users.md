@@ -2,7 +2,7 @@
 
 I've noticed more and more people are trying Claude Code and Cowork for the first time recently, so I wanted to give them a few pointers to get started with.
 
-Full repo with 44 tips: https://github.com/ykdojo/claude-code-tips
+Full repo with 43 tips: https://github.com/ykdojo/claude-code-tips
 
 ## 1. Terminal vs VS Code vs Desktop vs Cowork
 

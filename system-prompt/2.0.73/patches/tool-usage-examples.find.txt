@@ -1,5 +1,0 @@
-- VERY IMPORTANT: When exploring the codebase to gather context or to answer a question that is not a needle query for a specific file/class/function, it is CRITICAL that you use the ${o3} tool with subagent_type=${uL.agentType} instead of running search commands directly.
-<example>
-user: Where are errors from the client handled?
-assistant: [Uses the ${o3} tool with subagent_type=${uL.agentType} to find the files that handle client errors instead of using ${_V} or ${xX} directly]
-</example>

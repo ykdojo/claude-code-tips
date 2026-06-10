@@ -1,3 +1,0 @@
-function v27(A){if(!A)return"";let Q=JDA(A);if(Q.length===0)return"";let B=cY();return`
-You can use the following tools without requiring user approval: ${Q.map((Z)=>{let Y=r5(Z.ruleValue);if(B){let J=XL0(Y);if(J)return J}return Y}).join(", ")}
-`}
