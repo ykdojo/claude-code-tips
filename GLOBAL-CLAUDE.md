@@ -43,6 +43,19 @@ For git operations in other directories, use `cd <path> && git ...` instead of `
 
 Never use `2>&1` in bash commands. Keep stderr and stdout separate.
 
+# Publishing to npm
+
+My npm account has 2FA set to `auth-and-writes`, so `npm publish` requires 2FA. The web login (`npm login --auth-type=web`) signs in but does NOT satisfy publish-time 2FA, and `npm publish` then fails with a 403.
+
+Reliable path - use a Classic Automation token (they bypass 2FA):
+1. npmjs.com - Access Tokens - Generate New Token - Classic Token - type Automation - Generate.
+2. Publish from the package dir: `npm publish --//registry.npmjs.org/:_authToken=npm_...`
+3. Revoke the token afterward.
+
+Avoid Granular Access Tokens for this - they are fiddly: they error if org permissions are set without selecting an org (I have no orgs), and a brand-new unscoped package can't be individually selected, so it needs "All packages".
+
+Before publishing: `npm publish --dry-run` to confirm the file list, and gitignore generated artifacts so they don't ship.
+
 # Safety
 
 **NEVER use `--dangerously-skip-permissions` on the host machine.**
