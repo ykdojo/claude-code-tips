@@ -40,7 +40,7 @@ Here are my tips for getting the most out of Claude Code, including a custom sta
 - [Tip 28: Keep CLAUDE.md simple and review it periodically](#tip-28-keep-claudemd-simple-and-review-it-periodically)
 - [Tip 29: Claude Code as the universal interface](#tip-29-claude-code-as-the-universal-interface)
 - [Tip 30: It's all about choosing the right level of abstraction](#tip-30-its-all-about-choosing-the-right-level-of-abstraction)
-- [Tip 31: Audit your approved commands](#tip-31-audit-your-approved-commands)
+- [Tip 31: Use auto mode](#tip-31-use-auto-mode)
 - [Tip 32: Write lots of tests (and use TDD)](#tip-32-write-lots-of-tests-and-use-tdd)
 - [Tip 33: Be braver in the unknown; iterative problem solving](#tip-33-be-braver-in-the-unknown-iterative-problem-solving)
 - [Tip 34: Running bash commands and subagents in the background](#tip-34-running-bash-commands-and-subagents-in-the-background)
@@ -718,29 +718,13 @@ The key is that it's not binary. Some people say vibe coding is bad because you 
 
 It's sort of like you're exploring a giant iceberg. If you want to stay at the vibe coding level, you can just fly over the top and check it from far away. Then you can go a little bit closer. You can go into diving mode. You can go deeper and deeper, with Claude Code as your guide.
 
-## Tip 31: Audit your approved commands
+## Tip 31: Use auto mode
 
-I recently saw [this post](https://www.reddit.com/r/ClaudeAI/comments/1pgxckk/claude_cli_deleted_my_entire_home_directory_wiped/) where someone's Claude Code ran `rm -rf tests/ patches/ plan/ ~/` and wiped their home directory. It's easy to dismiss as a vibe coder mistake, but this kind of mistake could happen to anyone. So it's important to audit your approved commands from time to time. To make it easier, I built **cc-safe** - a CLI that scans your `.claude/settings.json` files for risky approved commands.
+Auto mode lets Claude decide whether a command is safe to run in context, instead of asking you to approve every single one. (You can cycle to it with shift+tab.) I've been using it for a while and it's been working well enough so far.
 
-It detects patterns like:
-- `sudo`, `rm -rf`, `Bash`, `chmod 777`, `curl | sh`
-- `git reset --hard`, `npm publish`, `docker run --privileged`
-- And more - it's container-aware so `docker exec` commands are skipped
+The main thing it fixes is mindless approving. When a command is too long to read carefully, or you're getting tired, you end up approving things without really thinking about them. Auto mode takes that pressure off, so I think it's a good default.
 
-It recursively scans all subdirectories, so you can point it at your projects folder to check everything at once. You can run it manually or ask Claude Code to run it for you:
-
-```bash
-npm install -g cc-safe
-cc-safe ~/projects
-```
-
-Or just run it directly with npx:
-
-```bash
-npx cc-safe .
-```
-
-GitHub: [cc-safe](https://github.com/ykdojo/cc-safe)
+If you still want to be careful, you can always approve things manually without auto mode. And if you want to give it complete independence, you can [run Claude Code in a container with `--dangerously-skip-permissions`](#tip-19-containers-for-long-running-risky-tasks).
 
 ## Tip 32: Write lots of tests (and use TDD)
 
@@ -755,7 +739,7 @@ I've found that TDD (Test-Driven Development) works really well with Claude Code
 3. Commit the tests
 4. Write the code to make them pass
 
-This is actually how I built [cc-safe](https://github.com/ykdojo/cc-safe). By writing failing tests first and committing them before implementation, you create a clear contract for what the code should do. Claude Code then has a concrete target to hit, and you can verify the implementation is correct by running the tests.
+By writing failing tests first and committing them before implementation, you create a clear contract for what the code should do. Claude Code then has a concrete target to hit, and you can verify the implementation is correct by running the tests.
 
 If you want to be extra sure, review the tests yourself to make sure they don't do anything stupid like just returning true.
 
@@ -942,19 +926,18 @@ The script shows you everything it will configure and lets you skip any items:
 ```
 INSTALLS:
   1. DX plugin - slash commands (/dx:gha, /dx:clone, /dx:handoff) and skills (reddit-fetch)
-  2. cc-safe - scans your settings for risky approved commands like 'rm -rf' or 'sudo'
 
 SETTINGS (~/.claude/settings.json):
-  3. Status line - shows model, git branch, uncommitted files, token usage at bottom of screen
-  4. Disable auto-updates - prevents Claude Code from auto-updating
-  5. Lazy-load MCP tools - only loads MCP tool definitions when needed, saves context
-  6. Read(~/.claude) permission - allows clone/half-clone commands to read conversation history
-  7. Read(//tmp/**) permission - allows reading temporary files without prompts
-  8. Disable attribution - removes Co-Authored-By from commits and attribution from PRs
+  2. Status line - shows model, git branch, uncommitted files, token usage at bottom of screen
+  3. Disable auto-updates - prevents Claude Code from auto-updating
+  4. Lazy-load MCP tools - only loads MCP tool definitions when needed, saves context
+  5. Read(~/.claude) permission - allows clone/half-clone commands to read conversation history
+  6. Read(//tmp/**) permission - allows reading temporary files without prompts
+  7. Disable attribution - removes Co-Authored-By from commits and attribution from PRs
 
 SHELL CONFIG (~/.zshrc or ~/.bashrc):
-  9. Aliases: c=claude, ch=claude --chrome, cs=claude --dangerously-skip-permissions
- 10. Fork shortcut: --fs expands to --fork-session (e.g., claude -c --fs)
+  8. Aliases: c=claude, ch=claude --chrome, cs=claude --dangerously-skip-permissions
+  9. Fork shortcut: --fs expands to --fork-session (e.g., claude -c --fs)
 
 Skip any? [e.g., 1 4 7 or Enter for all]:
 ```

@@ -44,21 +44,20 @@ echo ""
 
 echo -e "${YELLOW}INSTALLS:${NC}"
 echo "  1. DX plugin - slash commands (/dx:gha, /dx:clone, /dx:handoff) and skills (reddit-fetch)"
-echo "  2. cc-safe - scans your settings for risky approved commands like 'rm -rf' or 'sudo'"
 echo ""
 
 echo -e "${YELLOW}SETTINGS (~/.claude/settings.json):${NC}"
-echo "  3. Status line - shows model, git branch, uncommitted files, token usage at bottom of screen"
-echo "  4. Disable auto-updates - prevents Claude Code from auto-updating"
-echo "  5. Lazy-load MCP tools - only loads MCP tool definitions when needed, saves context"
-echo "  6. Read(~/.claude) permission - allows clone/half-clone commands to read conversation history"
-echo "  7. Read(//tmp/**) permission - allows reading temporary files without prompts"
-echo "  8. Disable attribution - removes Co-Authored-By from commits and attribution from PRs"
+echo "  2. Status line - shows model, git branch, uncommitted files, token usage at bottom of screen"
+echo "  3. Disable auto-updates - prevents Claude Code from auto-updating"
+echo "  4. Lazy-load MCP tools - only loads MCP tool definitions when needed, saves context"
+echo "  5. Read(~/.claude) permission - allows clone/half-clone commands to read conversation history"
+echo "  6. Read(//tmp/**) permission - allows reading temporary files without prompts"
+echo "  7. Disable attribution - removes Co-Authored-By from commits and attribution from PRs"
 echo ""
 
 echo -e "${YELLOW}SHELL CONFIG (~/.zshrc or ~/.bashrc):${NC}"
-echo "  9. Aliases: c=claude, ch=claude --chrome, cs=claude --dangerously-skip-permissions"
-echo " 10. Fork shortcut: --fs expands to --fork-session (e.g., claude -c --fs)"
+echo "  8. Aliases: c=claude, ch=claude --chrome, cs=claude --dangerously-skip-permissions"
+echo "  9. Fork shortcut: --fs expands to --fork-session (e.g., claude -c --fs)"
 echo ""
 
 # Get items to skip
@@ -126,27 +125,9 @@ else
 fi
 
 # ============================================
-# 2. cc-safe
+# 2. Status line
 # ============================================
 if should_skip "2"; then
-    echo -e "${GRAY}[Skipped]${NC} cc-safe"
-elif command -v cc-safe &> /dev/null; then
-    echo -e "${GREEN}[Already installed]${NC} cc-safe"
-else
-    echo "[Installing] cc-safe..."
-    if npm install -g cc-safe 2>/dev/null; then
-        echo -e "${GREEN}[Installed]${NC} cc-safe"
-    elif sudo npm install -g cc-safe 2>/dev/null; then
-        echo -e "${GREEN}[Installed]${NC} cc-safe (with sudo)"
-    else
-        echo -e "${YELLOW}[Manual install needed]${NC} cc-safe - run: sudo npm install -g cc-safe"
-    fi
-fi
-
-# ============================================
-# 3. Status line
-# ============================================
-if should_skip "3"; then
     echo -e "${GRAY}[Skipped]${NC} Status line"
 elif json_has_key '.statusLine'; then
     echo -e "${GREEN}[Already configured]${NC} Status line"
@@ -165,9 +146,9 @@ else
 fi
 
 # ============================================
-# 4. DISABLE_AUTOUPDATER
+# 3. DISABLE_AUTOUPDATER
 # ============================================
-if should_skip "4"; then
+if should_skip "3"; then
     echo -e "${GRAY}[Skipped]${NC} Disable auto-updates"
 elif json_has_key '.env.DISABLE_AUTOUPDATER'; then
     echo -e "${GREEN}[Already set]${NC} Disable auto-updates"
@@ -179,9 +160,9 @@ else
 fi
 
 # ============================================
-# 5. ENABLE_TOOL_SEARCH
+# 4. ENABLE_TOOL_SEARCH
 # ============================================
-if should_skip "5"; then
+if should_skip "4"; then
     echo -e "${GRAY}[Skipped]${NC} Lazy-load MCP tools"
 elif json_has_key '.env.ENABLE_TOOL_SEARCH'; then
     echo -e "${GREEN}[Already set]${NC} Lazy-load MCP tools"
@@ -193,9 +174,9 @@ else
 fi
 
 # ============================================
-# 6. Read(~/.claude) permission
+# 5. Read(~/.claude) permission
 # ============================================
-if should_skip "6"; then
+if should_skip "5"; then
     echo -e "${GRAY}[Skipped]${NC} Read(~/.claude) permission"
 elif json_has_permission 'Read(~/.claude)'; then
     echo -e "${GREEN}[Already set]${NC} Read(~/.claude) permission"
@@ -207,9 +188,9 @@ else
 fi
 
 # ============================================
-# 7. Read(//tmp/**) permission
+# 6. Read(//tmp/**) permission
 # ============================================
-if should_skip "7"; then
+if should_skip "6"; then
     echo -e "${GRAY}[Skipped]${NC} Read(//tmp/**) permission"
 elif json_has_permission 'Read(//tmp/**)'; then
     echo -e "${GREEN}[Already set]${NC} Read(//tmp/**) permission"
@@ -221,9 +202,9 @@ else
 fi
 
 # ============================================
-# 8. Disable attribution
+# 7. Disable attribution
 # ============================================
-if should_skip "8"; then
+if should_skip "7"; then
     echo -e "${GRAY}[Skipped]${NC} Disable attribution"
 elif json_has_key '.attribution'; then
     echo -e "${GREEN}[Already set]${NC} Disable attribution"
@@ -235,11 +216,11 @@ else
 fi
 
 # ============================================
-# 9. Terminal aliases
+# 8. Terminal aliases
 # ============================================
 ALIASES_MARKER="# Claude Code aliases"
 
-if should_skip "9"; then
+if should_skip "8"; then
     echo -e "${GRAY}[Skipped]${NC} Terminal aliases"
 elif grep -q "$ALIASES_MARKER" "$SHELL_RC" 2>/dev/null; then
     echo -e "${GREEN}[Already configured]${NC} Terminal aliases"
@@ -255,11 +236,11 @@ EOF
 fi
 
 # ============================================
-# 10. Fork session shortcut
+# 9. Fork session shortcut
 # ============================================
 FS_MARKER="# Claude --fs shortcut"
 
-if should_skip "10"; then
+if should_skip "9"; then
     echo -e "${GRAY}[Skipped]${NC} Fork shortcut"
 elif grep -q "$FS_MARKER" "$SHELL_RC" 2>/dev/null; then
     echo -e "${GREEN}[Already configured]${NC} Fork shortcut"
@@ -308,7 +289,7 @@ echo -e "${GREEN}Setup complete!${NC}"
 echo ""
 
 # Check if shell config was modified
-if ! should_skip "9" || ! should_skip "10"; then
+if ! should_skip "8" || ! should_skip "9"; then
     if ! grep -q "$ALIASES_MARKER" "$SHELL_RC" 2>/dev/null || ! grep -q "$FS_MARKER" "$SHELL_RC" 2>/dev/null; then
         : # nothing was added
     else
