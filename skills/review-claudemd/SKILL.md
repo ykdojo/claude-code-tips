@@ -43,9 +43,9 @@ done
 ls -lhS "$SCRATCH"
 ```
 
-## Step 3: Spin up Sonnet subagents
+## Step 3: Spin up subagents
 
-Launch parallel Sonnet subagents to analyze conversations. Each agent should read:
+Launch parallel subagents to analyze conversations. Each agent should read:
 - Global CLAUDE.md: `~/.claude/CLAUDE.md`
 - Local CLAUDE.md: `./CLAUDE.md` (if exists)
 - Batch of conversation files
