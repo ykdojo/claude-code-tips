@@ -63,3 +63,31 @@ Reddit's JSON API rate-limits aggressively:
 - If a request returns empty (0 bytes), wait 3-5 seconds and retry.
 - If you get HTTP 429, back off for 10-15 seconds.
 - A good pattern: fetch one search result listing, parse it, then fetch individual threads one at a time with delays.
+
+## Fallback: browser when the JSON API is blocked
+
+The curl JSON API is the default - try it first. But Reddit sometimes returns **HTTP 403** to curl (including from datacenter IPs like safeclaw containers), and retrying/backing off won't fix it. When that happens, switch to a real browser - the same `.json` URLs load fine in a browser session.
+
+Order to try: curl (host) → curl (safeclaw container) → **browser fallback**.
+
+### Option A: Playwright (preferred)
+
+Navigate to the `.json` URL and parse `document.body.innerText` as JSON - same response shape as curl, so the same `[0]`=post / `[1]`=comments structure applies.
+
+1. `mcp__playwright__browser_navigate` to e.g. `https://www.reddit.com/r/SUBREDDIT/search.json?q=QUERY&restrict_sr=on&sort=new&t=month&limit=25`
+2. `mcp__playwright__browser_evaluate` with a function that does `JSON.parse(document.body.innerText)` and maps out the fields you need, e.g.:
+   ```js
+   () => {
+     const data = JSON.parse(document.body.innerText);
+     return data.data.children.map(c => ({
+       t: c.data.title, s: c.data.score, n: c.data.num_comments, id: c.data.id
+     }));
+   }
+   ```
+3. For a thread, navigate to `.../comments/POST_ID.json?limit=30&sort=top` and parse `data[0]` (post) and `data[1].data.children` (comments).
+
+Use `www.reddit.com` (not `old.reddit.com`) for browser navigation. Wrap the parse in try/catch and return `document.body.innerText.slice(0,200)` on failure so you can see what came back (e.g. a block page).
+
+### Option B: Claude for Chrome
+
+If Playwright isn't available, use Claude for Chrome to open the `.json` URL (or the normal thread page) and read the content off the page.

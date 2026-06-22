@@ -1,7 +1,7 @@
 {
   "name": "dx",
   "description": "Developer experience essentials: GitHub Actions debugging, conversation cloning/half-cloning, context handoffs, and Reddit research",
-  "version": "0.14.14",
+  "version": "0.14.15",
   "author": {
     "name": "YK",
     "email": "yoyoyosss@wearehackerone.com"
