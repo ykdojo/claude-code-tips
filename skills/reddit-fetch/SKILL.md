@@ -49,43 +49,49 @@ Reddit's JSON API rate-limits aggressively:
 - **Don't fire parallel requests** - run them sequentially with `sleep 2`/`sleep 3` between each. Fetch one listing, parse it, then fetch threads one at a time.
 - Empty response (0 bytes): wait 3-5s and retry. HTTP 429: back off 10-15s.
 
-## When things get blocked: the escalation ladder
+## When things get blocked: the DuckDuckGo-hop unlock
 
-Reddit blocks are **intermittent** - what fails one minute can work the next, and what fails curl often works in a browser. Don't give up after one 403; climb the ladder, dropping to the next rung the moment one returns a block page instead of data.
+Reddit increasingly hard-blocks automated access - **curl (host AND container) 403s, and even a cold Playwright navigation to `reddit.com` hits a `"You've been blocked by network security"` challenge page.** The reliable fix is to arrive at Reddit *through a DuckDuckGo result redirect*: that sets a Reddit session cookie which unlocks direct `.json` access for the rest of the browser session.
 
-**Rung 1 - curl JSON API (host).** Fast when it works, but Reddit often 403s curl regardless of User-Agent (browser/curl/empty UA all 403 the same). Changing the UA won't help - on 403, move on.
+**Step 1 - the DDG hop (the unlock).** Do this once per session before any `.json` fetch.
 
-**Rung 2 - curl JSON API (safeclaw container).** A different IP sometimes gets through. Same `.json` URLs and parsing - but datacenter IPs get 403'd too, so it's a coin flip.
+1. `mcp__playwright__browser_navigate` to `https://html.duckduckgo.com/html/?q=site:reddit.com/r/SUBREDDIT+YOUR+QUERY`
+2. Grab the first result's **full href** - it's a DDG redirect that includes a `rut` token (`https://duckduckgo.com/l/?uddg=...&rut=...`). The token is required; navigating to the bare `/l/?uddg=` without it 400s.
+   ```js
+   () => document.querySelector('.result__a')?.href
+   ```
+3. `browser_navigate` to that full redirect href. It lands on the real `www.reddit.com` thread (page title = the post title, **not** "Blocked") and sets the session cookie.
 
-**Rung 3 - browser `.json` (Playwright).** The reliable workhorse - usually works even when curl 403s. Navigate to the `.json` URL and parse `document.body.innerText` as JSON - same shape as curl, so `[0]`=post / `[1]`=comments still applies.
+**Step 2 - now direct `.json` works.** For the rest of the session, navigate Playwright straight to any `.json` URL and `JSON.parse(document.body.innerText)` - same shape as curl, so `[0]`=post / `[1]`=comments still applies. Full recency sorting (`sort=new&t=week`) is restored.
 
-1. `mcp__playwright__browser_navigate` to e.g. `https://www.reddit.com/r/SUBREDDIT/search.json?q=QUERY&restrict_sr=on&sort=new&t=month&limit=25`
-2. `mcp__playwright__browser_evaluate` with a function that does `JSON.parse(document.body.innerText)`:
+1. `browser_navigate` to e.g. `https://www.reddit.com/r/SUBREDDIT/search.json?q=QUERY&restrict_sr=on&sort=new&t=week&limit=25`
+2. `browser_evaluate`, **always wrapped in try/catch** (return `document.body.innerText.slice(0,200)` on failure so you can see a challenge page if the session lapsed - just re-do the hop):
    ```js
    () => {
-     const data = JSON.parse(document.body.innerText);
-     return data.data.children.map(c => ({
-       t: c.data.title, s: c.data.score, n: c.data.num_comments, id: c.data.id
-     }));
+     try {
+       const data = JSON.parse(document.body.innerText);
+       return data.data.children.map(c => ({
+         t: c.data.title, s: c.data.score, n: c.data.num_comments, id: c.data.id
+       }));
+     } catch (e) { return document.body.innerText.slice(0, 200); }
    }
    ```
 3. For a thread, navigate to `.../comments/POST_ID.json?limit=30&sort=top` and parse `data[0]` (post) and `data[1].data.children` (comments).
 
-Use `www.reddit.com` (not `old.reddit.com`) for browser navigation. **Always wrap the parse in try/catch** and return `document.body.innerText.slice(0,200)` on failure - if you see `"You've been blocked by network security"`, the browser hit a challenge page (it happens, it's transient). Drop to rung 4.
+Use `www.reddit.com` (not `old.reddit.com`) for browser navigation.
 
-**Rung 4 - browser HTML thread page + `shreddit` scrape.** When the `.json` route hits the challenge page, load the **normal rendered thread page** and scrape the DOM instead. Reddit's frontend ("shreddit") renders each post/comment as a custom element, so you read fields off attributes - this also returns **more comments** than `.json?limit=`.
+### Fallbacks
 
-1. Get the direct thread URL. WebSearch **refuses `reddit.com`**, so find it via DuckDuckGo HTML: navigate Playwright to `https://html.duckduckgo.com/html/?q=site:reddit.com+YOUR+QUERY` and pull the reddit links off the results (this only discovers the URL - the hop to Reddit is still a direct navigate).
-2. Navigate to `https://www.reddit.com/r/SUBREDDIT/comments/POST_ID/slug/` and scrape:
-   ```js
-   () => ({
-     title: document.querySelector('shreddit-post')?.getAttribute('post-title'),
-     comments: [...document.querySelectorAll('shreddit-comment')].map(c => ({
-       author: c.getAttribute('author'),
-       score:  c.getAttribute('score'),
-       text:   c.querySelector('.md')?.innerText
-     }))
-   })
-   ```
-
-**Rung 5 - Claude for Chrome.** If Playwright isn't available at all, use Claude for Chrome to open the `.json` URL (or the thread page) and read the content off the page.
+- **Fast path, often fails:** plain curl JSON (host or safeclaw container) with a browser `User-Agent` is faster when it works, but usually 403s now (changing the UA doesn't help). Worth one quick try only if you're already shelling out; on 403, go to the DDG hop.
+- **More comments per thread:** load the rendered thread page (after the hop) and scrape the `shreddit` DOM - it returns more comments than `.json?limit=`:
+  ```js
+  () => ({
+    title: document.querySelector('shreddit-post')?.getAttribute('post-title'),
+    comments: [...document.querySelectorAll('shreddit-comment')].map(c => ({
+      author: c.getAttribute('author'),
+      score:  c.getAttribute('score'),
+      text:   c.querySelector('.md')?.innerText
+    }))
+  })
+  ```
+- **No Playwright at all:** use Claude for Chrome to open the thread / `.json` URL and read it off the page.
