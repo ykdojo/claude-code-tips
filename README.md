@@ -54,6 +54,7 @@ Here are my tips for getting the most out of Claude Code, including a custom sta
 - [Tip 42: Keep learning!](#tip-42-keep-learning)
 - [Tip 43: Install the dx plugin](#tip-43-install-the-dx-plugin)
 - [Tip 44: Quick setup script](#tip-44-quick-setup-script)
+- [Tip 45: Switch between multiple Claude accounts](#tip-45-switch-between-multiple-claude-accounts)
 
 <!-- /TOC -->
 
@@ -961,6 +962,37 @@ SHELL CONFIG (~/.zshrc or ~/.bashrc):
 
 Skip any? [e.g., 1 4 7 or Enter for all]:
 ```
+
+## Tip 45: Switch between multiple Claude accounts
+
+If you have more than one Claude account (say a work one and a personal one), you might want to switch between them quickly without logging out and back in every time.
+
+On macOS, your login is stored in the Keychain as a single entry, so there's only one "logged in" account at a time. But the `CLAUDE_CODE_OAUTH_TOKEN` environment variable overrides the Keychain, so you can launch Claude Code as a specific account just by setting it.
+
+First, mint a long-lived token for each account. `claude setup-token` opens a browser, so log into the account you want, and it gives you a one-year token (tied to your subscription, not API billing):
+
+```bash
+claude setup-token   # log in as work, copy the token
+claude setup-token   # log in as personal, copy the token
+```
+
+Store each token in the Keychain instead of putting it in plaintext in your shell config. Leaving the value off `-w` makes it prompt you so the token never lands in your shell history:
+
+```bash
+security add-generic-password -s "claude-token-work"     -a "$USER" -U -w
+security add-generic-password -s "claude-token-personal" -a "$USER" -U -w
+```
+
+Then add two functions to your `~/.zshrc`. They look the token up from the Keychain and pass any arguments and flags straight through to `claude`:
+
+```bash
+clw() { CLAUDE_CODE_OAUTH_TOKEN="$(security find-generic-password -s claude-token-work     -a "$USER" -w)" claude "$@"; }
+clp() { CLAUDE_CODE_OAUTH_TOKEN="$(security find-generic-password -s claude-token-personal -a "$USER" -w)" claude "$@"; }
+```
+
+Now `clw` runs as your work account and `clp` as your personal one, and you can pass anything after them like `clw --resume` or `clp -p "summarize this"`. Your plain `claude` command still uses whatever's logged in through the Keychain.
+
+A few notes: the secrets stay in the Keychain, so the functions in your `.zshrc` are safe to sync or commit. The Keychain may ask to allow access the first time each function reads its token - click "Always Allow" and it's silent after that. And the tokens expire after about a year, so re-run `setup-token` and the `security ... -U` command to refresh.
 
 ---
 
