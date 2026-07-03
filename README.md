@@ -967,7 +967,7 @@ Skip any? [e.g., 1 4 7 or Enter for all]:
 
 If you have multiple Claude accounts (for example, personal vs work), here's how you can switch between them quickly.
 
-On macOS your login lives in a single Keychain entry, but the `CLAUDE_CODE_OAUTH_TOKEN` env var overrides it, so you can launch as a specific account. The env var works on Linux and Windows too (their logins live in `~/.claude/.credentials.json` instead), but the Keychain commands below are Mac-only - I've only tested this on Mac.
+On macOS your login lives in a single Keychain entry, but the `CLAUDE_CODE_OAUTH_TOKEN` env var overrides it, so you can launch as a specific account. The env var works on Linux and Windows too (their logins live in `~/.claude/.credentials.json` instead). Here's an example of how you can set this up on Mac - feel free to adapt it to your own system.
 
 Mint a one-year token per account (`claude setup-token` opens a browser - log into the account you want), then store each in the Keychain so it's not plaintext in your dotfiles:
 
