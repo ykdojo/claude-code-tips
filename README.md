@@ -517,9 +517,7 @@ It turns out the reverse also works. If you have text with links from other plac
 
 ## Tip 19: Isolated environments for long-running risky tasks
 
-Isolated environments are great for `--dangerously-skip-permissions` sessions where you don't have to give permission for each little thing. You can just let it run on its own for a while.
-
-This is useful for research or experimentation, things that take a long time and maybe could be risky. A good example is a Reddit research workflow with the reddit-fetch skill. Running that unsupervised is risky on your main system, but in an isolated environment, if something goes wrong, it's contained.
+Isolated environments are great for `--dangerously-skip-permissions` sessions where you don't have to give permission for each little thing. You can just let it run on its own for a while. This is useful for research or experimentation, things that take a long time and maybe could be risky.
 
 There are two major ways of going about it:
 
