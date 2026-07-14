@@ -20,7 +20,13 @@ There's also a server mode (`claude remote-control --spawn=worktree --capacity=N
 
 Docs: [Remote Control](https://code.claude.com/docs/en/remote-control).
 
-## 3. Use Claude in Chrome, if you haven't yet
+## 3. Use Fable 5 as much as you can
+
+I've found that it's just generally a more capable model than Opus 4.6 or 4.8, and it's more friendly and easier to deal with than Opus 4.8. It feels like the best of both worlds: the ease of working with Opus 4.6, but also the intelligence of Opus 4.8.
+
+By no means is it a perfect model, but it is the best model we've seen. So I think it's an advantage to use it as much as possible.
+
+## 4. Use Claude in Chrome, if you haven't yet
 
 I [touched on this in my earlier tips](https://github.com/ykdojo/claude-code-tips?tab=readme-ov-file#tip-9-complete-the-write-test-cycle-for-autonomous-tasks): for most browser tasks, you could use Playwright and other tools. But what makes Claude in Chrome really convenient is that it runs in your own browser profile, so you can give it access to logged-in state without having to provide credentials - and you can use different accounts.
 
