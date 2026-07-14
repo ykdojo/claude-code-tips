@@ -18,9 +18,7 @@ The way I personally like to use it: whenever I need to do something, I start up
 
 On your phone, you can use the transcription feature to talk to it quickly. Even if there are transcription mistakes, Claude is pretty much always able to figure them out.
 
-There's also a server mode (`claude remote-control --spawn=worktree --capacity=N`) that lets you start brand new sessions from your phone, but I prefer the `/rc` method, and I turn it off when I'm not using it. A potential attacker who gets access to your Claude Code session essentially has access to everything on your computer, so I'd rather be careful. The exception is when I have a totally [isolated environment](https://github.com/ykdojo/claude-code-tips?tab=readme-ov-file#tip-19-isolated-environments-for-long-running-risky-tasks) - then it's super convenient to be able to start a Claude Code session from anywhere from your phone.
-
-Docs: [Remote Control](https://code.claude.com/docs/en/remote-control).
+There's also a server mode (`claude remote-control --spawn=worktree --capacity=N`) that lets you start brand new sessions from your phone, but I prefer the `/rc` method, and I turn it off when I'm not using it. A potential attacker who gets access to your Claude Code session essentially has access to everything on your computer, so I'd rather be careful. The exception is when I have a completely [isolated environment](https://github.com/ykdojo/claude-code-tips?tab=readme-ov-file#tip-19-isolated-environments-for-long-running-risky-tasks) - then it's super convenient to be able to start a Claude Code session from anywhere from your phone.
 
 ## 3. Use Fable 5 as much as you can
 
