@@ -40,7 +40,7 @@ In my main tips, I talked about [isolated environments for long-running risky ta
 
 **Implement**: this is kind of a straightforward path once you've done solid investigation and design. But try to keep the code simple - it might create overly complex code, or touch other parts of the codebase or things you haven't asked for. So ask it to keep it concise.
 
-**Verify**: review the changes by asking it about specific parts of what it's made. You can have it create a draft PR and make sure it looks good. Go back and forth. If you don't understand something, don't be afraid to ask basic questions and dig into as many details as you need.
+**Verify**: review the changes by asking it about specific parts of what it's made. You can have it create a draft PR and make sure it looks good. Go back and forth.
 
 This is a good way to ensure you move quickly, but with quality.
 
@@ -49,3 +49,11 @@ This is a good way to ensure you move quickly, but with quality.
 I [touched on this in my earlier tips](https://github.com/ykdojo/claude-code-tips?tab=readme-ov-file#tip-9-complete-the-write-test-cycle-for-autonomous-tasks): for most browser tasks, you could use Playwright and other tools. But what makes Claude in Chrome really convenient is that it runs in your own browser profile, so you can give it access to logged-in state without having to provide credentials - and you can use different accounts.
 
 It still makes mistakes, though. So you want to either be super careful about it and watch it closely, or give it separate accounts.
+
+## 7. Use it to learn faster, not to replace understanding
+
+If it produces complex code that you don't understand, sometimes that's fine for a casual project. But if it's a more serious project and you want to understand what's going on, ask questions about it.
+
+If there's a draft PR you want to review, or maybe someone else's PR, ask it to walk you through the changes so you can understand them well. If you don't understand specific parts, don't be afraid to ask basic questions - you can ask deeper and deeper questions until you understand it fully. You can ask it to simplify things, or to summarize its responses.
+
+Really, work with it as a learning partner.
