@@ -28,7 +28,7 @@ By no means is it a perfect model, but it is the best model we've seen. So I thi
 
 ## 4. Give it a separate machine to control
 
-As an experiment, I decided to [give it one of my spare machines](https://github.com/ykdojo/claude-controls-mac) so that it could control it, and I could start new sessions from my phone without worrying about leaked data.
+As an experiment, I decided to [give Claude Code full access to one of my spare machines](https://github.com/ykdojo/claude-controls-mac) so that it could control it, and I could start new sessions from my phone without worrying about leaked data.
 
 It's been working really well. It's able to do anything on my spare laptop through computer use: it can click and drag things, and it can use the browser. I give it separate accounts so it doesn't mess things up. And the freedom of just letting it do everything it needs to do with `--dangerously-skip-permissions` - I've found that to be great.
 
