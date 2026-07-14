@@ -728,7 +728,7 @@ It's sort of like you're exploring a giant iceberg. If you want to stay at the v
 
 ## Tip 31: Use auto mode
 
-Auto mode lets Claude decide whether a command is safe to run in context, instead of asking you to approve every single one. (You can cycle to it with shift+tab.) I've been using it for a while and it's been working well enough so far.
+Auto mode lets Claude decide whether a command is safe to run in context, instead of asking you to approve every single one. (You can cycle to it with shift+tab.) I've been using it for a while and it's been working really well so far.
 
 The main thing it fixes is mindless approving. When a command is too long to read carefully, or you're getting tired, you end up approving things without really thinking about them. Auto mode takes that pressure off, so I think it's a good default.
 
