@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Covers</title>
+<!--
+  Cover image generator for the 7 advanced tips article.
+  Open with ?v=substack (1456x1048), ?v=x (1600x900), ?v=devto (1000x420), or ?v=medium (1500x850).
+  Export: click the Download PNG button (html2canvas), or screenshot the #cover element
+  at exact size with Playwright: page.locator('#cover').screenshot({path: 'cover-<variant>.png'})
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -121,7 +128,21 @@
         <div class="author">@ykdojo</div>
       </div>
     </div>
+    <button id="download" style="position:fixed;top:16px;right:16px;z-index:10;padding:10px 20px;font:600 14px Inter,sans-serif;border:1px solid rgba(255,255,255,0.3);border-radius:8px;background:rgba(0,0,0,0.5);color:#fff;cursor:pointer;">Download PNG</button>
   `);
+
+  document.getElementById('download').addEventListener('click', async () => {
+    const btn = document.getElementById('download');
+    btn.style.display = 'none';
+    await document.fonts.ready;
+    const el = document.getElementById('cover');
+    const canvas = await html2canvas(el, { scale: 1, backgroundColor: '#0f2040', logging: false });
+    const a = document.createElement('a');
+    a.download = `cover-${variant}.png`;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    btn.style.display = '';
+  });
 </script>
 </body>
 </html>
