@@ -30,7 +30,19 @@ By no means is it a perfect model, but it is the best model we've seen. So I thi
 
 In my main tips, I talked about [isolated environments for long-running risky tasks](https://github.com/ykdojo/claude-code-tips?tab=readme-ov-file#tip-19-isolated-environments-for-long-running-risky-tasks) - like running Claude Code in a container, where you can just let it run on its own for a while. You can take it a step further by [setting up a whole machine Claude Code can fully control](https://github.com/ykdojo/claude-controls-mac), computer use included.
 
-## 5. Use Claude in Chrome, if you haven't yet
+## 5. Master the loop: investigate, design, implement, verify
+
+**Investigate**: ask it questions about the problem and try to understand it as much as you can. Pull related issues, Slack threads, and all the relevant context so you can get the full context of the problem, and understand the codebase well that way. If it's a bug, you might want to reproduce it - create reproducible steps so you can verify later.
+
+**Design**: discuss potential solutions, trade-offs, and what might be the best way forward.
+
+**Implement**: this is kind of a straightforward path once you've done solid investigation and design. But try to keep the code simple - it might create overly complex code, or touch other parts of the codebase or things you haven't asked for. So ask it to keep it concise.
+
+**Verify**: review the changes by asking it about specific parts of what it's made. You can have it create a draft PR and make sure it looks good. Go back and forth. If you don't understand something, don't be afraid to ask basic questions and dig into as many details as you need.
+
+This is a good way to ensure you move quickly, but with quality.
+
+## 6. Use Claude in Chrome, if you haven't yet
 
 I [touched on this in my earlier tips](https://github.com/ykdojo/claude-code-tips?tab=readme-ov-file#tip-9-complete-the-write-test-cycle-for-autonomous-tasks): for most browser tasks, you could use Playwright and other tools. But what makes Claude in Chrome really convenient is that it runs in your own browser profile, so you can give it access to logged-in state without having to provide credentials - and you can use different accounts.
 
