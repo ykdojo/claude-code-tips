@@ -48,9 +48,11 @@ This is a good way to ensure you move quickly, but with quality.
 
 ## 6. Use Claude in Chrome, if you haven't yet
 
-I [touched on this in my earlier tips](https://github.com/ykdojo/claude-code-tips?tab=readme-ov-file#tip-9-complete-the-write-test-cycle-for-autonomous-tasks): for most browser tasks, you could use Playwright and other tools. But what makes Claude in Chrome really convenient is that it runs in your own browser profile, so you can give it access to logged-in state without having to provide credentials - and you can use different accounts.
+Claude in Chrome has been around for a while, but I've noticed that not a lot of people use it still, so that's why I wanted to mention it here.
 
-It still makes mistakes, though. So you want to either be super careful about it and watch it closely, or give it separate accounts.
+You could use Playwright for browser-related tasks. But what makes Claude in Chrome convenient is that it runs in your own browser profile, so you can give it access to logged-in state.
+
+It does its job well most of the time, but it sometimes still makes mistakes. For example, I was trying to search something on Slack, but instead it sent a message publicly. That was a little bit frustrating, but luckily not fatal. So you want to either be super careful about it and watch it closely, or give it separate accounts.
 
 ## 7. Use it to learn faster, not to replace understanding
 
