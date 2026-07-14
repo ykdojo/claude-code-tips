@@ -26,7 +26,11 @@ I've found that it's just generally a more capable model than Opus 4.6 or 4.8, a
 
 By no means is it a perfect model, but it is the best model we've seen. So I think it's an advantage to use it as much as possible.
 
-## 4. Use Claude in Chrome, if you haven't yet
+## 4. Give it a separate machine to control
+
+In my main tips, I talked about [isolated environments for long-running risky tasks](https://github.com/ykdojo/claude-code-tips?tab=readme-ov-file#tip-19-isolated-environments-for-long-running-risky-tasks) - like running Claude Code in a container, where you can just let it run on its own for a while. You can take it a step further by [setting up a whole machine Claude Code can fully control](https://github.com/ykdojo/claude-controls-mac), computer use included.
+
+## 5. Use Claude in Chrome, if you haven't yet
 
 I [touched on this in my earlier tips](https://github.com/ykdojo/claude-code-tips?tab=readme-ov-file#tip-9-complete-the-write-test-cycle-for-autonomous-tasks): for most browser tasks, you could use Playwright and other tools. But what makes Claude in Chrome really convenient is that it runs in your own browser profile, so you can give it access to logged-in state without having to provide credentials - and you can use different accounts.
 
