@@ -61,3 +61,7 @@ If it produces complex code that you don't understand, sometimes that's fine for
 If there's a draft PR you want to review, or maybe someone else's PR, ask it to walk you through the changes so you can understand them well. If you don't understand specific parts, don't be afraid to ask basic questions - you can ask deeper and deeper questions until you understand it fully. You can ask it to simplify things, or to summarize its responses.
 
 Really, work with it as a learning partner.
+
+---
+
+Originally posted on [this repo](https://github.com/ykdojo/claude-code-tips).
