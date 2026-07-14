@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Covers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { font-family: 'Inter', sans-serif; }
+
+  .cover {
+    position: relative;
+    overflow: hidden;
+    background: #0f2040;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, #1a1040 0%, #0f2847 35%, #0a3a5e 60%, #1a4a3a 100%);
+  }
+
+  .glow-orange {
+    position: absolute;
+    top: -20%; right: -20%;
+    width: 70%; height: 70%;
+    background: radial-gradient(circle, rgba(255, 140, 50, 0.12) 0%, transparent 65%);
+  }
+
+  .glow-blue {
+    position: absolute;
+    bottom: -15%; left: -15%;
+    width: 60%; height: 60%;
+    background: radial-gradient(circle, rgba(80, 130, 255, 0.08) 0%, transparent 65%);
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .title {
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+  }
+
+  .title .highlight { color: #ff9a3c; }
+
+  .subtitle {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.01em;
+  }
+
+  .footer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .author {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.5px;
+  }
+
+  /* Substack 1456x1048 */
+  .substack { width: 1456px; height: 1048px; padding: 110px; }
+  .substack .title { font-size: 104px; max-width: 1150px; }
+  .substack .subtitle { font-size: 42px; margin-top: 44px; }
+  .substack .author { font-size: 30px; }
+
+  /* X article 1600x900 */
+  .x { width: 1600px; height: 900px; padding: 100px 120px; }
+  .x .content { align-items: center; text-align: center; }
+  .x .title { font-size: 96px; max-width: 1250px; }
+  .x .subtitle { font-size: 40px; margin-top: 40px; }
+  .x .footer { justify-content: center; }
+  .x .author { font-size: 28px; }
+
+  /* dev.to 1000x420 */
+  .devto { width: 1000px; height: 420px; padding: 56px 64px; }
+  .devto .title { font-size: 52px; max-width: 880px; }
+  .devto .title br { display: none; }
+  .devto .subtitle { font-size: 23px; margin-top: 20px; }
+  .devto .author { font-size: 17px; }
+
+  /* Medium 1500x850 */
+  .medium { width: 1500px; height: 850px; padding: 100px 110px; }
+  .medium .title { font-size: 92px; max-width: 1200px; }
+  .medium .subtitle { font-size: 38px; margin-top: 40px; }
+  .medium .author { font-size: 28px; }
+</style>
+</head>
+<body>
+<script>
+  const params = new URLSearchParams(location.search);
+  const variant = params.get('v') || 'substack';
+  const sep = variant === 'devto' ? ' ' : '<br>';
+  document.write(`
+    <div class="cover ${variant}" id="cover">
+      <div class="bg"></div>
+      <div class="glow-orange"></div>
+      <div class="glow-blue"></div>
+      <div class="content">
+        <div class="title">7 Advanced${sep}<span class="highlight">Claude Code</span> Tips</div>
+        <div class="subtitle">From 17 months of intense use</div>
+      </div>
+      <div class="footer">
+        <div class="author">@ykdojo</div>
+      </div>
+    </div>
+  `);
+</script>
+</body>
+</html>
