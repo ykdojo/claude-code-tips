@@ -38,7 +38,7 @@ After implementing many features and fixing many bugs with Claude Code, I found 
 
 **Investigate**: ask it questions about the problem and try to understand it as much as you can. Pull related issues, Slack threads, and all the relevant context so you can get the full context of the problem. If it's a bug, create reproducible steps so you can verify your solution later.
 
-**Design**: discuss potential solutions, trade-offs, and what might be the best way forward.
+**Design**: discuss potential solutions, trade-offs, and what might be the best way forward. Have a long conversation if necessary, and build prototypes if necessary as well.
 
 **Implement**: this is kind of a straightforward path once you've done solid investigation and design. But try to keep the code simple - it might create overly complex code, or touch other parts of the codebase or things you haven't asked for. So ask it to keep it concise.
 
