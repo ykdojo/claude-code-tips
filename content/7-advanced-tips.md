@@ -34,6 +34,8 @@ So far, it's been working well. It's able to do anything on my spare laptop thro
 
 ## 5. Master the loop: investigate, design, implement, verify
 
+After implementing many features and fixing many bugs with Claude Code, I found a loop like this to be pretty effective.
+
 **Investigate**: ask it questions about the problem and try to understand it as much as you can. Pull related issues, Slack threads, and all the relevant context so you can get the full context of the problem, and understand the codebase well that way. If it's a bug, you might want to reproduce it - create reproducible steps so you can verify later.
 
 **Design**: discuss potential solutions, trade-offs, and what might be the best way forward.
