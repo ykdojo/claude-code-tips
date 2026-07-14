@@ -14,7 +14,7 @@ Over the past few months, using auto mode has allowed me to be a lot more produc
 
 Remote Control lets you drive Claude Code from your phone, which pairs really well with auto mode - you can kick something off, walk away, and check on it from anywhere.
 
-The way I personally like to use it: whenever I need to do something, I start up a thread and run `/remote-control` (or `/rc` for short), follow the instructions, and drive that same session from my phone. Because it's the same session, you can go back and forth between your phone and your computer.
+The way I personally like to use it: whenever I need to do something, I start up a thread and run `/remote-control` (or `/rc` for short), and drive that same session from my phone. Because it's the same session, you can go back and forth between your phone and your computer.
 
 On your phone, you can use the transcription feature to talk to it quickly. Even if there are transcription mistakes, Claude is often able to figure them out.
 
