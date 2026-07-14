@@ -1,6 +1,6 @@
 # 7 advanced Claude Code tips from 17 months of intense use
 
-I've been using Claude Code intensely for 17 months now, and I've ramped it up significantly over the past few months. So I wanted to share some of the more advanced tips I've learned.
+I've been using Claude Code intensely for about 17 months now, and I've ramped it up significantly over the past few months. So I wanted to share some of the more advanced tips I've learned.
 
 ## 1. Use auto mode
 
