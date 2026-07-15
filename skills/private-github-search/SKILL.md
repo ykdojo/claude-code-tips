@@ -9,17 +9,23 @@ GitHub's modern code search (the one that indexes private repos) is web-only; `g
 
 ## Searching
 
+Find the bundled sync script (works for plugin installs and manual symlinks):
+
+```bash
+find ~/.claude -name "private-github-search-sync.sh" 2>/dev/null | sort -V | tail -1
+```
+
 Always refresh first - it exits instantly if the mirror was synced within the last hour, and takes ~15s otherwise (`--force` syncs regardless of age):
 
 ```bash
-~/repo-mirror/sync.sh
+bash <script-path>
 rg -il 'pattern' ~/repo-mirror/repos          # which files
 rg -in 'pattern' ~/repo-mirror/repos | head   # matching lines
 ```
 
 ## First-time setup
 
-If `~/repo-mirror` doesn't exist: copy this skill's `sync.sh` to `~/repo-mirror/sync.sh` (executable), ask the user which GitHub accounts to mirror (don't guess - they may manage several), write them one per line to `~/repo-mirror/owners.txt`, then run `sync.sh` in the background (initial clone takes a few minutes; needs `gh` auth with access to those accounts).
+If `~/repo-mirror/owners.txt` doesn't exist: ask the user which GitHub accounts to mirror (don't guess - they may manage several), write them one per line to `~/repo-mirror/owners.txt`, then run the sync script in the background (initial clone takes a few minutes; needs `gh` auth with access to those accounts).
 
 ## Caveats
 

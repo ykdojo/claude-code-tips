@@ -6,12 +6,16 @@
 #   owners.txt        - one GitHub username per line (comments with # allowed)
 #   repos/<owner>/<repo> - shallow clones, default branch only
 #
-# Usage:  ./sync.sh           - sync if the last sync was over an hour ago
-#         ./sync.sh --force   - sync regardless of age
+# Runs in place from the installed plugin - the mirror lives at ~/repo-mirror
+# (override with REPO_MIRROR_DIR).
+#
+# Usage:  private-github-search-sync.sh           - sync if the last sync was over an hour ago
+#         private-github-search-sync.sh --force   - sync regardless of age
 # Search: rg 'pattern' <mirror-dir>/repos
 set -u
 
-MIRROR_DIR="$(cd "$(dirname "$0")" && pwd)"
+MIRROR_DIR="${REPO_MIRROR_DIR:-$HOME/repo-mirror}"
+mkdir -p "$MIRROR_DIR"
 OWNERS_FILE="$MIRROR_DIR/owners.txt"
 STAMP="$MIRROR_DIR/.last-sync"
 mkdir -p "$MIRROR_DIR/repos"
