@@ -43,7 +43,10 @@ sync_one() {
   if [ -d "$dir/.git" ]; then
     out=$(git -C "$dir" fetch --depth 1 origin HEAD 2>&1 \
       && git -C "$dir" reset --hard FETCH_HEAD -q 2>&1) \
-      || echo "FAIL update $repo: $out"
+      || case "$out" in
+        *"couldn't find remote ref HEAD"*) ;; # empty repo, nothing to sync
+        *) echo "FAIL update $repo: $out" ;;
+      esac
   else
     out=$(gh repo clone "$repo" "$dir" -- --depth 1 --single-branch -q 2>&1) \
       || echo "FAIL clone $repo: $out"
