@@ -4,11 +4,11 @@ I've been using Claude Code intensely for about 17 months now, and I've ramped i
 
 ## 1. Use auto mode
 
-Auto mode lets Claude decide whether a command is safe to run in context, instead of asking you to approve every single one. (You can cycle to it with shift+tab.) I've been using it for a while and it's been working really well so far.
+Auto mode lets Claude decide whether a command is safe to run in context, instead of asking you to approve every single one. (You can cycle to it with shift+tab.) I've been using it for the past month or so and it's been working really well so far.
 
 The main thing it fixes is mindless approving. When a command is too long to read carefully, or you're getting tired, you end up approving things without really thinking about them. Auto mode takes that pressure off, so I think it's a good default.
 
-Over the past few months, using auto mode has allowed me to be a lot more productive while still feeling safe.
+Over the past month or so, using auto mode has allowed me to be a lot more productive while still feeling safe.
 
 ## 2. Use Claude Code from your phone
 
@@ -44,7 +44,7 @@ After implementing many features and fixing many bugs with Claude Code, I found 
 
 **Implement**: this is kind of a straightforward path once you've done solid investigation and design. But try to keep the code simple - it might create overly complex code, or touch other parts of the codebase or things you haven't asked for. So ask it to keep it concise.
 
-**Verify**: review the changes by asking it about specific parts of what it's made. You can have it create a draft PR and make sure it looks good. Go back and forth.
+**Verify**: review the changes by asking it about specific parts of what it's made. You can have it create a draft PR and make sure it looks good. Go back and forth. Have it test everything thoroughly by writing tests, running them, and through Playwright if relevant.
 
 This is a good way to ensure you move quickly, but with quality.
 
