@@ -14,8 +14,8 @@ I ran into this trying to find a note I'd saved in one of my repos, without reme
 
 - Shallow clones (`--depth 1`, default branch, forks excluded) of all 228 repos come to 2.8 GB
 - A full-text search over all of it takes about 1 second cold, 11 ms warm
-- A no-change re-sync takes about 15 seconds with 16 parallel fetches, and a timestamp check skips it entirely if the mirror was synced within the last hour
+- Checking all repos to see if there's anything to update takes about 15 seconds with 16 parallel fetches, and if the mirror already synced within the past hour, the script skips syncing altogether
 
 The coverage is the same as GitHub's own search index (default branch tip, no forks), except it actually includes all your private repos, archived ones too.
 
-I turned this into a Claude Code skill, so I can just ask "which repo has X" and it refreshes the mirror and greps. The whole thing is a [~60 line bash script](https://github.com/ykdojo/claude-code-tips/blob/main/skills/private-github-search/private-github-search-sync.sh) plus a [skill file](https://github.com/ykdojo/claude-code-tips/tree/main/skills/private-github-search) - feel free to take a look.
+I turned this into a Claude Code skill, so I can just ask "which repo has X" and it refreshes the mirror and greps. The whole thing is a [~60 line bash script](https://github.com/ykdojo/claude-code-tips/blob/main/skills/private-github-search/private-github-search-sync.sh) plus a [skill file](https://github.com/ykdojo/claude-code-tips/tree/main/skills/private-github-search).
