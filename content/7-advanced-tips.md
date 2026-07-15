@@ -4,7 +4,7 @@ I've been using Claude Code intensely for about 17 months now, and I've ramped i
 
 ## 1. Use auto mode
 
-Auto mode lets Claude decide whether a command is safe to run in context, instead of asking you to approve every single one. (You can cycle to it with shift+tab.) I've been using it for a while and it's been working really well so far.
+Auto mode lets Claude decide whether a command is safe to run in context, instead of asking you to approve every single one. (You can cycle to it with shift+tab.) I've been using it for the past month or so and it's been working really well so far.
 
 The main thing it fixes is mindless approving. When a command is too long to read carefully, or you're getting tired, you end up approving things without really thinking about them. Auto mode takes that pressure off, so I think it's a good default.
 
