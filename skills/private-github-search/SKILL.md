@@ -1,9 +1,9 @@
 ---
-name: github-search
+name: private-github-search
 description: Full-text search across all of the user's GitHub repos (including private ones) using a local mirror and ripgrep. Use for "where did I put X", "which repo has X", or any search spanning the user's repos - gh search code / the REST API cannot reliably search private repos.
 ---
 
-# GitHub search
+# Private GitHub search
 
 GitHub's modern code search (the one that indexes private repos) is web-only; `gh search code` uses the legacy engine and often returns nothing for private repos. Instead, search a local mirror of all the user's repos - it covers the same content as GitHub's index (default branch, non-fork) and a full search takes milliseconds.
 
