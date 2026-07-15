@@ -6,13 +6,20 @@
 #   owners.txt        - one GitHub username per line (comments with # allowed)
 #   repos/<owner>/<repo> - shallow clones, default branch only
 #
-# Usage:  ./sync.sh   - clone missing repos, update existing ones
+# Usage:  ./sync.sh           - sync if the last sync was over an hour ago
+#         ./sync.sh --force   - sync regardless of age
 # Search: rg 'pattern' <mirror-dir>/repos
 set -u
 
 MIRROR_DIR="$(cd "$(dirname "$0")" && pwd)"
 OWNERS_FILE="$MIRROR_DIR/owners.txt"
+STAMP="$MIRROR_DIR/.last-sync"
 mkdir -p "$MIRROR_DIR/repos"
+
+if [ "${1:-}" != "--force" ] && [ -e "$STAMP" ] && [ -n "$(find "$STAMP" -mmin -60 2>/dev/null)" ]; then
+  echo "Fresh: last synced $(date -r "$STAMP" '+%H:%M') (under an hour ago), skipping. Use --force to sync anyway."
+  exit 0
+fi
 
 if [ ! -s "$OWNERS_FILE" ]; then
   echo "No owners configured. Add one GitHub username per line to $OWNERS_FILE" >&2
@@ -41,4 +48,5 @@ sync_one() {
 export -f sync_one
 
 list_repos | xargs -P 16 -I{} bash -c 'sync_one "$1" "$2"' _ {} "$MIRROR_DIR"
+touch "$STAMP"
 echo "Done: $(find "$MIRROR_DIR/repos" -maxdepth 3 -name .git | wc -l | tr -d ' ') repos in $MIRROR_DIR/repos"

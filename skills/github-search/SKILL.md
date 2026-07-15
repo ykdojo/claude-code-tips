@@ -9,15 +9,12 @@ GitHub's modern code search (the one that indexes private repos) is web-only; `g
 
 ## Searching
 
-```bash
-rg -il 'pattern' ~/repo-mirror/repos          # which files
-rg -in 'pattern' ~/repo-mirror/repos | head   # matching lines
-```
-
-Refresh first when recent pushes matter (a no-change refresh takes ~15-30s):
+Always refresh first - it exits instantly if the mirror was synced within the last hour, and takes ~15s otherwise (`--force` syncs regardless of age):
 
 ```bash
 ~/repo-mirror/sync.sh
+rg -il 'pattern' ~/repo-mirror/repos          # which files
+rg -in 'pattern' ~/repo-mirror/repos | head   # matching lines
 ```
 
 ## First-time setup
