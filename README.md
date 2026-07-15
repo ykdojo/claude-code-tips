@@ -579,15 +579,10 @@ The clone script below predates these built-in options, but the half-clone scrip
 
 The first message is tagged with `[CLONED <timestamp>]` (e.g., `[CLONED Jan 7 14:30]`), which shows up both in the `claude -r` list and inside the conversation.
 
-To set it up manually, symlink both files:
+To use it, symlink the script and ask Claude to run it with your session ID:
 ```bash
 ln -s /path/to/this/repo/scripts/clone-conversation.sh ~/.claude/scripts/clone-conversation.sh
-ln -s /path/to/this/repo/skills/clone ~/.claude/skills/clone
 ```
-
-Or install via the [dx plugin](#tip-43-install-the-dx-plugin) - no symlinks needed.
-
-Then just type `/clone` (or `/dx:clone` if using the plugin) in any conversation and Claude will handle finding the session ID and running the script.
 
 I've tested this extensively and the cloning works really well.
 
@@ -917,7 +912,6 @@ This repo is also a Claude Code plugin called `dx` (developer experience). It bu
 |-------|-------------|
 | `/dx:gha <url>` | Analyze GitHub Actions failures (Tip 27) |
 | `/dx:handoff` | Create handoff documents for context continuity (Tip 8) |
-| `/dx:clone` | Clone conversations to branch off (Tip 21) |
 | `/dx:half-clone` | Half-clone to reduce context (Tip 21) |
 | `/dx:reddit-fetch` | Fetch Reddit content via Reddit's JSON API |
 | `/dx:review-claudemd` | Review conversations to improve CLAUDE.md files (Tip 28) |
@@ -931,7 +925,7 @@ claude plugin marketplace add ykdojo/claude-code-tips
 claude plugin install dx@ykdojo
 ```
 
-After installing, the commands are available as `/dx:clone`, `/dx:half-clone`, `/dx:handoff`, and `/dx:gha`. The `reddit-fetch` skill is invoked automatically when you ask about Reddit URLs. The `review-claudemd` skill analyzes your recent conversations and suggests improvements for your CLAUDE.md files. For the clone commands, see the [recommended permission](#recommended-permission-for-clone-scripts).
+After installing, the commands are available as `/dx:half-clone`, `/dx:handoff`, and `/dx:gha`. The `reddit-fetch` skill is invoked automatically when you ask about Reddit URLs. The `review-claudemd` skill analyzes your recent conversations and suggests improvements for your CLAUDE.md files. For the clone commands, see the [recommended permission](#recommended-permission-for-clone-scripts).
 
 **Recommended companion:** [Playwright MCP](https://github.com/microsoft/playwright-mcp) for browser automation - add with `claude mcp add -s user playwright npx @playwright/mcp@latest`
 
@@ -947,7 +941,7 @@ The script shows you everything it will configure and lets you skip any items:
 
 ```
 INSTALLS:
-  1. DX plugin - slash commands (/dx:gha, /dx:clone, /dx:handoff) and skills (reddit-fetch)
+  1. DX plugin - slash commands (/dx:gha, /dx:handoff) and skills (reddit-fetch)
 
 SETTINGS (~/.claude/settings.json):
   2. Status line - shows model, git branch, uncommitted files, token usage at bottom of screen
