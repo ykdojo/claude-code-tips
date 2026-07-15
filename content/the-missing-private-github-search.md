@@ -15,7 +15,7 @@ Even the web one has a catch: a private repo you've never searched may not be in
 I ran into this trying to find a note I'd saved in one of my repos, without remembering which one. Across my two accounts I have 228 non-fork repos, 161 of them private, so clicking around wasn't an option. The alternative that works: mirror everything locally and search with ripgrep.
 
 - Shallow clones (`--depth 1`, default branch, forks excluded) of all 228 repos come to 2.8 GB
-- A full-text search over all of it takes about 1 second cold, 11 ms warm
+- A full-text search over all of it takes about 1 second the first time, when the files are read from disk, and 11 ms on repeat searches, once the OS has them cached in memory
 - Checking all repos to see if there's anything to update takes about 15 seconds with 16 parallel fetches, and if the mirror already synced within the past hour, the script skips syncing altogether
 
 The coverage is the same as GitHub's own search index (default branch tip, no forks), except it actually includes all your private repos, archived ones too - and there's no indexing lag, so a fresh push is searchable seconds later.
