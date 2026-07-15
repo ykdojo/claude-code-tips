@@ -40,5 +40,5 @@ sync_one() {
 }
 export -f sync_one
 
-list_repos | xargs -P 8 -I{} bash -c 'sync_one "$1" "$2"' _ {} "$MIRROR_DIR"
+list_repos | xargs -P 16 -I{} bash -c 'sync_one "$1" "$2"' _ {} "$MIRROR_DIR"
 echo "Done: $(find "$MIRROR_DIR/repos" -maxdepth 3 -name .git | wc -l | tr -d ' ') repos in $MIRROR_DIR/repos"
