@@ -1,6 +1,6 @@
 # The missing private GitHub search
 
-Try to search your own private repos from the command line:
+If you try to search your own private repos from the command line:
 
 ```bash
 gh search code 'insurance' --owner your-username
