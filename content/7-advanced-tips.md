@@ -18,6 +18,8 @@ The way I personally like to use it: whenever I need to do something, I start up
 
 On your phone, you can use the transcription feature to talk to it quickly. Even if there are transcription mistakes, Claude is pretty much always able to figure them out.
 
+One of my favorite workflows with this: let the agent do the development and testing, take screenshots, and show them to me through a draft PR. That way I'm able to delegate a lot more, and it's able to achieve a lot more on its own than a traditional AI assistant.
+
 There's also a server mode (`claude remote-control --spawn=worktree --capacity=N`) that lets you start brand new sessions from your phone, but I prefer the `/rc` method, and I turn it off when I'm not using it. A potential attacker who gets access to your Claude Code session essentially has access to everything on your computer, so I'd rather be careful. The exception is when I have a completely isolated environment - then it's super convenient to be able to start a Claude Code session from anywhere from your phone.
 
 ## 3. Use Fable 5 as much as you can
@@ -30,7 +32,7 @@ By no means is it a perfect model, but it is the best model we've seen. So I thi
 
 As an experiment, I decided to [give Claude Code full access to one of my spare machines](https://github.com/ykdojo/claude-controls-mac) so that it could control it, and I could start new sessions from my phone without worrying about leaked data.
 
-So far, it's been working well. It's able to do anything on my spare laptop through computer use: it can click and drag things, and it can use the browser through Playwright and Claude in Chrome. I give it separate accounts so it doesn't mess things up. And the freedom of just letting it do everything it needs to do with `--dangerously-skip-permissions` - I've found that to be great.
+So far, it's been working well. It's able to do anything on my spare laptop through computer use: it can click and drag things, and it can use the browser through Playwright and Claude in Chrome. I give it separate accounts so it doesn't mess things up. And the freedom of just letting it do everything it needs to do with `--dangerously-skip-permissions` - I've found that to be great. This is another way for me to enable agents to do a lot more on their own.
 
 ## 5. Master the loop: investigate, design, implement, verify
 
