@@ -9,7 +9,7 @@
       "name": "dx",
       "source": "./",
       "description": "Developer experience essentials: GitHub Actions debugging, conversation cloning/half-cloning, context handoffs, research (Reddit and Hacker News), and Claude Code version checks",
-      "version": "0.14.21"
+      "version": "0.14.22"
     }
   ]
 }
