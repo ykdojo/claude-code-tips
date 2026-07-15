@@ -3,7 +3,7 @@
 If you try to search your own private repos from the command line:
 
 ```bash
-gh search code 'insurance' --owner your-username
+gh search code 'todo' --owner your-username
 ```
 
 You'll likely get nothing back, even when you know it's there.
