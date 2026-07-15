@@ -5,7 +5,7 @@
 <title>Covers</title>
 <!--
   Cover image generator for the 7 advanced tips article.
-  Open with ?v=substack (1456x1048), ?v=x (1600x900), ?v=devto (1000x420), ?v=medium (1500x850), or ?v=linkedin (1200x627).
+  Open with ?v=substack (1456x1048), ?v=x (1600x900), ?v=devto (1000x420), ?v=medium (1500x850), or ?v=linkedin (1920x1080, article/newsletter cover).
   Export: click the Download PNG button (html2canvas), or screenshot the #cover element
   at exact size with Playwright: page.locator('#cover').screenshot({path: 'cover-<variant>.png'})
 -->
@@ -103,11 +103,11 @@
   .devto .subtitle { font-size: 23px; margin-top: 20px; }
   .devto .author { font-size: 17px; }
 
-  /* LinkedIn 1200x627 */
-  .linkedin { width: 1200px; height: 627px; padding: 70px 84px; }
-  .linkedin .title { font-size: 68px; max-width: 950px; }
-  .linkedin .subtitle { font-size: 29px; margin-top: 28px; }
-  .linkedin .author { font-size: 21px; }
+  /* LinkedIn article/newsletter 1920x1080 (feed crops top/bottom, so keep text vertically centered) */
+  .linkedin { width: 1920px; height: 1080px; padding: 120px 144px; }
+  .linkedin .title { font-size: 115px; max-width: 1500px; }
+  .linkedin .subtitle { font-size: 48px; margin-top: 48px; }
+  .linkedin .author { font-size: 34px; }
 
   /* Medium 1500x850 */
   .medium { width: 1500px; height: 850px; padding: 100px 110px; }
