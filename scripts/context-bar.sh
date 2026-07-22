@@ -45,7 +45,7 @@ if [[ -n "$cwd" && -d "$cwd" ]]; then
             fetch_head="$cwd/.git/FETCH_HEAD"
             fetch_ago=""
             if [[ -f "$fetch_head" ]]; then
-                fetch_time=$(stat -f %m "$fetch_head" 2>/dev/null || stat -c %Y "$fetch_head" 2>/dev/null)
+                fetch_time=$(stat -c %Y "$fetch_head" 2>/dev/null || stat -f %m "$fetch_head" 2>/dev/null)
                 if [[ -n "$fetch_time" ]]; then
                     now=$(date +%s)
                     diff=$((now - fetch_time))
