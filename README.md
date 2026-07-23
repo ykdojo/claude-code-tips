@@ -1,6 +1,6 @@
 # 40+ Claude Code Tips: From Basics to Advanced
 
-Here are my tips for getting the most out of Claude Code, including a custom status line script and Claude Code running itself in a container. Also includes the [dx plugin](#tip-43-install-the-dx-plugin): skills for everyday dev workflows.
+Here are my tips for getting the most out of Claude Code, including a custom status line script and Claude Code running itself in a container. Also includes the [dx plugin](#tip-44-install-the-dx-plugin): skills for everyday dev workflows.
 
 📺 [Quick demo](https://www.youtube.com/watch?v=hiISl558JGE) - See some of these tips in action with a multi-Claude workflow and voice input:
 
@@ -42,20 +42,20 @@ Here are my tips for getting the most out of Claude Code, including a custom sta
 - [Tip 30: It's all about choosing the right level of abstraction](#tip-30-its-all-about-choosing-the-right-level-of-abstraction)
 - [Tip 31: Use auto mode](#tip-31-use-auto-mode)
 - [Tip 32: Control Claude Code from your phone](#tip-32-control-claude-code-from-your-phone)
-- [Tip 33: Write lots of tests (and use TDD)](#tip-33-write-lots-of-tests-and-use-tdd)
-- [Tip 34: Be braver in the unknown; iterative problem solving](#tip-34-be-braver-in-the-unknown-iterative-problem-solving)
-- [Tip 35: Running bash commands and subagents in the background](#tip-35-running-bash-commands-and-subagents-in-the-background)
-- [Tip 36: The era of personalized software is here](#tip-36-the-era-of-personalized-software-is-here)
-- [Tip 37: Navigating and editing your input box](#tip-37-navigating-and-editing-your-input-box)
-- [Tip 38: Spend some time planning, but also prototype quickly](#tip-38-spend-some-time-planning-but-also-prototype-quickly)
-- [Tip 39: Simplify overcomplicated code](#tip-39-simplify-overcomplicated-code)
-- [Tip 40: Automation of automation](#tip-40-automation-of-automation)
-- [Tip 41: Share your knowledge and contribute where you can](#tip-41-share-your-knowledge-and-contribute-where-you-can)
-- [Tip 42: Keep learning!](#tip-42-keep-learning)
-- [Tip 43: Install the dx plugin](#tip-43-install-the-dx-plugin)
-- [Tip 44: Quick setup script](#tip-44-quick-setup-script)
-- [Tip 45: Switch between multiple Claude accounts](#tip-45-switch-between-multiple-claude-accounts)
-- [Tip 46: Publish session output as artifacts](#tip-46-publish-session-output-as-artifacts)
+- [Tip 33: Learn to use artifacts](#tip-33-learn-to-use-artifacts)
+- [Tip 34: Write lots of tests (and use TDD)](#tip-34-write-lots-of-tests-and-use-tdd)
+- [Tip 35: Be braver in the unknown; iterative problem solving](#tip-35-be-braver-in-the-unknown-iterative-problem-solving)
+- [Tip 36: Running bash commands and subagents in the background](#tip-36-running-bash-commands-and-subagents-in-the-background)
+- [Tip 37: The era of personalized software is here](#tip-37-the-era-of-personalized-software-is-here)
+- [Tip 38: Navigating and editing your input box](#tip-38-navigating-and-editing-your-input-box)
+- [Tip 39: Spend some time planning, but also prototype quickly](#tip-39-spend-some-time-planning-but-also-prototype-quickly)
+- [Tip 40: Simplify overcomplicated code](#tip-40-simplify-overcomplicated-code)
+- [Tip 41: Automation of automation](#tip-41-automation-of-automation)
+- [Tip 42: Share your knowledge and contribute where you can](#tip-42-share-your-knowledge-and-contribute-where-you-can)
+- [Tip 43: Keep learning!](#tip-43-keep-learning)
+- [Tip 44: Install the dx plugin](#tip-44-install-the-dx-plugin)
+- [Tip 45: Quick setup script](#tip-45-quick-setup-script)
+- [Tip 46: Switch between multiple Claude accounts](#tip-46-switch-between-multiple-claude-accounts)
 
 <!-- /TOC -->
 
@@ -321,7 +321,7 @@ Then start a fresh conversation. For the fresh agent, you can just give the path
 
 In subsequent conversations, you can ask the agent to update the document for the next agent.
 
-I've also created a `/handoff` slash command that automates this - it checks for an existing HANDOFF.md, reads it if present, then creates or updates it with the goal, progress, what worked, what didn't, and next steps. You can find it in the [skills folder](skills/handoff/SKILL.md), or install it via the [dx plugin](#tip-43-install-the-dx-plugin).
+I've also created a `/handoff` slash command that automates this - it checks for an existing HANDOFF.md, reads it if present, then creates or updates it with the goal, progress, what worked, what didn't, and next steps. You can find it in the [skills folder](skills/handoff/SKILL.md), or install it via the [dx plugin](#tip-44-install-the-dx-plugin).
 
 **Alternative: Use plan mode**
 
@@ -585,7 +585,7 @@ ln -s /path/to/this/repo/skills/half-clone ~/.claude/skills/half-clone
 ln -s /path/to/this/repo/skills/quarter-clone ~/.claude/skills/quarter-clone
 ```
 
-Or install via the [dx plugin](#tip-43-install-the-dx-plugin) - no symlinks needed.
+Or install via the [dx plugin](#tip-44-install-the-dx-plugin) - no symlinks needed.
 
 ### Auto-suggest half-clone with a hook
 
@@ -650,7 +650,7 @@ Skills and slash commands are pretty similar in the way they function. The diffe
 
 **Plugins** are a way to package skills, slash commands, agents, hooks, and MCP servers together. But a plugin doesn't have to use all of them. Anthropic's official `frontend-design` plugin is essentially just a skill and nothing else. It could be distributed as a standalone skill, but the plugin format makes it easier to install.
 
-For example, I built a plugin called `dx` that bundles skills from this repo together. You can see how it works in the [Install the dx plugin](#tip-43-install-the-dx-plugin) section.
+For example, I built a plugin called `dx` that bundles skills from this repo together. You can see how it works in the [Install the dx plugin](#tip-44-install-the-dx-plugin) section.
 
 ## Tip 24: Interactive PR reviews
 
@@ -678,7 +678,7 @@ Another one is letting it check itself, its own work. If it gives you some sort 
 
 I wanted to specifically create a separate tip for this because it's been really amazing for me. Whenever there are GitHub Actions CI failures, I just give it to Claude Code and say "dig into this issue, try to find the root cause." Sometimes it gives you surface level answers, but if you just keep asking - was it caused by a particular commit, a particular PR, or is it a flaky issue? - it really helps you dig into these nasty issues that are hard to dig into by hand. You would need to wade through a bunch of logs and that would be super painful to do manually, but Claude Code is able to handle a lot of that.
 
-I've packaged this workflow as a `/gha` slash command - just run `/gha <url>` with any GitHub Actions URL and it will automatically investigate the failure, check for flakiness, identify breaking commits, and suggest fixes. You can find it in the [skills folder](skills/gha/SKILL.md), or install it via the [dx plugin](#tip-43-install-the-dx-plugin).
+I've packaged this workflow as a `/gha` slash command - just run `/gha <url>` with any GitHub Actions URL and it will automatically investigate the failure, check for flakiness, identify breaking commits, and suggest fixes. You can find it in the [skills folder](skills/gha/SKILL.md), or install it via the [dx plugin](#tip-44-install-the-dx-plugin).
 
 Once you identify what the particular problem was, you can just create a draft PR and go through some of the tips I mentioned earlier - check the output, make sure it looks good, let it verify its own outputs, and then turn it into a real PR to actually fix the issue. It's been working really well for me personally.
 
@@ -732,7 +732,19 @@ One thing to watch out for: if "Enable Remote Control for all sessions" is unset
 
 Docs: [Remote Control](https://code.claude.com/docs/en/remote-control).
 
-## Tip 33: Write lots of tests (and use TDD)
+## Tip 33: Learn to use artifacts
+
+If you're building a front-end app with HTML, CSS, and JavaScript - that's what artifacts work with - an artifact is a great way to check your output quickly and even share it. Ask Claude Code to put the page in an artifact, and it publishes it to claude.ai and gives you a link.
+
+The nice thing about it is that it's gated behind your Anthropic login: a new artifact is only visible to you, so you can check it privately or share it privately. Sharing is built in - use the Share control on the page to give people in your org access (on Team and Enterprise plans), or publish a public link if you explicitly want one.
+
+It works great from your phone as well. You might need to copy and paste the link into the browser if it doesn't open directly in the mobile app, but otherwise it's a fantastic feature.
+
+One thing to keep in mind: an artifact is a single self-contained page with no backend, and external requests are blocked - so if your HTML pulls a library from a CDN, bundle it into the file first.
+
+Docs: [Artifacts](https://code.claude.com/docs/en/artifacts).
+
+## Tip 34: Write lots of tests (and use TDD)
 
 As you write more code with Claude Code, it becomes easier to make mistakes. PR reviews and visual Git clients help catch issues (as I mentioned earlier), but writing tests is crucial as your codebase grows larger.
 
@@ -749,7 +761,7 @@ By writing failing tests first and committing them before implementation, you cr
 
 If you want to be extra sure, review the tests yourself to make sure they don't do anything stupid like just returning true.
 
-## Tip 34: Be braver in the unknown; iterative problem solving
+## Tip 35: Be braver in the unknown; iterative problem solving
 
 Since I started using Claude Code more intensely, I've noticed that I became more and more brave in the unknown.
 
@@ -763,7 +775,7 @@ What followed was a collaborative and iterative process. Claude Code suggested p
 
 Eventually I found a pretty elegant solution. The lesson: even in the world of the unknown, you can do a lot more with Claude Code than you might think.
 
-## Tip 35: Running bash commands and subagents in the background
+## Tip 36: Running bash commands and subagents in the background
 
 When you have a long-running bash command in Claude Code, you can press Ctrl+B to move it to run in the background. Claude Code knows how to manage background processes - it can check on them later using the BashOutput tool.
 
@@ -780,7 +792,7 @@ You can customize subagents by just asking:
 - **Background vs foreground** - ask to run them in the background, or press Ctrl+B
 - **Which model** - ask for Opus, Sonnet, or Haiku depending on the complexity of each task (subagents default to Sonnet)
 
-## Tip 36: The era of personalized software is here
+## Tip 37: The era of personalized software is here
 
 We're entering an era of personalized, custom software. Since AI came out - ChatGPT in general, but especially Claude Code - I've noticed that I'm able to create a lot more software, sometimes just for myself, sometimes for small projects.
 
@@ -790,7 +802,7 @@ Here's another example: [korotovsky/slack-mcp-server](https://github.com/korotov
 
 This is an exciting time. Whatever you want to get done, you can ask Claude Code to do it. If it's small enough, you can build it in an hour or two. I even created a [slide deck template](https://ykdojo.github.io/claude-code-tips/content/spectrum-slides.html) - a single HTML file with CSS and JavaScript that lets you embed an interactive, persistent terminal process inside.
 
-## Tip 37: Navigating and editing your input box
+## Tip 38: Navigating and editing your input box
 
 Claude Code's input box is designed to emulate common terminal/readline shortcuts, which makes it feel natural if you're used to working in the terminal. Here are some useful ones:
 
@@ -833,7 +845,7 @@ The quickest method works everywhere without any setup: type `\` followed by Ent
 
 Note: On Mac, it's `Ctrl+V`, not `Cmd+V`.
 
-## Tip 38: Spend some time planning, but also prototype quickly
+## Tip 39: Spend some time planning, but also prototype quickly
 
 You want to spend enough time planning so that Claude Code knows what to build and how to build it. This means making high-level decisions early: what technology to use, how the project should be structured, where each functionality should live, which files things should go in. It's important to make good decisions as early as you can.
 
@@ -843,7 +855,7 @@ For example, I was recently experimenting with creating a diff viewer. I first t
 
 You can use plan mode for this by pressing Shift+Tab to switch to it. Or you can just ask Claude Code to make a plan before writing any code.
 
-## Tip 39: Simplify overcomplicated code
+## Tip 40: Simplify overcomplicated code
 
 I've found that Claude Code sometimes overcomplicates things and writes too much code. It makes changes you didn't ask for. It just seems to have a bias for writing more code. The code might work correctly if you've followed the other tips in this guide, but it's going to be hard to maintain and hard to check. It can be kind of a nightmare if you don't review it enough.
 
@@ -853,7 +865,7 @@ Some people say if you write code only through AI, you'll never understand it. B
 
 Note that this applies to prose as well. Claude Code often tries to summarize previous paragraphs in the last paragraph, or previous sentences in the last sentence. It can get pretty repetitive. Sometimes it's helpful, but most of the time you'll need to ask it to remove or simplify it.
 
-## Tip 40: Automation of automation
+## Tip 41: Automation of automation
 
 At the end of the day, it's all about automation of automation. What I mean by that is I've found it's the best way to not just become more productive, but also make the process more fun. At least to me, this whole process of automation of automation is really fun.
 
@@ -865,7 +877,7 @@ Then I started to think, I find myself repeating myself sometimes. So I would pu
 
 I think ultimately that's where we're heading. Whenever you find yourself repeating the same task or the same command over and over again, a couple of times is okay, but if you repeat it over and over again, then think about a way to automate that whole process.
 
-## Tip 41: Share your knowledge and contribute where you can
+## Tip 42: Share your knowledge and contribute where you can
 
 This tip is a bit different from the others. I found that by learning as much as you can, you're able to share your knowledge with people around you. Maybe through posts like these, maybe even books, courses, videos. I also recently had an [internal session for my colleagues at Daft](https://www.daft.ai/blog/how-we-use-ai-coding-agents). It's been very rewarding.
 
@@ -880,7 +892,7 @@ When it comes to contributing, I've been sending issues to the Claude Code repo.
 
 It's kind of amazing how fast the team can react to feature requests and bug reports. But it makes sense because they're using Claude Code to build Claude Code itself.
 
-## Tip 42: Keep learning!
+## Tip 43: Keep learning!
 
 There are several effective ways to keep learning about Claude Code:
 
@@ -895,7 +907,7 @@ There are several effective ways to keep learning about Claude Code:
 - [Twitter/X: Advent of Claude posts](https://x.com/search?q=from%3Aadocomplete%20advent%20of%20claude&src=typed_query&f=live)
 - [LinkedIn: Advent of Claude posts](https://www.linkedin.com/search/results/content/?fromMember=%5B%22ACoAAAFdD3IBYHwKSh6FsyGqOh1SpbrZ9ZHTjnI%22%5D&keywords=advent%20of%20claude&origin=FACETED_SEARCH&sid=zDV&sortBy=%22date_posted%22)
 
-## Tip 43: Install the dx plugin
+## Tip 44: Install the dx plugin
 
 This repo is also a Claude Code plugin called `dx` (developer experience). It bundles several tools from the tips above into a single install:
 
@@ -922,7 +934,7 @@ After installing, the commands are available as `/dx:half-clone`, `/dx:handoff`,
 
 **Recommended companion:** [Playwright MCP](https://github.com/microsoft/playwright-mcp) for browser automation - add with `claude mcp add -s user playwright npx @playwright/mcp@latest`
 
-## Tip 44: Quick setup script
+## Tip 45: Quick setup script
 
 If you want to set up multiple recommendations from this repo at once, there's a setup script that handles many of them:
 
@@ -951,7 +963,7 @@ SHELL CONFIG (~/.zshrc or ~/.bashrc):
 Skip any? [e.g., 1 4 7 or Enter for all]:
 ```
 
-## Tip 45: Switch between multiple Claude accounts
+## Tip 46: Switch between multiple Claude accounts
 
 If you have multiple Claude accounts (for example, personal vs work), here's how you can switch between them quickly.
 
@@ -973,18 +985,6 @@ clp() { CLAUDE_CODE_OAUTH_TOKEN="$(security find-generic-password -s claude-toke
 ```
 
 Now `clw` and `clp` run as each account (e.g. `clw --resume`), while plain `claude` still uses your Keychain login. Tokens last about a year, so re-run `setup-token` to refresh.
-
-## Tip 46: Publish session output as artifacts
-
-Sometimes what Claude produced is easier to look at than to read in the terminal. Ask for an artifact - "make an artifact walking through this PR", or just "put this in an artifact" - and Claude Code publishes the page to claude.ai and gives you a link. It updates in place as your session continues, and `Ctrl+]` reopens the latest one from the terminal.
-
-The nice thing is that it's gated behind your Anthropic login: a new artifact is visible only to you, and nothing becomes public unless you explicitly share it (within your org on Team/Enterprise, or via a public link). That makes it different from something like GitHub Pages, where publishing means the page is public from the start.
-
-One thing to know: artifacts are front-end only. Each one is a single self-contained page with no backend, served under a strict Content Security Policy that blocks all external requests - so scripts, styles, or fonts loaded from a CDN won't work. Claude inlines everything when it builds the page itself, but if you're publishing an existing HTML file that pulls a library from a CDN, bundle it in first. (The one exception is MCP connectors, which the page can call through claude.ai to show live data.)
-
-Artifacts are available on Pro, Max, Team, and Enterprise plans, in sessions signed in with `/login`.
-
-Docs: [Artifacts](https://code.claude.com/docs/en/artifacts).
 
 ---
 
