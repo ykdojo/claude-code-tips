@@ -55,6 +55,7 @@ Here are my tips for getting the most out of Claude Code, including a custom sta
 - [Tip 43: Install the dx plugin](#tip-43-install-the-dx-plugin)
 - [Tip 44: Quick setup script](#tip-44-quick-setup-script)
 - [Tip 45: Switch between multiple Claude accounts](#tip-45-switch-between-multiple-claude-accounts)
+- [Tip 46: Publish session output as artifacts](#tip-46-publish-session-output-as-artifacts)
 
 <!-- /TOC -->
 
@@ -972,6 +973,18 @@ clp() { CLAUDE_CODE_OAUTH_TOKEN="$(security find-generic-password -s claude-toke
 ```
 
 Now `clw` and `clp` run as each account (e.g. `clw --resume`), while plain `claude` still uses your Keychain login. Tokens last about a year, so re-run `setup-token` to refresh.
+
+## Tip 46: Publish session output as artifacts
+
+Sometimes what Claude produced is easier to look at than to read in the terminal. Ask for an artifact - "make an artifact walking through this PR", or just "put this in an artifact" - and Claude Code publishes the page to claude.ai and gives you a link. It updates in place as your session continues, and `Ctrl+]` reopens the latest one from the terminal.
+
+The nice thing is that it's gated behind your Anthropic login: a new artifact is visible only to you, and nothing becomes public unless you explicitly share it (within your org on Team/Enterprise, or via a public link). That makes it different from something like GitHub Pages, where publishing means the page is public from the start.
+
+One thing to know: artifacts are front-end only. Each one is a single self-contained page with no backend, served under a strict Content Security Policy that blocks all external requests - so scripts, styles, or fonts loaded from a CDN won't work. Claude inlines everything when it builds the page itself, but if you're publishing an existing HTML file that pulls a library from a CDN, bundle it in first. (The one exception is MCP connectors, which the page can call through claude.ai to show live data.)
+
+Artifacts are available on Pro, Max, Team, and Enterprise plans, in sessions signed in with `/login`.
+
+Docs: [Artifacts](https://code.claude.com/docs/en/artifacts).
 
 ---
 
