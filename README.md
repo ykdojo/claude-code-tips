@@ -742,8 +742,6 @@ It works great from your phone as well. You might need to copy and paste the lin
 
 One thing to keep in mind: an artifact is a single self-contained page with no backend, and external requests are blocked - so if your HTML pulls a library from a CDN, bundle it into the file first.
 
-Docs: [Artifacts](https://code.claude.com/docs/en/artifacts).
-
 ## Tip 34: Write lots of tests (and use TDD)
 
 As you write more code with Claude Code, it becomes easier to make mistakes. PR reviews and visual Git clients help catch issues (as I mentioned earlier), but writing tests is crucial as your codebase grows larger.
