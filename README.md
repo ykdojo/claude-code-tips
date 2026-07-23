@@ -734,7 +734,7 @@ Docs: [Remote Control](https://code.claude.com/docs/en/remote-control).
 
 ## Tip 33: Learn to use artifacts
 
-If you're building a front-end app with HTML, CSS, and JavaScript - that's what artifacts work with - an artifact is a great way to check your output quickly and even share it. Ask Claude Code to put the page in an artifact, and it publishes it to claude.ai and gives you a link.
+If you're building a front-end app with HTML, CSS, and JavaScript, an artifact is a great way to check your output quickly and even share it. Ask Claude Code to put the page in an artifact, and it publishes it to claude.ai and gives you a link.
 
 The nice thing about it is that it's gated behind your Anthropic login: a new artifact is only visible to you, so you can check it privately or share it privately. Sharing is built in - use the Share control on the page to give people in your org access (on Team and Enterprise plans), or publish a public link if you explicitly want one.
 
