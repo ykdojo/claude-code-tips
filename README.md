@@ -738,7 +738,7 @@ If you're building a front-end app with HTML, CSS, and JavaScript, an artifact i
 
 The nice thing about it is that it's gated behind your Anthropic login: a new artifact is only visible to you, so you can check it privately or share it privately.
 
-It works great from your phone as well. You might need to copy and paste the link into the browser if it doesn't open directly in the mobile app, but otherwise it's a fantastic feature.
+It works great from your phone as well. You can tap the link in the Claude mobile app and it opens directly there in the app.
 
 One thing to keep in mind: an artifact is a single self-contained page with no backend, and external requests are blocked - so if your HTML pulls a library from a CDN, bundle it into the file first.
 
