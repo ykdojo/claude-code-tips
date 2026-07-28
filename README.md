@@ -6,6 +6,47 @@ Here are my tips for getting the most out of Claude Code, including a custom sta
 
 [![Demo video thumbnail](assets/demo-thumbnail.png)](https://www.youtube.com/watch?v=hiISl558JGE)
 
+## 🚀 Quick Start Guide
+
+If you're new to Claude Code, here's how to get started quickly:
+
+### **Step 1: Install the DX Plugin**
+The easiest way to get started is to install the `dx` plugin, which bundles all the essential skills:
+
+```bash
+claude plugin marketplace add ykdojo/claude-code-tips
+claude plugin install dx@ykdojo
+```
+
+### **Step 2: Run the Quick Setup Script**
+Set up everything in one go:
+
+```bash
+bash <(curl -s https://raw.githubusercontent.com/ykdojo/claude-code-tips/main/scripts/setup.sh)
+```
+
+This will configure:
+- Status line for monitoring context usage
+- Essential permissions for half-clone functionality
+- Terminal aliases for quick access
+- And more...
+
+### **Step 3: Try These Essential Slash Commands**
+Once installed, try these commands to get the most value:
+
+- `/dx:half-clone` - Clone recent conversations to save tokens
+- `/dx:gha <url>` - Analyze GitHub Actions failures
+- `/dx:handoff` - Create handoff documents for context continuity
+- `/dx:review-claudemd` - Review and improve your CLAUDE.md files
+
+### **Step 5: Learn the Basics**
+Start with these foundational tips:
+
+1. **Tip 0**: Customize your status line - Monitor context usage
+2. **Tip 1**: Learn essential slash commands - `/usage`, `/chrome`, `/mcp`
+3. **Tip 5**: AI context is like milk - Keep conversations fresh
+4. **Tip 8**: Proactively compact your context - Use handoff documents
+
 <!-- TOC -->
 ## Table of Contents
 
@@ -53,9 +94,14 @@ Here are my tips for getting the most out of Claude Code, including a custom sta
 - [Tip 41: Automation of automation](#tip-41-automation-of-automation)
 - [Tip 42: Share your knowledge and contribute where you can](#tip-42-share-your-knowledge-and-contribute-where-you-can)
 - [Tip 43: Keep learning!](#tip-43-keep-learning)
+- [Tip 49: Claude Code Performance Optimization & Token Management](#tip-49-claude-code-performance-optimization-token-management)
 - [Tip 44: Install the dx plugin](#tip-44-install-the-dx-plugin)
 - [Tip 45: Quick setup script](#tip-45-quick-setup-script)
 - [Tip 46: Switch between multiple Claude accounts](#tip-46-switch-between-multiple-claude-accounts)
+- [🚀 Quick Start Guide](#-quick-start-guide)
+- [📚 Table of Contents](#-table-of-contents)
+- [Goal](#goal)
+- [Current Progress](#current-progress)
 
 <!-- /TOC -->
 
@@ -904,6 +950,279 @@ There are several effective ways to keep learning about Claude Code:
 
 - [Twitter/X: Advent of Claude posts](https://x.com/search?q=from%3Aadocomplete%20advent%20of%20claude&src=typed_query&f=live)
 - [LinkedIn: Advent of Claude posts](https://www.linkedin.com/search/results/content/?fromMember=%5B%22ACoAAAFdD3IBYHwKSh6FsyGqOh1SpbrZ9ZHTjnI%22%5D&keywords=advent%20of%20claude&origin=FACETED_SEARCH&sid=zDV&sortBy=%22date_posted%22)
+
+## Tip 49: Claude Code Performance Optimization & Token Management
+
+Claude Code's performance and token usage can vary dramatically based on how you structure your conversations. While basic context management (Tip 5) and proactive compaction (Tip 8) help, there are advanced strategies for maximizing efficiency and minimizing costs.
+
+### Understanding Token Economics
+
+Opus 4.5 has a 200k context window, but not all of it is available for your conversation:
+- ~10% is reserved for system prompts, tools, memory, and dynamic context
+- Claude reserves ~45k tokens for automatic compaction
+- This leaves ~145k tokens for your actual conversation
+
+The key insight: **context window usage is not linear**. As your conversation grows, performance degrades exponentially because Claude must process more tokens to understand the context.
+
+### Advanced Context Management Strategies
+
+**1. Strategic Conversation Segmentation**
+
+Instead of one long conversation, break complex tasks into focused segments:
+
+```
+# Segment 1: Research and planning
+> I need to research GitHub Actions failures for the Daft project. 
+> Focus on finding root causes, not just surface-level fixes.
+
+# Segment 2: Code analysis and fixes  
+> Based on the research, analyze the specific failing workflows.
+> Create targeted fixes for each issue.
+
+# Segment 3: Testing and verification
+> Test each fix with `git bisect`.
+> Verify the solution works end-to-end.
+```
+
+**2. Hybrid Half-Clone + Manual Compaction**
+
+Use both automatic and manual compaction for optimal control:
+
+```bash
+# Disable auto-compact for more control
+/claude config --auto-compact false
+
+# Use half-clone when context exceeds 85%
+/claude half-clone
+
+# Manually compact when you need to summarize
+/claude compact
+```
+
+**3. Context-Aware Conversation Length**
+
+Match conversation length to task complexity:
+
+- **Simple tasks** (under 5k tokens): Keep in one conversation
+- **Medium tasks** (5-20k tokens): Use half-clone at 15k tokens
+- **Complex tasks** (20k+ tokens): Plan multiple segments upfront
+
+### Token Optimization Techniques
+
+**1. Strip Unnecessary Content**
+
+Ask Claude to exclude verbose explanations and focus on actionable content:
+
+```
+> Please provide concise code fixes. Skip explanations unless I ask.
+> Only include the specific changes needed to make tests pass.
+```
+
+**2. Use Efficient File Operations**
+
+Instead of copying entire files, reference specific sections:
+
+```
+> Instead of giving me the entire config file, just show me the sections that need changes.
+> If you need to edit multiple files, reference them by their relative paths.
+```
+
+**3. Leverage Template-Based Workflows**
+
+Create reusable conversation templates:
+
+```
+# Research template
+> Research [TOPIC] for [PROJECT].
+> Focus on [ASPECTS].
+> Provide a summary with key findings and recommendations.
+
+# Analysis template  
+> Analyze [DATA] for [PROBLEM].
+> Identify root causes and propose solutions.
+> Test each solution with [METHOD].
+```
+
+### Multi-Session Performance Tuning
+
+**1. Session Naming Convention**
+
+Use consistent naming to track conversation progression:
+
+```
+# Session names as progress indicators
+session-01-research
+  session-02-analysis  
+  session-03-implementation
+  session-04-testing
+```
+
+**2. Cross-Session Context Handoff**
+
+Use handoff documents to preserve context across sessions:
+
+```
+# Create HANDOFF.md before starting fresh
+> experiments/git-worktree-setup/HANDOFF.md
+
+# HANDOFF.md should include:
+## Goal
+## Current Progress
+### What's Been Done
+### What Didn't Work
+### Next Steps
+```
+
+**3. Automated Context Monitoring**
+
+Set up proactive context management:
+
+```bash
+# Install the check-context hook
+cp scripts/check-context.sh ~/.claude/scripts/
+chmod +x ~/.claude/scripts/check-context.sh
+
+# Add to settings.json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/scripts/check-context.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Advanced Tool Usage
+
+**1. Strategic Use of Skills**
+
+Combine multiple skills for complex tasks:
+
+```
+> Use /dx:gha to analyze this GitHub Actions failure.
+> Then use /dx:handoff to create a plan for fixing it.
+> Finally use /dx:half-clone to reduce context for the implementation phase.
+```
+
+**2. Custom Script Integration**
+
+Create custom scripts for your specific workflow:
+
+```bash
+#!/bin/bash
+# context-manager.sh - Advanced context management
+
+# Check current context usage
+/claude stats
+
+# If over 80%, suggest half-clone
+if [ $(context_usage) -gt 80000 ]; then
+    echo "Context over 80%, suggesting half-clone..."
+    /claude half-clone
+fi
+
+# If over 90%, suggest manual compaction  
+if [ $(context_usage) -gt 90000 ]; then
+    echo "Context over 90%, suggesting manual compaction..."
+    /claude compact
+fi
+```
+
+### Performance Monitoring
+
+**1. Track Your Usage Patterns**
+
+Monitor which types of tasks consume the most tokens:
+
+```bash
+# Check your conversation history
+~/.claude/projects/*/*.jsonl | jq -r 'select(.type=="user") | .message.content' | wc -w
+
+# Find your most token-intensive conversations
+~/.claude/projects/*/*.jsonl | jq -r '.sessionId + "," + (.usage?.input_tokens // 0 + .usage?.output_tokens // 0)' | sort -t, -k2 -nr | head -10
+```
+
+**2. Adjust Based on Task Type**
+
+Different tasks have different token requirements:
+
+- **Code generation**: ~3k-10k tokens per task
+- **Research**: ~5k-15k tokens per topic
+- **Debugging**: ~2k-8k tokens per issue
+- **Planning**: ~1k-3k tokens per session
+
+Plan your conversation length accordingly.
+
+### Cost Optimization Strategies
+
+**1. Model Selection**
+
+Use the right model for the task:
+
+- **Opus 4.5**: Complex reasoning, code generation, research
+- **Sonnet 3.7**: Most tasks, good balance of capability and cost
+- **Haiku**: Simple edits, quick lookups, basic tasks
+
+**2. Batch Similar Operations**
+
+Group related operations to reduce overhead:
+
+```
+> Instead of asking about each file separately, ask about all files at once:
+> "Please check these three files for potential issues: file1.py, file2.py, file3.py"
+```
+
+**3. Use Local Tools When Possible**
+
+Leverage local tools to reduce API calls:
+
+```bash
+# Use local git commands instead of asking Claude
+# Use local grep/awk/sed for text processing
+# Use local browsers for web research
+```
+
+### Troubleshooting Performance Issues
+
+**1. Common Symptoms**
+
+- **Slow responses**: Context window approaching limit
+- **Missing context**: Recent messages not being considered
+- **Repetitive questions**: Claude forgetting previous work
+
+**2. Solutions**
+
+```
+> "I'm getting slow responses. Can you help me optimize my context usage?
+> What strategies would you recommend for reducing token consumption?
+> How can I structure my conversations better?
+```
+
+**3. Recovery Strategies**
+
+When performance degrades:
+
+1. **Immediate**: Use `/half-clone` to reduce context
+2. **Short-term**: Break tasks into smaller segments
+3. **Long-term**: Implement automated context monitoring
+
+### The Performance Optimization Mindset
+
+Good performance optimization is about **proactivity, not reaction**:
+
+- **Proactive**: Plan conversation length before starting
+- **Proactive**: Set up monitoring before issues arise
+- **Proactive**: Use templates for common workflows
+- **Proactive**: Optimize your tools and workflows
+
+Remember: **Performance optimization is an ongoing process**, not a one-time setup. As your usage patterns evolve, so should your optimization strategies.
 
 ## Tip 44: Install the dx plugin
 
