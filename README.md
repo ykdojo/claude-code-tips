@@ -836,7 +836,7 @@ Or in `~/.claude/settings.json` (requires restart):
 
 **Entering newlines (multi-line input):**
 
-The quickest method works everywhere without any setup: type `\` followed by Enter to create a newline. For keyboard shortcuts, run `/terminal-setup` in Claude Code. On Mac Terminal.app, I use Option+Enter - but it only works after checking "Use Option as Meta key" in Terminal → Settings → Profiles → Keyboard.
+The quickest method works everywhere without any setup: type `\` followed by Enter to create a newline. For keyboard shortcuts, run `/terminal-setup` in Claude Code. On Mac Terminal.app, I use Option+Enter - it only works after checking "Use Option as Meta key" in Terminal → Settings → Profiles → Keyboard.
 
 **Pasting images:**
 - `Ctrl+V` (Mac/Linux) or `Alt+V` (Windows) - Paste an image from your clipboard
