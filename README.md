@@ -716,7 +716,7 @@ Auto mode lets Claude decide whether a command is safe to run in context, instea
 
 The main thing it fixes is mindless approving. When a command is too long to read carefully, or you're getting tired, you end up approving things without really thinking about them. Auto mode takes that pressure off, so I think it's a good default.
 
-To make it the default so every new session starts in it, add this to `~/.claude/settings.json`:
+To make it the default, add this to `~/.claude/settings.json`:
 
 ```json
 {
