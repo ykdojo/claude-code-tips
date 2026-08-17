@@ -857,6 +857,16 @@ The quickest method works everywhere without any setup: type `\` followed by Ent
 
 Note: On Mac, it's `Ctrl+V`, not `Cmd+V`.
 
+**Turning off prompt suggestions:**
+
+If you find the prompt suggestions (the predicted next message that shows up in your input box) annoying, you can turn them off. Run `/config` and toggle off "Prompt suggestions", or set this in `~/.claude/settings.json`:
+
+```json
+{
+  "promptSuggestionEnabled": false
+}
+```
+
 ## Tip 39: Spend some time planning, but also prototype quickly
 
 You want to spend enough time planning so that Claude Code knows what to build and how to build it. This means making high-level decisions early: what technology to use, how the project should be structured, where each functionality should live, which files things should go in. It's important to make good decisions as early as you can.
