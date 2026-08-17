@@ -27,7 +27,7 @@ Here are my tips for getting the most out of Claude Code, including a custom sta
 - [Tip 15: Manual exponential backoff for long-running jobs](#tip-15-manual-exponential-backoff-for-long-running-jobs)
 - [Tip 16: Claude Code as a writing assistant](#tip-16-claude-code-as-a-writing-assistant)
 - [Tip 17: Markdown is the s**t](#tip-17-markdown-is-the-st)
-- [Tip 18: Use Notion to preserve links when pasting](#tip-18-use-notion-to-preserve-links-when-pasting)
+- [Tip 18: Preserve links when pasting](#tip-18-preserve-links-when-pasting)
 - [Tip 19: Isolated environments for long-running risky tasks](#tip-19-isolated-environments-for-long-running-risky-tasks)
 - [Tip 20: The best way to get better at using Claude Code is by using it](#tip-20-the-best-way-to-get-better-at-using-claude-code-is-by-using-it)
 - [Tip 21: Fork and half-clone conversations](#tip-21-fork-and-half-clone-conversations)
@@ -512,7 +512,7 @@ Markdown was already pretty good even before AI, but with Claude Code in particu
 
 A quick tip for this one: if you want to copy and paste markdown content into a platform that doesn't accept it easily, you can paste it into a fresh Notion file first, then copy from Notion into the other platform. Notion converts it to a format that other platforms can accept. If regular pasting doesn't work, try Command + Shift + V to paste without formatting.
 
-## Tip 18: Use Notion to preserve links when pasting
+## Tip 18: Preserve links when pasting
 
 It turns out the reverse also works. If you have text with links from other places, let's say from Slack, you can copy it. If you paste it directly into Claude Code, it doesn't show the links. But if you put it in a Notion document first, then copy from there, you get it in markdown, which of course Claude Code can read.
 
