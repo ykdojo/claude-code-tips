@@ -516,6 +516,8 @@ A quick tip for this one: if you want to copy and paste markdown content into a 
 
 It turns out the reverse also works. If you have text with links from other places, let's say from Slack, you can copy it. If you paste it directly into Claude Code, it doesn't show the links. But if you put it in a Notion document first, then copy from there, you get it in markdown, which of course Claude Code can read.
 
+There's also a simpler option: instead of pasting at all, you can just ask Claude Code to read your clipboard. It normally knows exactly what command to use - on Mac, that's `pbpaste` - and it's usually able to get the content just fine.
+
 ## Tip 19: Isolated environments for long-running risky tasks
 
 Isolated environments are great for `--dangerously-skip-permissions` sessions where you don't have to give permission for each little thing. You can just let it run on its own for a while. This is useful for research or experimentation, things that take a long time and maybe could be risky.
