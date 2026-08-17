@@ -516,7 +516,7 @@ A quick tip for this one: if you want to copy and paste markdown content into a 
 
 It turns out the reverse also works. If you have text with links from other places, let's say from Slack, you can copy it. If you paste it directly into Claude Code, it doesn't show the links. But if you put it in a Notion document first, then copy from there, you get it in markdown, which of course Claude Code can read.
 
-There's also a simpler option: instead of pasting at all, you can just ask Claude Code to read your clipboard. It normally knows exactly what command to use - on Mac, that's `pbpaste` - and it's usually able to get the content just fine.
+Alternatively, you can just ask Claude Code to read your clipboard. It normally knows exactly what command to use - on Mac, that's `pbpaste` - and it's able to use that command to fetch the content without changing the formatting.
 
 ## Tip 19: Isolated environments for long-running risky tasks
 
@@ -729,6 +729,8 @@ To make it the default, add this to `~/.claude/settings.json`:
 ```
 
 If you still want to be careful, you can always approve things manually without auto mode. And if you want to give it complete independence, you can [run Claude Code in a container with `--dangerously-skip-permissions`](#tip-19-isolated-environments-for-long-running-risky-tasks).
+
+Note that auto mode [no longer requires an opt-in](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#21152), and `/doctor` will even suggest making it your default.
 
 ## Tip 32: Control Claude Code from your phone
 
