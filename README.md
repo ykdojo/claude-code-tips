@@ -56,6 +56,7 @@ Here are my tips for getting the most out of Claude Code, including a custom sta
 - [Tip 44: Install the dx plugin](#tip-44-install-the-dx-plugin)
 - [Tip 45: Quick setup script](#tip-45-quick-setup-script)
 - [Tip 46: Switch between multiple Claude accounts](#tip-46-switch-between-multiple-claude-accounts)
+- [Tip 47: Use GitHub as your knowledge base](#tip-47-use-github-as-your-knowledge-base)
 
 <!-- /TOC -->
 
@@ -1007,6 +1008,16 @@ clp() { CLAUDE_CODE_OAUTH_TOKEN="$(security find-generic-password -s claude-toke
 ```
 
 Now `clw` and `clp` run as each account (e.g. `clw --resume`), while plain `claude` still uses your Keychain login. Tokens last about a year, so re-run `setup-token` to refresh.
+
+## Tip 47: Use GitHub as your knowledge base
+
+Something I've been doing for some time now: whenever I need a place for something, I just create a new private repository and ask Claude Code to put stuff in it - take notes, do research there, whatever I need.
+
+I also have repositories for skills, so if I have to repeat the same type of work over and over again, I can keep it in a skill format and reuse those workflows.
+
+The one missing piece is search - GitHub's own search doesn't work well for private repos, so I built a [private GitHub search skill](skills/private-github-search/SKILL.md) for that (more on the problem in [The missing private GitHub search](content/the-missing-private-github-search.md)).
+
+There's also a short companion article: [Use GitHub as your knowledge base](content/github-as-knowledge-base.md).
 
 ---
 
