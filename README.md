@@ -1,4 +1,4 @@
-# 40+ Claude Code Tips: From Basics to Advanced
+# 45+ Claude Code Tips: From Basics to Advanced
 
 Here are my tips for getting the most out of Claude Code, including a custom status line script and Claude Code running itself in a container. Also includes the [dx plugin](#tip-44-install-the-dx-plugin): skills for everyday dev workflows.
 
@@ -924,11 +924,6 @@ There are several effective ways to keep learning about Claude Code:
 **Check the release notes** - Type `/release-notes` to see what's new in your current version. This is the best way to learn about the latest features.
 
 **Learn from the community** - The [r/ClaudeAI](https://www.reddit.com/r/ClaudeAI/) subreddit is a great place to learn from other users and see what workflows people are using.
-
-**Follow Ado for tips** - Ado ([@adocomplete](https://x.com/adocomplete)) is a DevRel at Anthropic who posted daily Claude Code tips throughout December 2025 in his "Advent of Claude" series. While this particular series has already ended, he continues to share useful tips on X.
-
-- [Twitter/X: Advent of Claude posts](https://x.com/search?q=from%3Aadocomplete%20advent%20of%20claude&src=typed_query&f=live)
-- [LinkedIn: Advent of Claude posts](https://www.linkedin.com/search/results/content/?fromMember=%5B%22ACoAAAFdD3IBYHwKSh6FsyGqOh1SpbrZ9ZHTjnI%22%5D&keywords=advent%20of%20claude&origin=FACETED_SEARCH&sid=zDV&sortBy=%22date_posted%22)
 
 ## Tip 44: Install the dx plugin
 
