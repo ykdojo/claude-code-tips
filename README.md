@@ -1011,9 +1011,9 @@ Now `clw` and `clp` run as each account (e.g. `clw --resume`), while plain `clau
 
 ## Tip 47: Use GitHub as your knowledge base
 
-I've been using GitHub as my knowledge base - kind of a Notion replacement. Instead of opening up a Notion document, I just create a new repository or find an existing private repository where I can put my notes. I dictate my thoughts and develop my notes there, and if I have some research to do, I let Claude Code do the research and update those repositories.
+I've been using GitHub as my knowledge base - kind of a Notion replacement. Instead of opening up a Notion document, I just create a new repo or find an existing private repo where I can put my notes. I dictate my thoughts and develop my notes there, and if I have some research to do, I let Claude Code do the research and update those repos.
 
-I also have repositories for skills, so if I have to repeat the same type of work over and over again, I can keep it in a skill format and reuse those workflows.
+I also have repos for skills, so if I have to repeat the same type of work over and over again, I can keep it in a skill format and reuse those workflows.
 
 The one missing piece is search - GitHub's own search doesn't work well for private repos, so I built a [private GitHub search skill](skills/private-github-search/SKILL.md) for that (more on the problem in [The missing private GitHub search](content/the-missing-private-github-search.md)).
 
