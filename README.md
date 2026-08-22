@@ -1013,9 +1013,9 @@ Now `clw` and `clp` run as each account (e.g. `clw --resume`), while plain `clau
 
 I've been using GitHub as my knowledge base - kind of a Notion replacement. Instead of opening up a Notion document, I just create a new repo or find an existing private repo where I can put my notes. I dictate my thoughts and develop my notes there, and if I have some research to do, I let Claude Code do the research and update those repos.
 
-I also have repos for skills, so if I have to repeat the same type of work over and over again, I can keep it in a skill format and reuse those workflows.
+I also have repos for skills. If I have to repeat the same type of work over and over again, it's nice to be able to have that in a skill format so I can reuse those workflows.
 
-The one missing piece is search - GitHub's own search doesn't work well for private repos, so I built a [private GitHub search skill](skills/private-github-search/SKILL.md) for that (more on the problem in [The missing private GitHub search](content/the-missing-private-github-search.md)).
+The one missing piece is search: GitHub's own search doesn't work well for private repos. I wrote about that problem and how I solved it in [The missing private GitHub search](content/the-missing-private-github-search.md) - it's a [skill](skills/private-github-search/SKILL.md) that mirrors all your repos locally and searches them with ripgrep, so I can just ask Claude Code "which repo has X" and it finds it.
 
 ---
 
