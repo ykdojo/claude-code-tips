@@ -1,6 +1,6 @@
 # Use GitHub as your knowledge base
 
-Here's something I've been doing for some time now: whenever I need a place for something, I just create a new private GitHub repository for it and ask Claude Code to put stuff in it - take notes, do research there, whatever I need.
+I've been using GitHub as my knowledge base - kind of a Notion replacement. Instead of opening up a Notion document, I just create a new repository or find an existing private repository where I can put my notes. I dictate my thoughts and develop my notes there, and if I have some research to do, I let Claude Code do the research and update those repositories.
 
 I also have repositories for skills. If I have to repeat the same type of work over and over again, it's nice to be able to have that in a skill format so I can reuse those workflows.
 
