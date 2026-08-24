@@ -63,6 +63,8 @@ generate_uuid() {
         uuidgen | tr '[:upper:]' '[:lower:]'
     elif [ -f /proc/sys/kernel/random/uuid ]; then
         cat /proc/sys/kernel/random/uuid
+    elif command -v openssl &> /dev/null; then
+        openssl rand -hex 16 | sed -E 's/(.{8})(.{4})(.{4})(.{4})(.{12})/\1-\2-\3-\4-\5/'
     else
         # Fallback using $RANDOM
         printf '%04x%04x-%04x-%04x-%04x-%04x%04x%04x\n' \
@@ -148,13 +150,18 @@ pre_generate_uuids() {
         for ((i=0; i<count; i++)); do
             cat /proc/sys/kernel/random/uuid
         done > "$output_file"
+    elif command -v openssl &> /dev/null; then
+        # Windows/Git Bash fallback: openssl (no hexdump/uuidgen there)
+        openssl rand -hex $((count * 16)) \
+            | fold -w32 \
+            | sed -E 's/(.{8})(.{4})(.{4})(.{4})(.{12})/\1-\2-\3-\4-\5/' > "$output_file"
     elif command -v uuidgen &> /dev/null; then
         # macOS/BSD fallback
         for ((i=0; i<count; i++)); do
             uuidgen | tr '[:upper:]' '[:lower:]'
         done > "$output_file"
     else
-        log_error "No UUID generation method available (need hexdump, /proc/sys/kernel/random/uuid, or uuidgen)"
+        log_error "No UUID generation method available (need hexdump, /proc/sys/kernel/random/uuid, uuidgen, or openssl)"
         return 1
     fi
 }
