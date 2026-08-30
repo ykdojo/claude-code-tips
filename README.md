@@ -326,25 +326,6 @@ In subsequent conversations, you can ask the agent to update the document for th
 
 I've also created a `/handoff` slash command that automates this - it checks for an existing HANDOFF.md, reads it if present, then creates or updates it with the goal, progress, what worked, what didn't, and next steps. You can find it in the [skills folder](skills/handoff/SKILL.md), or install it via the [dx plugin](#tip-44-install-the-dx-plugin).
 
-**Alternative: Use plan mode**
-
-Another option is to use plan mode. Enter it with `/plan` or Shift+Tab. Ask Claude to gather all the relevant context and create a comprehensive plan for the next agent:
-
-> I just enabled plan mode. Bring over all of the context that you need for the next agent. The next agent will not have any other context, so you'll need to be pretty comprehensive.
-
-Claude will explore the codebase, gather context, and write a detailed plan. For this workflow, you'll want the clear-context option on the plan approval menu - it's off by default now, so enable it with `"showClearContextOnPlanAccept": true` in `~/.claude/settings.json`. When the plan is done, you'll see options like:
-
-```
-Would you like to proceed?
-
-❯ 1. Yes, clear context (4% used) and use auto mode
-  2. Yes, and use auto mode
-  3. Yes, manually approve edits
-  4. Tell Claude what to change
-```
-
-Option 1 clears the previous context and starts fresh with the plan. The new Claude instance sees only the plan, so it can focus without the baggage of the old conversation. It also gets a link to the old transcript file in case it needs to look up specific details.
-
 ## Tip 9: Complete the write-test cycle for autonomous tasks
 
 If you want Claude Code to run something autonomously, like `git bisect`, you need to give it a way to verify results. The key is completing the write-test cycle: write code, run it, check the output, and repeat.
