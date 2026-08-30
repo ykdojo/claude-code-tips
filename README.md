@@ -332,15 +332,15 @@ Another option is to use plan mode. Enter it with `/plan` or Shift+Tab. Ask Clau
 
 > I just enabled plan mode. Bring over all of the context that you need for the next agent. The next agent will not have any other context, so you'll need to be pretty comprehensive.
 
-Claude will explore the codebase, gather context, and write a detailed plan. When it's done, you'll see options like:
+Claude will explore the codebase, gather context, and write a detailed plan. For this workflow, you'll want the clear-context option on the plan approval menu - it's off by default now, so enable it with `"showClearContextOnPlanAccept": true` in `~/.claude/settings.json`. When the plan is done, you'll see options like:
 
 ```
 Would you like to proceed?
 
-❯ 1. Yes, clear context and auto-accept edits (shift+tab)
-  2. Yes, auto-accept edits
+❯ 1. Yes, clear context (4% used) and use auto mode
+  2. Yes, and use auto mode
   3. Yes, manually approve edits
-  4. Type here to tell Claude what to change
+  4. Tell Claude what to change
 ```
 
 Option 1 clears the previous context and starts fresh with the plan. The new Claude instance sees only the plan, so it can focus without the baggage of the old conversation. It also gets a link to the old transcript file in case it needs to look up specific details.
@@ -745,7 +745,7 @@ Or start a server with `claude remote-control --spawn=worktree --capacity=N`, wh
 
 Personally I prefer the `/rc` method, and I turn it off when I'm not using it. A potential attacker who gets access to your Claude Code session essentially has access to everything on your computer, so I'd rather be careful. The exception is when I have a totally [isolated environment](#tip-19-isolated-environments-for-long-running-risky-tasks) - then it's super convenient to be able to start a Claude Code session from anywhere from your phone, with access to your full dev environment.
 
-One thing to watch out for: if "Enable Remote Control for all sessions" is unset, it could be enabled automatically for every new session. Set it to false explicitly if you don't want that, either through `/config` or with `"remoteControlAtStartup": false` in `~/.claude/settings.json`.
+If you do want Remote Control enabled automatically for every new session, turn on "Enable Remote Control for all sessions" through `/config`, or set `"remoteControlAtStartup": true` in `~/.claude/settings.json`. It's off by default.
 
 Docs: [Remote Control](https://code.claude.com/docs/en/remote-control).
 
@@ -792,7 +792,7 @@ Eventually I found a pretty elegant solution. The lesson: even in the world of t
 
 ## Tip 36: Running bash commands and subagents in the background
 
-When you have a long-running bash command in Claude Code, you can press Ctrl+B to move it to run in the background. Claude Code knows how to manage background processes - it can check on them later using the BashOutput tool.
+When you have a long-running bash command in Claude Code, you can press Ctrl+B to move it to run in the background. Claude Code knows how to manage background processes - it can check on their output later.
 
 This is useful when you realize a command is taking longer than expected and you want Claude to do something else in the meantime. You can then either have it use the exponential backoff method I mentioned in Tip 15 to check on progress, or just let it work on something else entirely while the process runs.
 
