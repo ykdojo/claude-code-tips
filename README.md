@@ -553,7 +553,7 @@ Recently I saw a world-class rock climber being interviewed by another rock clim
 
 That's how I feel about this too. Of course, there are supplementary things you can do, like watching videos, reading books, learning about tips. But using Claude Code is the best way to learn how to use it. Using AI in general is the best way to learn how to use AI.
 
-I like to think of it like a billion token rule instead of the 10,000 hour rule. If you want to get better at AI and truly get a good intuition about how it works, the best way is to consume a lot of tokens. And nowadays it's possible. I found that especially with Opus 4.5, it's powerful enough but affordable enough that you can run multiple sessions at the same time. You don't have to worry as much about token usage, which frees you up a lot.
+I like to think of it like a billion token rule instead of the 10,000 hour rule. If you want to get better at AI and truly get a good intuition about how it works, the best way is to consume a lot of tokens. And nowadays it's possible. I found that especially since Opus 4.5, the models have been powerful enough but affordable enough that you can run multiple sessions at the same time. You don't have to worry as much about token usage, which frees you up a lot.
 
 ## Tip 21: Fork and half-clone conversations
 
@@ -757,7 +757,7 @@ The nice thing about it is that it's gated behind your Anthropic login: a new ar
 
 It works great from your phone as well. In the Claude mobile app, tap the artifact card and it opens right there in the app.
 
-One thing to keep in mind: an artifact is a single self-contained page with no backend, and external requests are blocked - so if your HTML pulls a library from a CDN, bundle it into the file first.
+One thing to keep in mind: an artifact is a single self-contained page with no backend, and most external requests are blocked - scripts from a few allowlisted CDNs (like cdnjs) work, but otherwise bundle libraries and assets into the file first.
 
 ## Tip 34: Write lots of tests (and use TDD)
 
