@@ -86,28 +86,36 @@ There are a bunch of built-in slash commands (type `/` to see them all). Here ar
 Check your rate limits:
 
 ```
+ Settings  Status   Config   Usage   Stats
+
  Current session
  █████████▌                                         19% used
- Resets 12:59am (America/Vancouver)
+ Resets 5:39pm (America/Vancouver)
 
  Current week (all models)
- █████████████████████▌                             43% used
- Resets Feb 3 at 1:59pm (America/Vancouver)
+ ██▌                                                5% used
+ Resets Sep 6 at 9:59am (America/Vancouver)
 
- Current week (Sonnet only)
- ███████████████████▌                               39% used
- Resets 8:59am (America/Vancouver)
+ Current week (Fable)
+ █████                                              10% used
+ Resets Sep 6 at 9:59am (America/Vancouver)
 ```
 
 If you want to watch your usage closely, keep it open in a tab and use Tab then Shift+Tab or ← then → to refresh.
 
 ### /chrome
 
-Toggle Claude's native browser integration:
+Manage Claude's native browser integration:
 
 ```
-> /chrome
-Chrome integration enabled
+ Status: Disabled
+ Extension: Installed
+
+ ❯ Manage permissions
+   Reconnect extension
+   Enabled by default: No
+
+ Usage: claude --chrome or claude --no-chrome
 ```
 
 ### /mcp
@@ -116,13 +124,16 @@ Manage MCP (Model Context Protocol) servers:
 
 ```
  Manage MCP servers
- 1 server
+ 3 servers
 
- ❯ 1. playwright  ✔ connected · Enter to view details
+   User MCPs (/Users/ykdojo/.claude.json)
+ ❯ playwright · ✔ connected · 24 tools
 
- MCP Config locations (by scope):
-  • User config (available in all your projects):
-    • /Users/yk/.claude.json
+   claude.ai
+   → Show unused connectors (1)
+
+   Built-in MCPs (always available)
+   computer-use · ◯ disabled
 ```
 
 ### /stats
@@ -130,24 +141,24 @@ Manage MCP (Model Context Protocol) servers:
 View your usage statistics with a GitHub-style activity graph:
 
 ```
-      Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec Jan
-      ··········································▒█░▓░█░▓▒▒
-  Mon ·········································▒▒██▓░█▓█░█
-      ·········································░▒█▒▓░█▒█▒█
-  Wed ········································░▓▒█▓▓░▒▓▒██
-      ········································░▓░█▓▓▓▓█░▒█
-  Fri ········································▒░░▓▒▒█▓▓▓█
-      ········································▒▒░▓░░▓▒▒░░
+      Sep Oct Nov Dec Jan Feb Mar Apr May Jun Jul Aug
+      ················································▒▒▓▓
+  Mon ················································▒▓█
+      ················································██░
+  Wed ················································▒░░
+      ···············································█░▒█
+  Fri ···············································░▒·█
+      ···············································▓▓▓░
 
       Less ░ ▒ ▓ █ More
 
-  Favorite model: Opus 4.5        Total tokens: 17.6m
+  Favorite model: Fable 5         Total tokens: 755.6m
 
-  Sessions: 4.1k                  Longest session: 20h 40m 45s
-  Active days: 79/80              Longest streak: 75 days
-  Most active day: Jan 26         Current streak: 74 days
+  Sessions: 157                   Longest session: 16h 45m 11s
+  Active days: 24/26              Longest streak: 15 days
+  Most active day: Aug 27         Current streak: 9 days
 
-  You've used ~24x more tokens than War and Peace
+  Your input and output are ~12x the tokens in Moby-Dick
 ```
 
 ### /clear
