@@ -291,7 +291,7 @@ Once you have these aliases, you can combine them with flags: `c -c` continues y
 
 ## Tip 8: Proactively compact your context
 
-There's a `/compact` command in Claude Code that summarizes your conversation to free up context space. Automatic compaction also happens when the full available context is filled. The total available context window for Opus 4.5 is currently 200k, and 45k of that is reserved for automatic compaction. About 10% of the total 200k is automatically filled with the system prompt, tools, memory, and dynamic context. But I found that it's better to proactively do it and manually tune it. I turned off auto-compact with `/config` so I have more context available for the main conversation and more control over when and how compaction happens.
+There's a `/compact` command in Claude Code that summarizes your conversation to free up context space. Automatic compaction also happens when the full available context is filled. Part of the total available context window is reserved for automatic compaction, and some of it is automatically filled with the system prompt, tools, memory, and dynamic context. But I found that it's better to proactively do it and manually tune it. I turned off auto-compact with `/config` so I have more context available for the main conversation and more control over when and how compaction happens.
 
 The way I do this is to ask Claude to write a handoff document before starting fresh. Something like:
 
@@ -805,7 +805,7 @@ Beyond just running things in the background, subagents are useful when you have
 You can customize subagents by just asking:
 - **How many** - ask Claude to spawn the number you want
 - **Background vs foreground** - ask to run them in the background, or press Ctrl+B
-- **Which model** - ask for Opus, Sonnet, or Haiku depending on the complexity of each task (subagents default to Sonnet)
+- **Which model** - ask for Opus, Sonnet, or Haiku depending on the complexity of each task (by default, subagents inherit the main conversation's model)
 
 ## Tip 37: The era of personalized software is here
 
