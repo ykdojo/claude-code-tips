@@ -805,7 +805,7 @@ Beyond just running things in the background, subagents are useful when you have
 You can customize subagents by just asking:
 - **How many** - ask Claude to spawn the number you want
 - **Background vs foreground** - ask to run them in the background, or press Ctrl+B
-- **Which model** - ask for Opus, Sonnet, or Haiku depending on the complexity of each task (by default, subagents inherit the main conversation's model)
+- **Which model** - ask for Fable, Opus, Sonnet, or Haiku depending on the complexity of each task (by default, subagents inherit the main conversation's model)
 
 ## Tip 37: The era of personalized software is here
 
