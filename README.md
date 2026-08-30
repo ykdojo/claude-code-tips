@@ -86,8 +86,6 @@ There are a bunch of built-in slash commands (type `/` to see them all). Here ar
 Check your rate limits:
 
 ```
- Settings  Status   Config   Usage   Stats
-
  Current session
  █████████▌                                         19% used
  Resets 5:39pm (America/Vancouver)
