@@ -291,7 +291,7 @@ Once you have these aliases, you can combine them with flags: `c -c` continues y
 
 ## Tip 8: Proactively compact your context
 
-There's a `/compact` command in Claude Code that summarizes your conversation to free up context space. Automatic compaction also happens when the full available context is filled. The total available context window for a recent model like Opus 5 is up to 1M tokens depending on your plan, and by default automatic compaction runs when the conversation reaches the model's limit (you can make it run earlier with `/autocompact`). Part of the context window is also filled from the start with the system prompt, tools, memory, and dynamic context. But I found that it's better to proactively do it and manually tune it. I turned off auto-compact with `/config` so I have more context available for the main conversation and more control over when and how compaction happens.
+There's a `/compact` command in Claude Code that summarizes your conversation to free up context space. Automatic compaction also happens when the full available context is filled. The total available context window for Opus 5 is currently 1M. Nothing is reserved for automatic compaction anymore - by default it runs when the conversation reaches that limit, and you can make it run earlier with `/autocompact`. About 3% of the total 1M is automatically filled with the system prompt, tools, memory, and dynamic context. But I found that it's better to proactively do it and manually tune it. I turned off auto-compact with `/config` so I have more context available for the main conversation and more control over when and how compaction happens.
 
 The way I do this is to ask Claude to write a handoff document before starting fresh. Something like:
 
