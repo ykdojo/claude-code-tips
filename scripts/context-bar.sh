@@ -97,6 +97,14 @@ fi
 # Get transcript path for context calculation and last message feature
 transcript_path=$(echo "$input" | jq -r '.transcript_path // empty')
 
+# Worktree sessions get a new project key with no transcript directory yet.
+# Fall back: search for the session file by ID across all project dirs.
+if [[ -n "$transcript_path" && ! -f "$transcript_path" ]]; then
+    session_file=$(basename "$transcript_path")
+    found=$(find "$HOME/.claude/projects" -maxdepth 2 -name "$session_file" 2>/dev/null | head -1)
+    [[ -n "$found" ]] && transcript_path="$found"
+fi
+
 # Get context window size from JSON (accurate), but calculate tokens from transcript
 # (more accurate than total_input_tokens which excludes system prompt/tools/memory)
 # See: github.com/anthropics/claude-code/issues/13652
