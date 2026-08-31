@@ -51,6 +51,22 @@ Preview all options by running `bash scripts/color-preview.sh`:
 - `git` (optional, for branch display)
 - Claude Code 2.0.65+ (verified to work; older versions may not have the required JSON fields - check earlier commits for older versions)
 
+### Windows Support
+
+On Windows (Git Bash/MSYS2), the script automatically uses `jq.exe` from the same directory. To set up:
+
+1. Download `jq.exe` from [jqlang.github.io/jq](https://jqlang.github.io/jq/download/) or [GitHub releases](https://github.com/jqlang/jq/releases)
+2. Place `jq.exe` in `~/.claude/scripts/` alongside `context-bar.sh`
+3. Use Windows-style path in `settings.json`:
+   ```json
+   {
+     "statusLine": {
+       "type": "command",
+       "command": "C:/Users/USERNAME/.claude/scripts/context-bar.sh"
+     }
+   }
+   ```
+
 ### How it works
 
 Claude Code passes session metadata to status line commands via stdin as JSON, including:
