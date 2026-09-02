@@ -193,7 +193,7 @@
   </div>
 
   <!-- Slide 7: Limitations -->
-  <div class="slide" data-progressive>
+  <div class="slide" data-progressive="empty">
     <h2 style="margin-bottom: 30px;">Limitations</h2>
     <div class="content">
       <ul>
@@ -295,7 +295,7 @@
       if (slide.hasAttribute('data-progressive')) {
         const items = getProgressiveItems(slide);
         const type = slide.getAttribute('data-progressive');
-        const startsEmpty = type === 'subtitle';
+        const startsEmpty = type === 'subtitle' || type === 'empty';
         let showCount;
         if (showAll) {
           showCount = items.length;
@@ -354,7 +354,7 @@
         const items = getProgressiveItems(slide);
         const visible = Array.from(items).filter(i => i.classList.contains('visible'));
         const type = slide.getAttribute('data-progressive');
-        const minVisible = type === 'subtitle' ? 0 : 1;
+        const minVisible = (type === 'subtitle' || type === 'empty') ? 0 : 1;
         if (visible.length > minVisible) {
           visible[visible.length - 1].classList.remove('visible');
           updateHash();
