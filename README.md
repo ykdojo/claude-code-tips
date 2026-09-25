@@ -387,6 +387,8 @@ Additionally, you can ask it to use accessibility tree refs instead of coordinat
 - NEVER take screenshots unless explicitly requested by the user
 ```
 
+I've also run into a couple of issues with it - it doesn't always pick the local browser ([#74667](https://github.com/anthropics/claude-code/issues/74667)), and there's no way to enable it from a Remote Control session, like when I'm working from my phone ([#74671](https://github.com/anthropics/claude-code/issues/74671)) - so I built [Browser Bridge](https://github.com/ykdojo/browser-bridge), an open source alternative that addresses both.
+
 In my personal experience, I've also had a situation where I was working on a Python library ([Daft](https://github.com/Eventual-Inc/Daft)) and needed to test a version I built locally on Google Colab. The trouble is it's hard to build a Python library with a Rust backend on Google Colab - it doesn't seem to work that well. So I needed to actually build a wheel locally and then upload it manually so that I could run it on Google Colab. I also tried monkey patching, which worked well in the short term before I had to wait for the whole wheel to build locally. I came up with these testing strategies and executed them by going back and forth with Claude Code.
 
 Another situation I encountered is I needed to test something on Windows but I'm not running a Windows machine. My CI tests on the same repo were failing because we had some issues with Rust on Windows, and I had no way of testing locally. So I needed to create a draft PR with all the changes, and another draft PR with the same changes plus enabling Windows CI runs on non-main branches. I instructed Claude Code to do all of that, and then I tested the CI directly in that new branch.
