@@ -35,6 +35,17 @@ Avoid Granular Access Tokens for this - they are fiddly: they error if org permi
 
 Before publishing: `npm publish --dry-run` to confirm the file list, and gitignore generated artifacts so they don't ship.
 
+# AWS deployment security
+
+Never expose Swagger UI, OpenAPI docs, or an admin UI directly on a public ALB/ELB. A real stack got flagged by an AWS security scan (`DyePack.ExposedSwaggerUI`) because the LiteLLM gateway's internet-facing ALB served Swagger UI on its raw IPs over 80/443, even with CloudFront in front.
+
+Check before every deploy (`deploy.sh`, `cdk deploy`, `terraform apply`, CloudFormation, `sam deploy`):
+- Public ALBs are reachable only through CloudFront: security group ingress from the CloudFront managed prefix list (`com.amazonaws.global.cloudfront.origin-facing`), never `0.0.0.0/0`, plus a secret origin header and a fixed 403 as the default action.
+- Audit listener rules that skip the header check (health check exceptions etc.). They must never match `/` or docs paths - many apps serve Swagger UI at `/`. That exact rule caused the incident above.
+- Disable docs and admin pages in deployed stacks (`/docs`, `/redoc`, `/openapi.json`; e.g. LiteLLM `DISABLE_SWAGGER_PAGE="true"`, `DISABLE_ADMIN_UI="true"`).
+- After deploy, curl the ALB DNS name and public IPs on 80/443 for `/`, `/docs`, `/redoc`, `/openapi.json`. Each must be refused, while the CloudFront URL works.
+- If a template defaults to a public load balancer with docs enabled, stop and flag it before deploying.
+
 ## Containers
 
 Use [safeclaw](https://github.com/ykdojo/safeclaw) containers (local: `/Users/yk/Desktop/projects/safeclaw`). Containers are named `safeclaw-<session-name>` (e.g., `safeclaw-work`, `safeclaw-research`).
